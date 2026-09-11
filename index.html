@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paddy Tracker - 圃場データ収集</title>
+  
+  <!-- Leaflet.js (地図描画ライブラリ) CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 12px;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.25rem;
+      margin: 0 0 12px 0;
+      color: #2c3e50;
+      text-align: center;
+    }
+    #map {
+      height: 240px;
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .card {
+      background: #ffffff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+    label {
+      font-size: 0.9rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+      color: #444;
+    }
+    input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 0.95rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+    }
+    .coords-info {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:active {
+      background-color: #219150;
+    }
+    button:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+    .status-msg {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      text-align: center;
+      font-weight: bold;
+    }
+    .success { color: #27ae60; }
+    .error { color: #c0392b; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🌾 Paddy Tracker</h1>
+
+    <!-- 地図領域 -->
+    <div id="map"></div>
+
+    <!-- 圃場情報入力エリア -->
+    <div class="card">
+      <div class="form-group">
+        <label for="fieldId">圃場ID</label>
+        <input type="text" id="fieldId" placeholder="例: Field_A01" required>
+        <div class="coords-info">
+          <span>緯度: <strong id="lat">--</strong></span>
+          <span>経度: <strong id="lng">--</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 写真入力エリア -->
+    <div class="card">
+      <div class="form-group">
+        <label for="imgEar">1. 稲穂画像</label>
+        <input type="file" id="imgEar" accept="image/*" capture="environment">
+      </div>
+      <div class="form-group">
+        <label for="imgRoot">2. 根本画像</label>
+        <input type="file" id="imgRoot" accept="image/*" capture="environment">
+      </div>
+      <div class="form-group">
+        <label for="imgView">3. 圃場前景画像</label>
+        <input type="file" id="imgView" accept="image/*" capture="environment">
+      </div>
+    </div>
+
+    <!-- 送信ボタン -->
+    <button id="sendBtn" onclick="sendData()">クラウドへ送信・保存</button>
+    <div id="status" class="status-msg"></div>
+  </div>
+
+  <!-- Leaflet.js (地図描画ライブラリ) JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // =============================================================
+    // ★ 設定項目（ご自身のGAS環境に合わせて書き換えてください）
+    // =============================================================
+    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwqVeq6e8UOXKfpIjgECy94BX3I-Q9i-WYHQG6fdGTYG2TNi8DM2XPPz6ussF7DCS5A/exec"; // デプロイして取得したGASのURL
+    const SECRET_KEY = "tojormo";                  // GAS側で設定した SECRET_KEY と同じ文字列
+
+    let map, marker, selectedLat, selectedLng;
+
+    // 1. 地図の初期化処理
+    function initMap() {
+      // 初期表示位置 (デフォルト: 日本付近)
+      const defaultLat = 36.083;
+      const defaultLng = 140.076;
+
+      map = L.map('map').setView([defaultLat, defaultLng], 14);
+
+      // OpenStreetMapのタイル読み込み
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // 初期ピン（ドラッグ可能）
+      marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
+      updateCoords(defaultLat, defaultLng);
+
+      // 地図クリックでピン移動
+      map.on('click', (e) => {
+        marker.setLatLng(e.latlng);
+        updateCoords(e.latlng.lat, e.latlng.lng);
+      });
+
+      // ピン移動完了時のイベント
+      marker.on('dragend', () => {
+        const pos = marker.getLatLng();
+        updateCoords(pos.lat, pos.lng);
+      });
+
+      // GPS（現在地）の取得
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            map.setView([lat, lng], 16);
+            marker.setLatLng([lat, lng]);
+            updateCoords(lat, lng);
+          },
+          (err) => {
+            console.warn("GPS取得失敗/未許可: デフォルト位置を使用します");
+          },
+          { enableHighAccuracy: true }
+        );
+      }
+    }
+
+    // 座標情報の更新
+    function updateCoords(lat, lng) {
+      selectedLat = parseFloat(lat).toFixed(6);
+      selectedLng = parseFloat(lng).toFixed(6);
+      document.getElementById('lat').innerText = selectedLat;
+      document.getElementById('lng').innerText = selectedLng;
+    }
+
+    // 画像ファイルを Base64 文字列へ変換するヘルパー関数
+    const fileToBase64 = (file) => new Promise((resolve, reject) => {
+      if (!file) return resolve("");
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
+    // 2. クラウド（GAS）へのデータ送信処理
+    async function sendData() {
+      const fieldId = document.getElementById('fieldId').value.trim();
+      const fileEar = document.getElementById('imgEar').files[0];
+      const fileRoot = document.getElementById('imgRoot').files[0];
+      const fileView = document.getElementById('imgView').files[0];
+      const statusDiv = document.getElementById('status');
+      const btn = document.getElementById('sendBtn');
+
+      statusDiv.className = "status-msg";
+      statusDiv.innerText = "";
+
+      // 入力バリデーション
+      if (!fieldId) {
+        alert("圃場IDを入力してください");
+        return;
+      }
+      if (!fileEar || !fileRoot || !fileView) {
+        alert("3枚すべての画像を選択（または撮影）してください");
+        return;
+      }
+      if (GAS_WEB_APP_URL === "YOUR_GAS_WEB_APP_URL_HERE") {
+        alert("JavaScript内の `GAS_WEB_APP_URL` が設定されていません");
+        return;
+      }
+
+      // 送信中UI表示
+      btn.disabled = true;
+      btn.innerText = "データ送信中 (数秒かかります)...";
+
+      try {
+        // 画像を Base64 文字列に変換
+        const imgEarBase64 = await fileToBase64(fileEar);
+        const imgRootBase64 = await fileToBase64(fileRoot);
+        const imgViewBase64 = await fileToBase64(fileView);
+
+        // 送信ペイロードの作成
+        const payload = {
+          secretKey: SECRET_KEY,
+          fieldId: fieldId,
+          lat: selectedLat,
+          lng: selectedLng,
+          imgEar: imgEarBase64,
+          imgRoot: imgRootBase64,
+          imgView: imgViewBase64
+        };
+
+        // GASへのPOSTリクエスト送信
+        // ※ GASの仕様上 mode: 'no-cors' を指定してクロスドメインエラーを回避します
+        await fetch(GAS_WEB_APP_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        // 完了処理
+        statusDiv.className = "status-msg success";
+        statusDiv.innerText = "✔ データを正常に送信・記録しました！";
+        alert("送信が完了しました！");
+
+        // 入力フォームのクリア
+        document.getElementById('fieldId').value = "";
+        document.getElementById('imgEar').value = "";
+        document.getElementById('imgRoot').value = "";
+        document.getElementById('imgView').value = "";
+
+      } catch (err) {
+        console.error("送信エラー:", err);
+        statusDiv.className = "status-msg error";
+        statusDiv.innerText = "❌ 送信に失敗しました。ネットワークを確認してください。";
+        alert("送信エラーが発生しました: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "クラウドへ送信・保存";
+      }
+    }
+
+    // 画面ロード時に地図を初期化
+    window.onload = initMap;
+  </script>
+</body>
+</html>
