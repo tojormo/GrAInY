@@ -17,7 +17,7 @@
       color: #111111;
     }
     .container { max-width: 480px; margin: 0 auto; }
-    .header { border-bottom: 2px solid #111111; padding-bottom: 8px; margin-bottom: 16px; }
+    .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #111111; padding-bottom: 8px; margin-bottom: 16px; }
     h1 { font-size: 1.1rem; font-weight: 700; margin: 0; color: #111111; letter-spacing: 0.05em; text-transform: uppercase; }
     .card { background: #ffffff; border: 1px solid #cccccc; border-radius: 4px; padding: 14px; margin-bottom: 14px; }
     .form-group { margin-bottom: 12px; }
@@ -43,6 +43,7 @@
     .capture-filename { font-size: 0.8rem; color: #444444; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .capture-filename.empty { color: #999999; }
     .capture-filename.done { color: #111111; font-weight: 600; }
+
     #map { height: 220px; width: 100%; border: 1px solid #999999; border-radius: 4px; margin-bottom: 8px; }
     .coords-wrapper {
       display: flex; justify-content: space-between; align-items: center; background: #f8f8f8; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 0.85rem;
@@ -62,6 +63,16 @@
     .success { color: #111111; }
     .error { color: #666666; }
 
+    /* ヘッダー右上の設定リンク */
+    .link-btn {
+      background: none; border: none; color: #444444; font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 4px 0; text-decoration: underline;
+    }
+    .link-btn:active { color: #111111; }
+
+    /* 現在のユーザー名表示 */
+    .user-badge { font-size: 0.8rem; color: #333333; margin-bottom: 14px; }
+    .user-badge strong { color: #111111; }
+
     /* モーダルポップアップ */
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 9999; justify-content: center; align-items: center; padding: 20px;
@@ -78,14 +89,7 @@
     .modal-btn { flex: 1; padding: 10px; background: #111111; color: #ffffff; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
     .modal-btn.secondary { background: #ffffff; color: #111111; border: 1px solid #666666; }
 
-    /* ヘッダー右上の設定リンク（送信キー変更） */
-    .header { display: flex; justify-content: space-between; align-items: center; }
-    .link-btn {
-      background: none; border: none; color: #444444; font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 4px 0; text-decoration: underline;
-    }
-    .link-btn:active { color: #111111; }
-
-    /* 送信キー入力モーダル用 */
+    /* 送信キー・ユーザー名入力モーダル用 */
     input[type="password"] {
       width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid #999999; border-radius: 4px; background: #ffffff; color: #111111;
     }
@@ -99,8 +103,11 @@
   <div class="container">
     <div class="header">
       <h1>Paddy Field Data Collector</h1>
-      <button type="button" class="link-btn" onclick="openSecretKeyModal(true)">🔑 送信キー変更</button>
+      <button type="button" class="link-btn" onclick="openSecretKeyModal(true)">🔑 設定変更</button>
     </div>
+
+    <!-- 現在のユーザー名を表示 -->
+    <div class="user-badge">記録者: <strong id="currentUserLabel">未設定</strong></div>
 
     <!-- 地図・位置情報設定 -->
     <div class="card">
@@ -203,12 +210,18 @@
     </div>
   </div>
 
-  <!-- 送信キー（SECRET_KEY）入力モーダル -->
+  <!-- ユーザー名・送信キー入力モーダル -->
   <div id="secretKeyModal" class="modal-overlay">
     <div class="modal-card">
-      <div class="modal-title">送信キーの入力</div>
+      <div class="modal-title">利用者情報の入力</div>
       <div class="modal-body">
-        <p style="margin-top:0;">データ送信には管理者から共有された送信キーが必要です。一度入力するとこの端末のブラウザに保存され、次回以降の入力は不要になります。</p>
+        <p style="margin-top:0;">データ送信には「ユーザー名」と、管理者から共有された「送信キー」が必要です。一度入力するとこの端末のブラウザに保存され、次回以降の入力は不要になります。</p>
+
+        <div class="form-group">
+          <label for="userNameInput">ユーザー名（記録者）</label>
+          <input type="text" id="userNameInput" placeholder="例: 細川 貴昭" autocomplete="off">
+        </div>
+
         <div class="form-group" style="margin-bottom:0;">
           <label for="secretKeyInput">送信キー</label>
           <input type="password" id="secretKeyInput" placeholder="送信キーを入力" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
@@ -219,8 +232,8 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button class="modal-btn secondary" id="secretKeyCancelBtn" onclick="closeSecretKeyModal()">キャンセル</button>
-        <button class="modal-btn" onclick="saveSecretKey()">保存して続行</button>
+        <button class="modal-btn secondary" onclick="closeSecretKeyModal()">キャンセル</button>
+        <button class="modal-btn" onclick="saveUserSettings()">保存して続行</button>
       </div>
     </div>
   </div>
@@ -234,6 +247,7 @@
     const CONFIG = {
       GAS_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwqVeq6e8UOXKfpIjgECy94BX3I-Q9i-WYHQG6fdGTYG2TNi8DM2XPPz6ussF7DCS5A/exec", // ご自身のGASのWeb App URL
       SECRET_KEY_STORAGE_NAME: "fieldCollector_secretKey", // 送信キーをブラウザに保存する際のキー名（localStorage）
+      USER_NAME_STORAGE_NAME: "fieldCollector_userName",   // ユーザー名をブラウザに保存する際のキー名（localStorage）
       DEFAULT_LAT: 35.681236,
       DEFAULT_LNG: 139.767125,
       IMAGE_MAX_SIDE: 1280,
@@ -262,14 +276,17 @@
       androidBadge: () => document.getElementById('androidBadge'),
       secretKeyModal: () => document.getElementById('secretKeyModal'),
       secretKeyInput: () => document.getElementById('secretKeyInput'),
-      showSecretKeyChk: () => document.getElementById('showSecretKeyChk')
+      userNameInput: () => document.getElementById('userNameInput'),
+      showSecretKeyChk: () => document.getElementById('showSecretKeyChk'),
+      currentUserLabel: () => document.getElementById('currentUserLabel')
     };
 
     let map, marker;
     let selectedLat = null, selectedLng = null;
     let geoPermissionStatus = null; // Permissions API のハンドル（対応端末のみ）
     let secretKey = null;           // キャッシュされた送信キー（localStorageから復元）
-    let pendingSubmitAfterKey = false; // 送信キー入力後、自動で送信処理を再開するためのフラグ
+    let userName = null;            // キャッシュされたユーザー名（localStorageから復元）
+    let pendingSubmitAfterKey = false; // 情報入力後、自動で送信処理を再開するためのフラグ
 
     // -------------------------------------------------------------
     // 端末判定（iOS / Android の判定に基づき、モーダル内の該当セクションを強調表示）
@@ -292,22 +309,28 @@
     }
 
     // -------------------------------------------------------------
-    // 送信キー（SECRET_KEY）の管理
+    // ユーザー名・送信キー（SECRET_KEY）の管理
     //   - 初回はモーダルでユーザーに入力させ、localStorageに保存
     //   - 2回目以降は保存済みの値を自動で読み込み、入力不要にする
     // -------------------------------------------------------------
-    function loadSecretKey() {
+    function loadUserSettings() {
       secretKey = localStorage.getItem(CONFIG.SECRET_KEY_STORAGE_NAME);
+      userName = localStorage.getItem(CONFIG.USER_NAME_STORAGE_NAME);
+      updateUserLabel();
+    }
+
+    function updateUserLabel() {
+      els.currentUserLabel().innerText = userName ? userName : "未設定";
     }
 
     function openSecretKeyModal(isEdit) {
       // 変更用に開く場合は既存値をプリフィルし、初回入力の場合は空欄にする
+      els.userNameInput().value = isEdit && userName ? userName : "";
       els.secretKeyInput().value = isEdit && secretKey ? secretKey : "";
       els.showSecretKeyChk().checked = false;
       els.secretKeyInput().type = "password";
       els.secretKeyModal().style.display = 'flex';
-      // 入力しやすいようフォーカスする
-      setTimeout(() => els.secretKeyInput().focus(), 50);
+      setTimeout(() => els.userNameInput().focus(), 50);
     }
 
     function closeSecretKeyModal() {
@@ -319,22 +342,32 @@
       els.secretKeyInput().type = els.showSecretKeyChk().checked ? "text" : "password";
     }
 
-    function saveSecretKey() {
-      const value = els.secretKeyInput().value.trim();
-      if (!value) {
+    function saveUserSettings() {
+      const nameValue = els.userNameInput().value.trim();
+      const keyValue = els.secretKeyInput().value.trim();
+
+      if (!nameValue) {
+        alert("ユーザー名を入力してください。");
+        return;
+      }
+      if (!keyValue) {
         alert("送信キーを入力してください。");
         return;
       }
-      secretKey = value;
+
+      userName = nameValue;
+      secretKey = keyValue;
+      localStorage.setItem(CONFIG.USER_NAME_STORAGE_NAME, userName);
       localStorage.setItem(CONFIG.SECRET_KEY_STORAGE_NAME, secretKey);
+      updateUserLabel();
       els.secretKeyModal().style.display = 'none';
 
-      // 送信操作の途中でキー未設定により中断していた場合は、保存後に自動で送信を再開する
+      // 送信操作の途中で情報未設定により中断していた場合は、保存後に自動で送信を再開する
       if (pendingSubmitAfterKey) {
         pendingSubmitAfterKey = false;
         sendData();
       } else {
-        alert("送信キーを保存しました。次回以降の入力は不要です。");
+        alert("利用者情報を保存しました。次回以降の入力は不要です。");
       }
     }
 
@@ -364,9 +397,6 @@
 
     // -------------------------------------------------------------
     // 位置情報許可の確認（Permissions API 優先、非対応端末は直接取得を試行）
-    //   - 'denied'  : 既にブロックされている → 警告表示に加えて許可モーダルを起動
-    //   - 'granted' / 'prompt' : 位置情報の取得を試みる
-    //   - Permissions API 未対応(古いiOS Safari等) : フォールバックして直接取得
     // -------------------------------------------------------------
     async function checkGeoPermissionAndLocate() {
       if (!navigator.geolocation) {
@@ -379,8 +409,6 @@
         try {
           geoPermissionStatus = await navigator.permissions.query({ name: 'geolocation' });
           handlePermissionState(geoPermissionStatus.state);
-
-          // 端末の設定画面でユーザーが許可状態を変更した場合に自動で追従する
           geoPermissionStatus.onchange = () => {
             handlePermissionState(geoPermissionStatus.state);
           };
@@ -390,7 +418,6 @@
         }
       }
 
-      // Permissions API 非対応（例: 一部のiOS Safari）はここで直接取得を試みる
       getCurrentLocation();
     }
 
@@ -440,11 +467,9 @@
         (err) => {
           console.warn("GPSエラー:", err);
           if (err.code === err.PERMISSION_DENIED) {
-            // 許可されていない場合：警告表示 + 許可モーダルを必ず起動（Android / iOS 両方）
             setCoordsWarning();
             showGpsModal();
           } else {
-            // タイムアウトや取得不可などは警告表示のみ
             els.lat().innerText = "取得エラー";
             els.lng().innerText = "取得エラー";
           }
@@ -477,56 +502,6 @@
     }
 
     // -------------------------------------------------------------
-    // 画像圧縮: 長辺リサイズ＆JPEG品質制御（Canvasで高速処理）
-    // -------------------------------------------------------------
-    const compressImageAndToBase64 = (file, maxSide = CONFIG.IMAGE_MAX_SIDE, quality = CONFIG.IMAGE_QUALITY) => {
-      return new Promise((resolve, reject) => {
-        if (!file) return resolve("");
-
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (event) => {
-          const img = new Image();
-          img.src = event.target.result;
-          img.onload = () => {
-            let width = img.width;
-            let height = img.height;
-
-            // 長辺に合わせて縮小率をリサイズ計算
-            if (width > height) {
-              if (width > maxSide) {
-                height = Math.round((height * maxSide) / width);
-                width = maxSide;
-              }
-            } else {
-              if (height > maxSide) {
-                width = Math.round((width * maxSide) / height);
-                height = maxSide;
-              }
-            }
-
-            const canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-
-            // 背景を白で塗る（透過PNG対策）
-            ctx.fillStyle = '#FFFFFF';
-            ctx.fillRect(0, 0, width, height);
-
-            // Canvasに画像を描画
-            ctx.drawImage(img, 0, 0, width, height);
-
-            // JPEG形式で軽量化（圧縮率は品質パラメータ指定）
-            resolve(canvas.toDataURL('image/jpeg', quality));
-          };
-          img.onerror = (err) => reject(err);
-        };
-        reader.onerror = (err) => reject(err);
-      });
-    };
-
-    // -------------------------------------------------------------
     // 撮影ボタンの状態表示（ファイル名の反映）
     // -------------------------------------------------------------
     function onCaptureChange(fieldId) {
@@ -554,6 +529,51 @@
     }
 
     // -------------------------------------------------------------
+    // 画像圧縮: 長辺リサイズ＆JPEG品質制御（Canvasで高速処理）
+    // -------------------------------------------------------------
+    const compressImageAndToBase64 = (file, maxSide = CONFIG.IMAGE_MAX_SIDE, quality = CONFIG.IMAGE_QUALITY) => {
+      return new Promise((resolve, reject) => {
+        if (!file) return resolve("");
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > maxSide) {
+                height = Math.round((height * maxSide) / width);
+                width = maxSide;
+              }
+            } else {
+              if (height > maxSide) {
+                width = Math.round((width * maxSide) / height);
+                height = maxSide;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, width, height);
+            ctx.drawImage(img, 0, 0, width, height);
+
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = (err) => reject(err);
+        };
+        reader.onerror = (err) => reject(err);
+      });
+    };
+
+    // -------------------------------------------------------------
     // 入力チェック
     // -------------------------------------------------------------
     function getSelectedFiles() {
@@ -575,7 +595,7 @@
       }
       const missing = files.filter(f => !f.file);
       if (missing.length > 0) {
-        alert(`${IMAGE_FIELDS.length}枚すべての画像を選択（撮影）してください。\n未選択: ${missing.map(f => f.label).join('、')}`);
+        alert(`${IMAGE_FIELDS.length}枚すべての画像を撮影してください。\n未撮影: ${missing.map(f => f.label).join('、')}`);
         return false;
       }
       if (CONFIG.GAS_WEB_APP_URL === "YOUR_GAS_WEB_APP_URL_HERE") {
@@ -603,9 +623,9 @@
       statusDiv.className = "status-msg";
       statusDiv.innerText = "";
 
-      // 送信キーが未設定（初回、またはブラウザのデータ削除後）の場合は入力モーダルを起動し、
-      // 保存後に自動で送信処理を再開する
-      if (!secretKey) {
+      // ユーザー名・送信キーが未設定（初回、またはブラウザのデータ削除後）の場合は
+      // 入力モーダルを起動し、保存後に自動で送信処理を再開する
+      if (!secretKey || !userName) {
         pendingSubmitAfterKey = true;
         openSecretKeyModal(false);
         return;
@@ -624,6 +644,7 @@
 
         const payload = {
           secretKey: secretKey,
+          userName: userName,     // ★ ユーザー名を送信（GASでスプレッドシートに記録）
           fieldId: fieldId,
           lat: selectedLat,
           lng: selectedLng
@@ -655,7 +676,7 @@
     }
 
     window.onload = function () {
-      loadSecretKey();  // 保存済みの送信キーがあれば自動で読み込む（2回目以降は入力不要）
+      loadUserSettings();  // 保存済みのユーザー名・送信キーがあれば自動で読み込む（2回目以降は入力不要）
       initMap();
     };
   </script>
