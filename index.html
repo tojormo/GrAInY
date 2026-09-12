@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paddy Field Data Collector</title>
   
-  <!-- Leaflet.js (地図描画ライブラリ) CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       margin: 0;
@@ -19,124 +16,45 @@
       background-color: #f0f0f0;
       color: #111111;
     }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-    }
-    .header {
-      border-bottom: 2px solid #111111;
-      padding-bottom: 8px;
-      margin-bottom: 16px;
-    }
-    h1 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin: 0;
-      color: #111111;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .card {
-      background: #ffffff;
-      border: 1px solid #cccccc;
-      border-radius: 4px;
-      padding: 14px;
-      margin-bottom: 14px;
-    }
-    .form-group {
-      margin-bottom: 12px;
-    }
-    .form-group:last-child {
-      margin-bottom: 0;
-    }
-    label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      display: block;
-      margin-bottom: 6px;
-      color: #222222;
-    }
+    .container { max-width: 480px; margin: 0 auto; }
+    .header { border-bottom: 2px solid #111111; padding-bottom: 8px; margin-bottom: 16px; }
+    h1 { font-size: 1.1rem; font-weight: 700; margin: 0; color: #111111; letter-spacing: 0.05em; text-transform: uppercase; }
+    .card { background: #ffffff; border: 1px solid #cccccc; border-radius: 4px; padding: 14px; margin-bottom: 14px; }
+    .form-group { margin-bottom: 12px; }
+    .form-group:last-child { margin-bottom: 0; }
+    label { font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px; color: #222222; }
     input[type="text"] {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 1rem;
-      border: 1px solid #999999;
-      border-radius: 4px;
-      background: #ffffff;
-      color: #111111;
+      width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid #999999; border-radius: 4px; background: #ffffff; color: #111111;
     }
-    input[type="text"]:focus {
-      outline: none;
-      border-color: #111111;
-      box-shadow: 0 0 0 1px #111111;
-    }
-    input[type="file"] {
-      width: 100%;
-      font-size: 0.85rem;
-      color: #333333;
-    }
-    #map {
-      height: 220px;
-      width: 100%;
-      border: 1px solid #999999;
-      border-radius: 4px;
-      margin-bottom: 8px;
-    }
+    input[type="text"]:focus { outline: none; border-color: #111111; box-shadow: 0 0 0 1px #111111; }
+    input[type="file"] { width: 100%; font-size: 0.85rem; color: #333333; }
+    #map { height: 220px; width: 100%; border: 1px solid #999999; border-radius: 4px; margin-bottom: 8px; }
     .coords-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #f8f8f8;
-      padding: 8px 10px;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      font-size: 0.85rem;
+      display: flex; justify-content: space-between; align-items: center; background: #f8f8f8; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 0.85rem;
     }
-    .coords-val {
-      font-family: monospace;
-      font-weight: 600;
-      color: #111111;
-    }
+    .coords-val { font-family: monospace; font-weight: 600; color: #111111; }
     .btn-gps {
-      background: #ffffff;
-      border: 1px solid #666666;
-      color: #111111;
-      padding: 4px 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border-radius: 3px;
-      cursor: pointer;
+      background: #ffffff; border: 1px solid #666666; color: #111111; padding: 4px 8px; font-size: 0.75rem; font-weight: 600; border-radius: 3px; cursor: pointer;
     }
-    .btn-gps:active {
-      background: #e0e0e0;
-    }
+    .btn-gps:active { background: #e0e0e0; }
     .btn-submit {
-      width: 100%;
-      padding: 14px;
-      background-color: #111111;
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      cursor: pointer;
+      width: 100%; padding: 14px; background-color: #111111; color: #ffffff; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.05em; cursor: pointer;
     }
-    .btn-submit:active {
-      background-color: #333333;
-    }
-    .btn-submit:disabled {
-      background-color: #888888;
-      cursor: not-allowed;
-    }
-    .status-msg {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      text-align: center;
-      font-weight: 600;
-    }
+    .btn-submit:active { background-color: #333333; }
+    .btn-submit:disabled { background-color: #888888; cursor: not-allowed; }
+    .status-msg { margin-top: 10px; font-size: 0.85rem; text-align: center; font-weight: 600; }
     .success { color: #111111; }
     .error { color: #666666; }
+
+    /* モーダルポップアップ */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 9999; justify-content: center; align-items: center; padding: 20px;
+    }
+    .modal-card { background: #ffffff; border: 2px solid #111111; border-radius: 6px; max-width: 400px; width: 100%; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .modal-title { font-size: 1rem; font-weight: 700; margin-top: 0; margin-bottom: 12px; border-bottom: 1px solid #111111; padding-bottom: 6px; }
+    .modal-body { font-size: 0.85rem; line-height: 1.5; color: #333333; margin-bottom: 16px; }
+    .modal-body ol { padding-left: 20px; margin: 8px 0; }
+    .modal-btn { width: 100%; padding: 10px; background: #111111; color: #ffffff; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -152,10 +70,10 @@
       <div id="map"></div>
       <div class="coords-wrapper">
         <div>
-          <span>Lat: <span id="lat" class="coords-val">取得中...</span></span>
-          <span style="margin-left: 8px;">Lng: <span id="lng" class="coords-val">取得中...</span></span>
+          <span>Lat: <span id="lat" class="coords-val">未取得</span></span>
+          <span style="margin-left: 8px;">Lng: <span id="lng" class="coords-val">未取得</span></span>
         </div>
-        <button type="button" class="btn-gps" onclick="getCurrentLocation()">現在地再取得</button>
+        <button type="button" class="btn-gps" onclick="getCurrentLocation()">現在地取得</button>
       </div>
     </div>
 
@@ -188,35 +106,51 @@
     <div id="status" class="status-msg"></div>
   </div>
 
-  <!-- Leaflet.js (地図描画ライブラリ) JS -->
+  <!-- GPS権限案内モーダル -->
+  <div id="gpsModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-title">位置情報（GPS）がオフになっています</div>
+      <div class="modal-body">
+        <p style="margin-top:0;">位置情報が取得できませんでした。以下の手順でブラウザおよび端末の位置情報設定を許可してください。</p>
+        <strong style="display:block; margin-top:10px;">■ iOS (Safari) の場合</strong>
+        <ol>
+          <li>「設定」>「プライバシーとセキュリティ」>「位置情報サービス」をオン</li>
+          <li>「SafariのWebサイト」>「この利用中のみ許可」を選択</li>
+          <li>ブラウザ画面を再読み込み</li>
+        </ol>
+        <strong style="display:block; margin-top:10px;">■ Android (Chrome) の場合</strong>
+        <ol>
+          <li>アドレスバー左横の「設定」アイコンをタップ</li>
+          <li>「権限」または「サイトの設定」をタップ</li>
+          <li>「位置情報」を「許可」に変更して再読み込み</li>
+        </ol>
+      </div>
+      <button class="modal-btn" onclick="closeGpsModal()">閉じる</button>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
     // =============================================================
-    // ★ 設定項目（ご自身のGAS環境に合わせて書き換えてください）
+    // ★ 設定項目
     // =============================================================
-    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwqVeq6e8UOXKfpIjgECy94BX3I-Q9i-WYHQG6fdGTYG2TNi8DM2XPPz6ussF7DCS5A/exec"; // デプロイして取得したGASのURL
-    const SECRET_KEY = "tojormo";                  // GAS側で設定した SECRET_KEY
+    const GAS_WEB_APP_URL = "YOUR_GAS_WEB_APP_URL_HERE"; // ご自身のGASのWeb App URL
+    const SECRET_KEY = "MyAgriPass2026";                  // GAS側で設定した SECRET_KEY
 
     let map, marker, selectedLat = null, selectedLng = null;
 
-    // 1. 地図の初期化
     function initMap() {
-      // 初期位置（位置情報取得前のデフォルト設定）
       const defaultLat = 35.681236;
       const defaultLng = 139.767125;
 
       map = L.map('map').setView([defaultLat, defaultLng], 15);
-
-      // モノトーン風（CartoDB Positron）または標準OpenStreetMapタイル
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap'
       }).addTo(map);
 
-      // マーカー設定
       marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
 
-      // 手動ピン調整イベント
       map.on('click', (e) => {
         marker.setLatLng(e.latlng);
         updateCoords(e.latlng.lat, e.latlng.lng);
@@ -227,14 +161,12 @@
         updateCoords(pos.lat, pos.lng);
       });
 
-      // アプリ起動時に現在地（GPS）を取得
       getCurrentLocation();
     }
 
-    // GPSから現在地を取得・反映する機能
     function getCurrentLocation() {
       if (!navigator.geolocation) {
-        alert("お使いのブラウザは位置情報機能（GPS）に対応していません。");
+        showGpsModal();
         return;
       }
 
@@ -250,18 +182,15 @@
           updateCoords(lat, lng);
         },
         (err) => {
-          console.warn("GPS取得失敗: ", err.message);
-          alert("位置情報の取得に失敗しました。端末のGPS権限をオンにしてください。");
+          console.warn("GPSエラー:", err);
+          document.getElementById('lat').innerText = "エラー";
+          document.getElementById('lng').innerText = "エラー";
+          showGpsModal();
         },
-        {
-          enableHighAccuracy: true, // 高精度GPSモード
-          timeout: 10000,
-          maximumAge: 0
-        }
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
       );
     }
 
-    // 画面上の緯度経度数値を更新
     function updateCoords(lat, lng) {
       selectedLat = parseFloat(lat).toFixed(6);
       selectedLng = parseFloat(lng).toFixed(6);
@@ -269,16 +198,53 @@
       document.getElementById('lng').innerText = selectedLng;
     }
 
-    // ファイルを Base64 文字列へ変換
-    const fileToBase64 = (file) => new Promise((resolve, reject) => {
-      if (!file) return resolve("");
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
+    function showGpsModal() { document.getElementById('gpsModal').style.display = 'flex'; }
+    function closeGpsModal() { document.getElementById('gpsModal').style.display = 'none'; }
 
-    // 2. クラウド（GAS）へのデータ送信
+    // ★追加機能: 画像を長辺1280px以下・JPEG品質0.75に自動圧縮してBase64化する関数
+    const compressImageAndToBase64 = (file, maxSide = 1280, quality = 0.75) => {
+      return new Promise((resolve, reject) => {
+        if (!file) return resolve("");
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+
+            // 長辺に合わせて縮小率を計算
+            if (width > height) {
+              if (width > maxSide) {
+                height = Math.round((height * maxSide) / width);
+                width = maxSide;
+              }
+            } else {
+              if (height > maxSide) {
+                width = Math.round((width * maxSide) / height);
+                height = maxSide;
+              }
+            }
+
+            // HTML5 Canvas を使用して画像を縮小描画
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // JPEG形式で圧縮
+            const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+            resolve(compressedBase64);
+          };
+          img.onerror = (err) => reject(err);
+        };
+        reader.onerror = (err) => reject(err);
+      });
+    };
+
     async function sendData() {
       const fieldId = document.getElementById('fieldId').value.trim();
       const fileEar = document.getElementById('imgEar').files[0];
@@ -290,9 +256,9 @@
       statusDiv.className = "status-msg";
       statusDiv.innerText = "";
 
-      // 入力チェック
       if (!selectedLat || !selectedLng) {
-        alert("位置情報が取得できていません。「現在地再取得」を試してください。");
+        alert("位置情報が取得できていません。");
+        showGpsModal();
         return;
       }
       if (!fieldId) {
@@ -309,12 +275,13 @@
       }
 
       btn.disabled = true;
-      btn.innerText = "データ送信中...";
+      btn.innerText = "画像処理・送信中...";
 
       try {
-        const imgEarBase64 = await fileToBase64(fileEar);
-        const imgRootBase64 = await fileToBase64(fileRoot);
-        const imgViewBase64 = await fileToBase64(fileView);
+        // 画像をリサイズ＆圧縮してBase64化（端末の負荷を軽減してGAS制限を回避）
+        const imgEarBase64 = await compressImageAndToBase64(fileEar);
+        const imgRootBase64 = await compressImageAndToBase64(fileRoot);
+        const imgViewBase64 = await compressImageAndToBase64(fileView);
 
         const payload = {
           secretKey: SECRET_KEY,
@@ -339,7 +306,6 @@
         statusDiv.innerText = "送信完了しました。";
         alert("正常に保存されました。");
 
-        // 入力クリア
         document.getElementById('fieldId').value = "";
         document.getElementById('imgEar').value = "";
         document.getElementById('imgRoot').value = "";
@@ -356,7 +322,6 @@
       }
     }
 
-    // 初期化実行
     window.onload = initMap;
   </script>
 </body>
