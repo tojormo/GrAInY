@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paddy Field Data Collector</title>
+  <title>Field Data Collector</title>
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
@@ -88,21 +88,21 @@
     <!-- 画像選択エリア -->
     <div class="card">
       <div class="form-group">
-        <label for="imgEar">1. 稲穂画像</label>
+        <label for="imgEar">1. 穂先</label>
         <input type="file" id="imgEar" accept="image/*" capture="environment">
       </div>
       <div class="form-group">
-        <label for="imgRoot">2. 根本画像</label>
+        <label for="imgRoot">2. 根本</label>
         <input type="file" id="imgRoot" accept="image/*" capture="environment">
       </div>
       <div class="form-group">
-        <label for="imgView">3. 圃場前景画像</label>
+        <label for="imgView">3. 圃場全景</label>
         <input type="file" id="imgView" accept="image/*" capture="environment">
       </div>
     </div>
 
     <!-- 送信ボタン -->
-    <button id="sendBtn" class="btn-submit" onclick="sendData()">送信</button>
+    <button id="sendBtn" class="btn-submit" onclick="sendData()">Commit</button>
     <div id="status" class="status-msg"></div>
   </div>
 
