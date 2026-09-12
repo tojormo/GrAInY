@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Field Data Collector</title>
-  
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  
+
   <style>
     * { box-sizing: border-box; }
     body {
@@ -33,6 +33,7 @@
       display: flex; justify-content: space-between; align-items: center; background: #f8f8f8; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 0.85rem;
     }
     .coords-val { font-family: monospace; font-weight: 600; color: #111111; }
+    .coords-val.warn { color: #b00020; }
     .btn-gps {
       background: #ffffff; border: 1px solid #666666; color: #111111; padding: 4px 8px; font-size: 0.75rem; font-weight: 600; border-radius: 3px; cursor: pointer;
     }
@@ -50,11 +51,32 @@
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 9999; justify-content: center; align-items: center; padding: 20px;
     }
-    .modal-card { background: #ffffff; border: 2px solid #111111; border-radius: 6px; max-width: 400px; width: 100%; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .modal-card { background: #ffffff; border: 2px solid #111111; border-radius: 6px; max-width: 400px; width: 100%; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); max-height: 85vh; overflow-y: auto; }
     .modal-title { font-size: 1rem; font-weight: 700; margin-top: 0; margin-bottom: 12px; border-bottom: 1px solid #111111; padding-bottom: 6px; }
     .modal-body { font-size: 0.85rem; line-height: 1.5; color: #333333; margin-bottom: 16px; }
     .modal-body ol { padding-left: 20px; margin: 8px 0; }
-    .modal-btn { width: 100%; padding: 10px; background: #111111; color: #ffffff; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+    .os-block { border: 1px solid #e0e0e0; border-radius: 4px; padding: 8px 10px; margin-top: 10px; }
+    .os-block.current { border-color: #111111; background: #f5f5f5; }
+    .os-block strong { display: block; margin-bottom: 4px; }
+    .os-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; background: #111111; color: #fff; border-radius: 3px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
+    .modal-actions { display: flex; gap: 8px; }
+    .modal-btn { flex: 1; padding: 10px; background: #111111; color: #ffffff; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+    .modal-btn.secondary { background: #ffffff; color: #111111; border: 1px solid #666666; }
+
+    /* ヘッダー右上の設定リンク（送信キー変更） */
+    .header { display: flex; justify-content: space-between; align-items: center; }
+    .link-btn {
+      background: none; border: none; color: #444444; font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 4px 0; text-decoration: underline;
+    }
+    .link-btn:active { color: #111111; }
+
+    /* 送信キー入力モーダル用 */
+    input[type="password"] {
+      width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid #999999; border-radius: 4px; background: #ffffff; color: #111111;
+    }
+    input[type="password"]:focus { outline: none; border-color: #111111; box-shadow: 0 0 0 1px #111111; }
+    .show-key-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 0.8rem; color: #333333; }
+    .show-key-row input { width: auto; }
   </style>
 </head>
 <body>
@@ -62,6 +84,7 @@
   <div class="container">
     <div class="header">
       <h1>Paddy Field Data Collector</h1>
+      <button type="button" class="link-btn" onclick="openSecretKeyModal(true)">🔑 送信キー変更</button>
     </div>
 
     <!-- 地図・位置情報設定 -->
@@ -85,7 +108,7 @@
       </div>
     </div>
 
-    <!-- 画像選択エリア -->
+    <!-- 画像選択エリア（穂先／根本／高さ／圃場全景の4点） -->
     <div class="card">
       <div class="form-group">
         <label for="imgEar">1. 穂先</label>
@@ -96,7 +119,11 @@
         <input type="file" id="imgRoot" accept="image/*" capture="environment">
       </div>
       <div class="form-group">
-        <label for="imgView">3. 圃場全景</label>
+        <label for="imgHeight">3. 高さ</label>
+        <input type="file" id="imgHeight" accept="image/*" capture="environment">
+      </div>
+      <div class="form-group">
+        <label for="imgView">4. 圃場全景</label>
         <input type="file" id="imgView" accept="image/*" capture="environment">
       </div>
     </div>
@@ -106,26 +133,57 @@
     <div id="status" class="status-msg"></div>
   </div>
 
-  <!-- GPS権限案内モーダル -->
+  <!-- GPS権限案内モーダル（Android / iOS 両対応） -->
   <div id="gpsModal" class="modal-overlay">
     <div class="modal-card">
-      <div class="modal-title">位置情報（GPS）がオフになっています</div>
+      <div class="modal-title">位置情報（GPS）の利用が許可されていません</div>
       <div class="modal-body">
-        <p style="margin-top:0;">位置情報が取得できませんでした。以下の手順でブラウザおよび端末の位置情報設定を許可してください。</p>
-        <strong style="display:block; margin-top:10px;">■ iOS (Safari) の場合</strong>
-        <ol>
-          <li>「設定」>「プライバシーとセキュリティ」>「位置情報サービス」をオン</li>
-          <li>「SafariのWebサイト」>「この利用中のみ許可」を選択</li>
-          <li>ブラウザ画面を再読み込み</li>
-        </ol>
-        <strong style="display:block; margin-top:10px;">■ Android (Chrome) の場合</strong>
-        <ol>
-          <li>アドレスバー左横の「設定」アイコンをタップ</li>
-          <li>「権限」または「サイトの設定」をタップ</li>
-          <li>「位置情報」を「許可」に変更して再読み込み</li>
-        </ol>
+        <p style="margin-top:0;">このアプリで位置情報を使用するには、端末とブラウザの設定で位置情報の利用を許可する必要があります。以下の手順に従って設定を変更してください。</p>
+
+        <div id="iosBlock" class="os-block">
+          <strong>■ iOS (Safari) の場合<span id="iosBadge" class="os-badge" style="display:none;">この端末</span></strong>
+          <ol>
+            <li>「設定」＞「プライバシーとセキュリティ」＞「位置情報サービス」をオン</li>
+            <li>「設定」＞「Safari」＞「位置情報」＞「許可」を選択（または「設定」＞「位置情報サービス」＞「SafariのWebサイト」＞「この利用中のみ許可」）</li>
+            <li>ブラウザに戻り、画面を再読み込み</li>
+          </ol>
+        </div>
+
+        <div id="androidBlock" class="os-block">
+          <strong>■ Android (Chrome) の場合<span id="androidBadge" class="os-badge" style="display:none;">この端末</span></strong>
+          <ol>
+            <li>アドレスバー左横の鍵（または「i」）アイコンをタップ</li>
+            <li>「権限」または「サイトの設定」をタップ</li>
+            <li>「位置情報」を「許可」に変更し、画面を再読み込み</li>
+          </ol>
+        </div>
       </div>
-      <button class="modal-btn" onclick="closeGpsModal()">閉じる</button>
+      <div class="modal-actions">
+        <button class="modal-btn secondary" onclick="closeGpsModal()">閉じる</button>
+        <button class="modal-btn" onclick="retryLocationFromModal()">再試行</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 送信キー（SECRET_KEY）入力モーダル -->
+  <div id="secretKeyModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-title">送信キーの入力</div>
+      <div class="modal-body">
+        <p style="margin-top:0;">データ送信には管理者から共有された送信キーが必要です。一度入力するとこの端末のブラウザに保存され、次回以降の入力は不要になります。</p>
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="secretKeyInput">送信キー</label>
+          <input type="password" id="secretKeyInput" placeholder="送信キーを入力" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+          <div class="show-key-row">
+            <input type="checkbox" id="showSecretKeyChk" onchange="toggleSecretKeyVisibility()">
+            <label for="showSecretKeyChk" style="margin:0; font-weight:400;">キーを表示する</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn secondary" id="secretKeyCancelBtn" onclick="closeSecretKeyModal()">キャンセル</button>
+        <button class="modal-btn" onclick="saveSecretKey()">保存して続行</button>
+      </div>
     </div>
   </div>
 
@@ -135,21 +193,123 @@
     // =============================================================
     // ★ 設定項目
     // =============================================================
-    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwqVeq6e8UOXKfpIjgECy94BX3I-Q9i-WYHQG6fdGTYG2TNi8DM2XPPz6ussF7DCS5A/exec"; // ご自身のGASのWeb App URL
-    const SECRET_KEY = "tojormo";                  // GAS側で設定した SECRET_KEY
+    const CONFIG = {
+      GAS_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwqVeq6e8UOXKfpIjgECy94BX3I-Q9i-WYHQG6fdGTYG2TNi8DM2XPPz6ussF7DCS5A/exec", // ご自身のGASのWeb App URL
+      SECRET_KEY_STORAGE_NAME: "fieldCollector_secretKey", // 送信キーをブラウザに保存する際のキー名（localStorage）
+      DEFAULT_LAT: 35.681236,
+      DEFAULT_LNG: 139.767125,
+      IMAGE_MAX_SIDE: 1280,
+      IMAGE_QUALITY: 0.75
+    };
 
-    let map, marker, selectedLat = null, selectedLng = null;
+    // 画像アップロード項目の定義（穂先・根本・高さ・圃場全景の4点）
+    const IMAGE_FIELDS = [
+      { id: "imgEar",    key: "imgEar",    label: "穂先" },
+      { id: "imgRoot",   key: "imgRoot",   label: "根本" },
+      { id: "imgHeight", key: "imgHeight", label: "高さ" },
+      { id: "imgView",   key: "imgView",   label: "圃場全景" }
+    ];
 
+    // よく使う要素をまとめてキャッシュ
+    const els = {
+      lat: () => document.getElementById('lat'),
+      lng: () => document.getElementById('lng'),
+      status: () => document.getElementById('status'),
+      sendBtn: () => document.getElementById('sendBtn'),
+      fieldId: () => document.getElementById('fieldId'),
+      gpsModal: () => document.getElementById('gpsModal'),
+      iosBlock: () => document.getElementById('iosBlock'),
+      androidBlock: () => document.getElementById('androidBlock'),
+      iosBadge: () => document.getElementById('iosBadge'),
+      androidBadge: () => document.getElementById('androidBadge'),
+      secretKeyModal: () => document.getElementById('secretKeyModal'),
+      secretKeyInput: () => document.getElementById('secretKeyInput'),
+      showSecretKeyChk: () => document.getElementById('showSecretKeyChk')
+    };
+
+    let map, marker;
+    let selectedLat = null, selectedLng = null;
+    let geoPermissionStatus = null; // Permissions API のハンドル（対応端末のみ）
+    let secretKey = null;           // キャッシュされた送信キー（localStorageから復元）
+    let pendingSubmitAfterKey = false; // 送信キー入力後、自動で送信処理を再開するためのフラグ
+
+    // -------------------------------------------------------------
+    // 端末判定（iOS / Android の判定に基づき、モーダル内の該当セクションを強調表示）
+    // -------------------------------------------------------------
+    function detectOS() {
+      const ua = navigator.userAgent || navigator.vendor || "";
+      const isIOS = /iPad|iPhone|iPod/.test(ua) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS 対策
+      if (isIOS) return 'ios';
+      if (/android/i.test(ua)) return 'android';
+      return 'other';
+    }
+
+    function highlightCurrentOsInModal() {
+      const os = detectOS();
+      els.iosBlock().classList.toggle('current', os === 'ios');
+      els.androidBlock().classList.toggle('current', os === 'android');
+      els.iosBadge().style.display = os === 'ios' ? 'inline-block' : 'none';
+      els.androidBadge().style.display = os === 'android' ? 'inline-block' : 'none';
+    }
+
+    // -------------------------------------------------------------
+    // 送信キー（SECRET_KEY）の管理
+    //   - 初回はモーダルでユーザーに入力させ、localStorageに保存
+    //   - 2回目以降は保存済みの値を自動で読み込み、入力不要にする
+    // -------------------------------------------------------------
+    function loadSecretKey() {
+      secretKey = localStorage.getItem(CONFIG.SECRET_KEY_STORAGE_NAME);
+    }
+
+    function openSecretKeyModal(isEdit) {
+      // 変更用に開く場合は既存値をプリフィルし、初回入力の場合は空欄にする
+      els.secretKeyInput().value = isEdit && secretKey ? secretKey : "";
+      els.showSecretKeyChk().checked = false;
+      els.secretKeyInput().type = "password";
+      els.secretKeyModal().style.display = 'flex';
+      // 入力しやすいようフォーカスする
+      setTimeout(() => els.secretKeyInput().focus(), 50);
+    }
+
+    function closeSecretKeyModal() {
+      els.secretKeyModal().style.display = 'none';
+      pendingSubmitAfterKey = false;
+    }
+
+    function toggleSecretKeyVisibility() {
+      els.secretKeyInput().type = els.showSecretKeyChk().checked ? "text" : "password";
+    }
+
+    function saveSecretKey() {
+      const value = els.secretKeyInput().value.trim();
+      if (!value) {
+        alert("送信キーを入力してください。");
+        return;
+      }
+      secretKey = value;
+      localStorage.setItem(CONFIG.SECRET_KEY_STORAGE_NAME, secretKey);
+      els.secretKeyModal().style.display = 'none';
+
+      // 送信操作の途中でキー未設定により中断していた場合は、保存後に自動で送信を再開する
+      if (pendingSubmitAfterKey) {
+        pendingSubmitAfterKey = false;
+        sendData();
+      } else {
+        alert("送信キーを保存しました。次回以降の入力は不要です。");
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 地図の初期化
+    // -------------------------------------------------------------
     function initMap() {
-      const defaultLat = 35.681236;
-      const defaultLng = 139.767125;
-
-      map = L.map('map').setView([defaultLat, defaultLng], 15);
+      map = L.map('map').setView([CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LNG], 15);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap'
       }).addTo(map);
 
-      marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
+      marker = L.marker([CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LNG], { draggable: true }).addTo(map);
 
       map.on('click', (e) => {
         marker.setLatLng(e.latlng);
@@ -161,17 +321,74 @@
         updateCoords(pos.lat, pos.lng);
       });
 
+      checkGeoPermissionAndLocate();
+    }
+
+    // -------------------------------------------------------------
+    // 位置情報許可の確認（Permissions API 優先、非対応端末は直接取得を試行）
+    //   - 'denied'  : 既にブロックされている → 警告表示に加えて許可モーダルを起動
+    //   - 'granted' / 'prompt' : 位置情報の取得を試みる
+    //   - Permissions API 未対応(古いiOS Safari等) : フォールバックして直接取得
+    // -------------------------------------------------------------
+    async function checkGeoPermissionAndLocate() {
+      if (!navigator.geolocation) {
+        setCoordsWarning();
+        showGpsModal();
+        return;
+      }
+
+      if (navigator.permissions && navigator.permissions.query) {
+        try {
+          geoPermissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+          handlePermissionState(geoPermissionStatus.state);
+
+          // 端末の設定画面でユーザーが許可状態を変更した場合に自動で追従する
+          geoPermissionStatus.onchange = () => {
+            handlePermissionState(geoPermissionStatus.state);
+          };
+          return;
+        } catch (e) {
+          console.warn("Permissions API が geolocation に未対応のためフォールバックします。", e);
+        }
+      }
+
+      // Permissions API 非対応（例: 一部のiOS Safari）はここで直接取得を試みる
       getCurrentLocation();
     }
 
+    function handlePermissionState(state) {
+      if (state === 'denied') {
+        setCoordsWarning();
+        showGpsModal();      // 警告表示だけでなく、許可モーダルを起動（Android / iOS 共通）
+      } else {
+        getCurrentLocation();
+      }
+    }
+
+    function setCoordsWarning() {
+      els.lat().innerText = "許可されていません";
+      els.lng().innerText = "許可されていません";
+      els.lat().classList.add('warn');
+      els.lng().classList.add('warn');
+    }
+
+    function clearCoordsWarning() {
+      els.lat().classList.remove('warn');
+      els.lng().classList.remove('warn');
+    }
+
+    // -------------------------------------------------------------
+    // 現在地の取得
+    // -------------------------------------------------------------
     function getCurrentLocation() {
       if (!navigator.geolocation) {
         showGpsModal();
         return;
       }
 
-      document.getElementById('lat').innerText = "取得中...";
-      document.getElementById('lng').innerText = "取得中...";
+      els.lat().innerText = "取得中...";
+      els.lng().innerText = "取得中...";
+      clearCoordsWarning();
 
       navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -180,12 +397,19 @@
           map.setView([lat, lng], 17);
           marker.setLatLng([lat, lng]);
           updateCoords(lat, lng);
+          closeGpsModal();
         },
         (err) => {
           console.warn("GPSエラー:", err);
-          document.getElementById('lat').innerText = "エラー";
-          document.getElementById('lng').innerText = "エラー";
-          showGpsModal();
+          if (err.code === err.PERMISSION_DENIED) {
+            // 許可されていない場合：警告表示 + 許可モーダルを必ず起動（Android / iOS 両方）
+            setCoordsWarning();
+            showGpsModal();
+          } else {
+            // タイムアウトや取得不可などは警告表示のみ
+            els.lat().innerText = "取得エラー";
+            els.lng().innerText = "取得エラー";
+          }
         },
         { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
       );
@@ -194,15 +418,30 @@
     function updateCoords(lat, lng) {
       selectedLat = parseFloat(lat).toFixed(6);
       selectedLng = parseFloat(lng).toFixed(6);
-      document.getElementById('lat').innerText = selectedLat;
-      document.getElementById('lng').innerText = selectedLng;
+      els.lat().innerText = selectedLat;
+      els.lng().innerText = selectedLng;
+      clearCoordsWarning();
     }
 
-    function showGpsModal() { document.getElementById('gpsModal').style.display = 'flex'; }
-    function closeGpsModal() { document.getElementById('gpsModal').style.display = 'none'; }
+    // -------------------------------------------------------------
+    // GPS許可モーダルの表示／再試行
+    // -------------------------------------------------------------
+    function showGpsModal() {
+      highlightCurrentOsInModal();
+      els.gpsModal().style.display = 'flex';
+    }
+    function closeGpsModal() {
+      els.gpsModal().style.display = 'none';
+    }
+    function retryLocationFromModal() {
+      closeGpsModal();
+      checkGeoPermissionAndLocate();
+    }
 
-    // 強化版: 画像の長辺リサイズ＆JPEG品質制御＋HTML5 Canvasでの高速圧縮処理
-    const compressImageAndToBase64 = (file, maxSide = 1280, quality = 0.75) => {
+    // -------------------------------------------------------------
+    // 画像圧縮: 長辺リサイズ＆JPEG品質制御（Canvasで高速処理）
+    // -------------------------------------------------------------
+    const compressImageAndToBase64 = (file, maxSide = CONFIG.IMAGE_MAX_SIDE, quality = CONFIG.IMAGE_QUALITY) => {
       return new Promise((resolve, reject) => {
         if (!file) return resolve("");
 
@@ -241,8 +480,7 @@
             ctx.drawImage(img, 0, 0, width, height);
 
             // JPEG形式で軽量化（圧縮率は品質パラメータ指定）
-            const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
-            resolve(compressedBase64);
+            resolve(canvas.toDataURL('image/jpeg', quality));
           };
           img.onerror = (err) => reject(err);
         };
@@ -250,60 +488,86 @@
       });
     };
 
+    // -------------------------------------------------------------
+    // 入力チェック
+    // -------------------------------------------------------------
+    function getSelectedFiles() {
+      return IMAGE_FIELDS.map(f => ({
+        ...f,
+        file: document.getElementById(f.id).files[0]
+      }));
+    }
+
+    function validateForm(fieldId, files) {
+      if (!selectedLat || !selectedLng) {
+        alert("位置情報が取得できていません。");
+        showGpsModal();
+        return false;
+      }
+      if (!fieldId) {
+        alert("圃場IDを入力してください。");
+        return false;
+      }
+      const missing = files.filter(f => !f.file);
+      if (missing.length > 0) {
+        alert(`${IMAGE_FIELDS.length}枚すべての画像を選択（撮影）してください。\n未選択: ${missing.map(f => f.label).join('、')}`);
+        return false;
+      }
+      if (CONFIG.GAS_WEB_APP_URL === "YOUR_GAS_WEB_APP_URL_HERE") {
+        alert("GASのWeb App URLが設定されていません。");
+        return false;
+      }
+      return true;
+    }
+
+    function resetForm() {
+      els.fieldId().value = "";
+      IMAGE_FIELDS.forEach(f => { document.getElementById(f.id).value = ""; });
+    }
+
+    // -------------------------------------------------------------
+    // 送信処理
+    // -------------------------------------------------------------
     async function sendData() {
-      const fieldId = document.getElementById('fieldId').value.trim();
-      const fileEar = document.getElementById('imgEar').files[0];
-      const fileRoot = document.getElementById('imgRoot').files[0];
-      const fileView = document.getElementById('imgView').files[0];
-      const statusDiv = document.getElementById('status');
-      const btn = document.getElementById('sendBtn');
+      const fieldId = els.fieldId().value.trim();
+      const files = getSelectedFiles();
+      const statusDiv = els.status();
+      const btn = els.sendBtn();
 
       statusDiv.className = "status-msg";
       statusDiv.innerText = "";
 
-      if (!selectedLat || !selectedLng) {
-        alert("位置情報が取得できていません。");
-        showGpsModal();
+      // 送信キーが未設定（初回、またはブラウザのデータ削除後）の場合は入力モーダルを起動し、
+      // 保存後に自動で送信処理を再開する
+      if (!secretKey) {
+        pendingSubmitAfterKey = true;
+        openSecretKeyModal(false);
         return;
       }
-      if (!fieldId) {
-        alert("圃場IDを入力してください。");
-        return;
-      }
-      if (!fileEar || !fileRoot || !fileView) {
-        alert("3枚すべての画像を選択（撮影）してください。");
-        return;
-      }
-      if (GAS_WEB_APP_URL === "YOUR_GAS_WEB_APP_URL_HERE") {
-        alert("GASのWeb App URLが設定されていません。");
-        return;
-      }
+
+      if (!validateForm(fieldId, files)) return;
 
       btn.disabled = true;
       btn.innerText = "画像圧縮・送信中...";
 
       try {
-        // 画像3枚を長辺1280px / 画質75% に一括自動圧縮
-        const imgEarBase64 = await compressImageAndToBase64(fileEar);
-        const imgRootBase64 = await compressImageAndToBase64(fileRoot);
-        const imgViewBase64 = await compressImageAndToBase64(fileView);
+        // 画像4枚（穂先・根本・高さ・圃場全景）を長辺1280px / 画質75% に並列圧縮
+        const compressed = await Promise.all(
+          files.map(f => compressImageAndToBase64(f.file))
+        );
 
         const payload = {
-          secretKey: SECRET_KEY,
+          secretKey: secretKey,
           fieldId: fieldId,
           lat: selectedLat,
-          lng: selectedLng,
-          imgEar: imgEarBase64,
-          imgRoot: imgRootBase64,
-          imgView: imgViewBase64
+          lng: selectedLng
         };
+        files.forEach((f, i) => { payload[f.key] = compressed[i]; });
 
-        await fetch(GAS_WEB_APP_URL, {
+        await fetch(CONFIG.GAS_WEB_APP_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
 
@@ -311,11 +575,7 @@
         statusDiv.innerText = "送信完了しました。";
         alert("正常に保存されました。");
 
-        // 入力項目の初期化
-        document.getElementById('fieldId').value = "";
-        document.getElementById('imgEar').value = "";
-        document.getElementById('imgRoot').value = "";
-        document.getElementById('imgView').value = "";
+        resetForm();
 
       } catch (err) {
         console.error("送信エラー:", err);
@@ -328,7 +588,10 @@
       }
     }
 
-    window.onload = initMap;
+    window.onload = function () {
+      loadSecretKey();  // 保存済みの送信キーがあれば自動で読み込む（2回目以降は入力不要）
+      initMap();
+    };
   </script>
 </body>
 </html>
