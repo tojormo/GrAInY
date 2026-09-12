@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YMD Field Data Collector</title>
+  <title>Field Data Collector</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -28,6 +28,21 @@
     }
     input[type="text"]:focus { outline: none; border-color: #111111; box-shadow: 0 0 0 1px #111111; }
     input[type="file"] { width: 100%; font-size: 0.85rem; color: #333333; }
+
+    /* カメラ撮影ボタン（ネイティブの「ファイルを選択」表示を隠し、独自ボタンに置き換える） */
+    .capture-row { display: flex; align-items: center; gap: 10px; }
+    .file-input-hidden {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .btn-capture {
+      display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; background: #111111; color: #ffffff;
+      border-radius: 4px; font-size: 0.85rem; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-capture:active { background: #333333; }
+    .capture-filename { font-size: 0.8rem; color: #444444; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .capture-filename.empty { color: #999999; }
+    .capture-filename.done { color: #111111; font-weight: 600; }
     #map { height: 220px; width: 100%; border: 1px solid #999999; border-radius: 4px; margin-bottom: 8px; }
     .coords-wrapper {
       display: flex; justify-content: space-between; align-items: center; background: #f8f8f8; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 0.85rem;
@@ -83,7 +98,7 @@
 
   <div class="container">
     <div class="header">
-      <h1>YMD Field Data Collector</h1>
+      <h1>Paddy Field Data Collector</h1>
       <button type="button" class="link-btn" onclick="openSecretKeyModal(true)">🔑 送信キー変更</button>
     </div>
 
@@ -108,23 +123,46 @@
       </div>
     </div>
 
-    <!-- 画像選択エリア（穂先／根本／高さ／圃場全景の4点） -->
+    <!--
+      画像選択エリア（穂先／根本／高さ／圃場全景の4点）
+      ※ accept="image/*;capture=camera"（非標準の埋め込み記法）と
+        capture="environment"（標準属性）を併用することで、
+        Android 14以降のChromeで発生する「ファイル/写真選択(Photo Picker)が
+        開いてしまいカメラが直接起動しない」問題を回避し、
+        Android・iOSの両方でタップ時にカメラアプリが直接起動するようにしています。
+    -->
     <div class="card">
       <div class="form-group">
         <label for="imgEar">1. 穂先</label>
-        <input type="file" id="imgEar" accept="image/*" capture="environment">
+        <div class="capture-row">
+          <label for="imgEar" class="btn-capture">📷 撮影</label>
+          <input type="file" id="imgEar" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgEar')">
+          <span id="imgEar_name" class="capture-filename empty">未撮影</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="imgRoot">2. 根本</label>
-        <input type="file" id="imgRoot" accept="image/*" capture="environment">
+        <div class="capture-row">
+          <label for="imgRoot" class="btn-capture">📷 撮影</label>
+          <input type="file" id="imgRoot" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgRoot')">
+          <span id="imgRoot_name" class="capture-filename empty">未撮影</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="imgHeight">3. 高さ</label>
-        <input type="file" id="imgHeight" accept="image/*" capture="environment">
+        <div class="capture-row">
+          <label for="imgHeight" class="btn-capture">📷 撮影</label>
+          <input type="file" id="imgHeight" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgHeight')">
+          <span id="imgHeight_name" class="capture-filename empty">未撮影</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="imgView">4. 圃場全景</label>
-        <input type="file" id="imgView" accept="image/*" capture="environment">
+        <div class="capture-row">
+          <label for="imgView" class="btn-capture">📷 撮影</label>
+          <input type="file" id="imgView" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgView')">
+          <span id="imgView_name" class="capture-filename empty">未撮影</span>
+        </div>
       </div>
     </div>
 
@@ -489,6 +527,33 @@
     };
 
     // -------------------------------------------------------------
+    // 撮影ボタンの状態表示（ファイル名の反映）
+    // -------------------------------------------------------------
+    function onCaptureChange(fieldId) {
+      const input = document.getElementById(fieldId);
+      const nameSpan = document.getElementById(fieldId + '_name');
+      const file = input.files[0];
+      if (file) {
+        nameSpan.innerText = "✓ " + file.name;
+        nameSpan.classList.remove('empty');
+        nameSpan.classList.add('done');
+      } else {
+        nameSpan.innerText = "未撮影";
+        nameSpan.classList.add('empty');
+        nameSpan.classList.remove('done');
+      }
+    }
+
+    function resetCaptureDisplays() {
+      IMAGE_FIELDS.forEach(f => {
+        const nameSpan = document.getElementById(f.id + '_name');
+        nameSpan.innerText = "未撮影";
+        nameSpan.classList.add('empty');
+        nameSpan.classList.remove('done');
+      });
+    }
+
+    // -------------------------------------------------------------
     // 入力チェック
     // -------------------------------------------------------------
     function getSelectedFiles() {
@@ -523,6 +588,7 @@
     function resetForm() {
       els.fieldId().value = "";
       IMAGE_FIELDS.forEach(f => { document.getElementById(f.id).value = ""; });
+      resetCaptureDisplays();
     }
 
     // -------------------------------------------------------------
