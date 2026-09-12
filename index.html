@@ -201,7 +201,7 @@
     function showGpsModal() { document.getElementById('gpsModal').style.display = 'flex'; }
     function closeGpsModal() { document.getElementById('gpsModal').style.display = 'none'; }
 
-    // ★追加機能: 画像を長辺1280px以下・JPEG品質0.75に自動圧縮してBase64化する関数
+    // 強化版: 画像の長辺リサイズ＆JPEG品質制御＋HTML5 Canvasでの高速圧縮処理
     const compressImageAndToBase64 = (file, maxSide = 1280, quality = 0.75) => {
       return new Promise((resolve, reject) => {
         if (!file) return resolve("");
@@ -215,7 +215,7 @@
             let width = img.width;
             let height = img.height;
 
-            // 長辺に合わせて縮小率を計算
+            // 長辺に合わせて縮小率をリサイズ計算
             if (width > height) {
               if (width > maxSide) {
                 height = Math.round((height * maxSide) / width);
@@ -228,14 +228,19 @@
               }
             }
 
-            // HTML5 Canvas を使用して画像を縮小描画
             const canvas = document.createElement('canvas');
             canvas.width = width;
             canvas.height = height;
             const ctx = canvas.getContext('2d');
+
+            // 背景を白で塗る（透過PNG対策）
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, width, height);
+
+            // Canvasに画像を描画
             ctx.drawImage(img, 0, 0, width, height);
 
-            // JPEG形式で圧縮
+            // JPEG形式で軽量化（圧縮率は品質パラメータ指定）
             const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
             resolve(compressedBase64);
           };
@@ -275,10 +280,10 @@
       }
 
       btn.disabled = true;
-      btn.innerText = "画像処理・送信中...";
+      btn.innerText = "画像圧縮・送信中...";
 
       try {
-        // 画像をリサイズ＆圧縮してBase64化（端末の負荷を軽減してGAS制限を回避）
+        // 画像3枚を長辺1280px / 画質75% に一括自動圧縮
         const imgEarBase64 = await compressImageAndToBase64(fileEar);
         const imgRootBase64 = await compressImageAndToBase64(fileRoot);
         const imgViewBase64 = await compressImageAndToBase64(fileView);
@@ -306,6 +311,7 @@
         statusDiv.innerText = "送信完了しました。";
         alert("正常に保存されました。");
 
+        // 入力項目の初期化
         document.getElementById('fieldId').value = "";
         document.getElementById('imgEar').value = "";
         document.getElementById('imgRoot').value = "";
