@@ -31,6 +31,9 @@
     .container { max-width: 480px; margin: 0 auto; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
     h1 { font-size: 1.05rem; font-weight: 700; margin: 0; color: var(--ink); letter-spacing: 0.06em; text-transform: uppercase; }
+    /* タイトル文字の代わりに表示するロゴ */
+    .site-logo { display: inline-flex; align-items: center; line-height: 0; text-decoration: none; }
+    .site-logo svg { display: block; width: auto; height: 52px; }
 
     /* カード：枠線なし・柔らかい影のみ */
     .card { background: var(--surface); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); }
@@ -147,7 +150,28 @@
 
   <div class="container">
     <div class="header">
-      <h1>GrAInY</h1>
+      <span class="site-logo" aria-label="GrAInY" role="img">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="200" height="75">
+          <style>
+            .bg { fill: transparent; }
+            .fill-dark { fill: #1a1a1a; }
+            .fill-white { fill: #ffffff; }
+          </style>
+          <rect class="bg" width="800" height="300" />
+          <g transform="translate(115, 85)">
+            <path class="fill-dark" d="M 10,65 C 10,28 36,0 75,0 C 102,0 124,14 133,38 L 108,48 C 102,34 90,24 75,24 C 52,24 35,42 35,65 C 35,88 52,106 75,106 C 94,106 106,94 109,77 L 70,77 L 70,55 L 134,55 L 134,77 C 130,110 106,130 75,130 C 36,130 10,102 10,65 Z" />
+            <path class="fill-dark" d="M 148,35 L 172,35 L 172,49 C 178,39 189,33 202,33 C 207,33 211,34 215,35 L 207,58 C 203,56 199,55 195,55 C 183,55 174,65 174,82 L 174,127 L 148,127 Z" />
+            <!-- ▼ 「AI」の箱＋文字だけを中心(291,68.5)基準で拡大（scaleの数値で調整可） -->
+            <g transform="translate(291,68.5) scale(1.12) translate(-291,-68.5)">
+              <rect class="fill-dark" x="222" y="10" width="138" height="117" rx="6" ry="6" />
+              <path class="fill-white" d="M 271,28 L 291,28 L 317,102 L 295,102 L 289,83 L 263,83 L 257,102 L 236,102 Z M 276,44 L 268,70 L 284,70 Z" />
+              <path class="fill-white" d="M 324,28 L 344,28 L 344,102 L 324,102 Z" />
+            </g>
+            <path class="fill-dark" d="M 370,35 L 394,35 L 394,48 C 401,38 413,33 427,33 C 448,33 460,46 460,70 L 460,127 L 435,127 L 435,76 C 435,63 428,56 417,56 C 405,56 395,66 395,81 L 395,127 L 370,127 Z" />
+            <path class="fill-dark" d="M 470,5 L 496,5 L 518,55 L 540,5 L 566,5 L 531,75 L 531,127 L 505,127 L 505,75 Z" />
+          </g>
+        </svg>
+      </span>
       <button type="button" class="link-btn" onclick="openSecretKeyModal(true)">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"></circle><line x1="10.85" y1="12.15" x2="19" y2="4"></line><line x1="18" y1="5" x2="20" y2="7"></line><line x1="15" y1="8" x2="17" y2="10"></line></svg>
         設定変更
