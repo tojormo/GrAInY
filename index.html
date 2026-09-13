@@ -489,9 +489,34 @@
     // -------------------------------------------------------------
     function initMap() {
       map = L.map('map').setView([CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LNG], 14);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-      }).addTo(map);
+
+      // 標準地図（OpenStreetMap）※キー不要
+      const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap',
+        maxZoom: 19
+      });
+
+      // 衛星写真（Esri World Imagery）※APIキー不要・帰属表示は必須
+      const esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+        maxZoom: 19
+      });
+
+      // 衛星写真上に地名・道路ラベルを重ねる（任意・視認性向上）
+      const esriLabels = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '', maxZoom: 19, opacity: 0.9
+      });
+      const satelliteGroup = L.layerGroup([esriSat, esriLabels]);
+
+      // 初期表示は衛星写真（圃場の判読がしやすい）
+      satelliteGroup.addTo(map);
+
+      // 右上に「衛星写真 / 標準地図」の切替コントロールを追加
+      L.control.layers(
+        { "衛星写真": satelliteGroup, "標準地図": osmLayer },
+        null,
+        { position: 'topright' }
+      ).addTo(map);
 
       // 現在地マーカー（GPS未取得時は地図操作でのフォールバック用）
       marker = L.marker([CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LNG], { draggable: true }).addTo(map);
