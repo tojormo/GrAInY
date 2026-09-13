@@ -8,107 +8,138 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <style>
+    :root {
+      --bg: #f5f6f8;
+      --surface: #ffffff;
+      --ink: #1a1a1a;
+      --muted: #8a8f98;
+      --subtle: #f0f1f4;
+      --accent: #111111;
+      --danger: #c0392b;
+      --radius: 14px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.05);
+    }
     * { box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       margin: 0;
-      padding: 16px;
-      background-color: #f0f0f0;
-      color: #111111;
+      padding: 20px 16px;
+      background-color: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
     }
     .container { max-width: 480px; margin: 0 auto; }
-    .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #111111; padding-bottom: 8px; margin-bottom: 16px; }
-    h1 { font-size: 1.1rem; font-weight: 700; margin: 0; color: #111111; letter-spacing: 0.05em; text-transform: uppercase; }
-    .card { background: #ffffff; border: 1px solid #cccccc; border-radius: 4px; padding: 14px; margin-bottom: 14px; }
-    .form-group { margin-bottom: 12px; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    h1 { font-size: 1.05rem; font-weight: 700; margin: 0; color: var(--ink); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* カード：枠線なし・柔らかい影のみ */
+    .card { background: var(--surface); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); }
+    .form-group { margin-bottom: 14px; }
     .form-group:last-child { margin-bottom: 0; }
-    label { font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px; color: #222222; }
-    input[type="text"] {
-      width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid #999999; border-radius: 4px; background: #ffffff; color: #111111;
+    label { font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 7px; color: var(--ink); }
+
+    /* 入力：枠線なし・淡い塗りで表現 */
+    input[type="text"], input[type="password"] {
+      width: 100%; padding: 12px 14px; font-size: 1rem; border: none; border-radius: 10px;
+      background: var(--subtle); color: var(--ink); transition: box-shadow 0.15s ease, background 0.15s ease;
     }
-    input[type="text"]:focus { outline: none; border-color: #111111; box-shadow: 0 0 0 1px #111111; }
+    input[type="text"]::placeholder, input[type="password"]::placeholder { color: var(--muted); }
+    input[type="text"]:focus, input[type="password"]:focus {
+      outline: none; background: var(--surface); box-shadow: 0 0 0 2px var(--accent);
+    }
     input[type="file"] { width: 100%; font-size: 0.85rem; color: #333333; }
 
-    /* カメラ撮影ボタン（ネイティブの「ファイルを選択」表示を隠し、独自ボタンに置き換える） */
-    .capture-row { display: flex; align-items: center; gap: 10px; }
+    /* カメラ撮影ボタン */
+    .capture-row { display: flex; align-items: center; gap: 12px; }
     .file-input-hidden {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
       clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
     .btn-capture {
-      display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; background: #111111; color: #ffffff;
-      border-radius: 4px; font-size: 0.85rem; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: 7px; padding: 11px 18px; background: var(--accent); color: #ffffff;
+      border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      transition: opacity 0.15s ease;
     }
-    .btn-capture:active { background: #333333; }
-    .capture-filename { font-size: 0.8rem; color: #444444; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .capture-filename.empty { color: #999999; }
-    .capture-filename.done { color: #111111; font-weight: 600; }
+    .btn-capture:active { opacity: 0.7; }
+    .capture-filename { font-size: 0.8rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .capture-filename.empty { color: var(--muted); }
+    .capture-filename.done { color: var(--ink); font-weight: 600; }
 
-    /* 地図は大きめに */
-    #map { height: 380px; width: 100%; border: 1px solid #999999; border-radius: 4px; margin-bottom: 8px; }
-    .map-hint { font-size: 0.75rem; color: #666666; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+    /* 地図：枠線なし・角丸のみ */
+    #map { height: 380px; width: 100%; border-radius: 12px; margin-bottom: 10px; }
+    .map-hint { font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 
-    /* SVGアイコン共通（シンプル・線画） */
+    /* SVGアイコン共通 */
     .icon { width: 1em; height: 1em; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.125em; }
     .btn-capture .icon, .link-btn .icon { width: 1.05em; height: 1.05em; }
-    .capture-filename .icon { width: 0.9em; height: 0.9em; stroke: #111111; margin-right: 2px; }
+    .capture-filename .icon { width: 0.9em; height: 0.9em; stroke: var(--ink); margin-right: 2px; }
 
     /* 品種の凡例 */
-    .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-bottom: 8px; }
-    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.75rem; color: #333333; }
-    .legend-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid #fff; box-shadow: 0 0 0 1px #999; flex-shrink: 0; }
+    .legend { display: flex; flex-wrap: wrap; gap: 7px 14px; margin-bottom: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #4a4f57; }
+    .legend-dot { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 2px #fff, 0 1px 2px rgba(0,0,0,0.15); flex-shrink: 0; }
 
+    /* 座標表示：淡い塗りのみ */
     .coords-wrapper {
-      display: flex; justify-content: space-between; align-items: center; background: #f8f8f8; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 0.85rem;
+      display: flex; justify-content: space-between; align-items: center; background: var(--subtle);
+      padding: 10px 12px; border-radius: 10px; font-size: 0.85rem;
     }
-    .coords-val { font-family: monospace; font-weight: 600; color: #111111; }
-    .coords-val.warn { color: #b00020; }
-    .coords-source { font-size: 0.7rem; color: #666666; margin-top: 4px; }
+    .coords-val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; color: var(--ink); }
+    .coords-val.warn { color: var(--danger); }
+    .coords-source { font-size: 0.7rem; color: var(--muted); margin-top: 6px; }
     .btn-gps {
-      background: #ffffff; border: 1px solid #666666; color: #111111; padding: 4px 8px; font-size: 0.75rem; font-weight: 600; border-radius: 3px; cursor: pointer;
+      background: var(--surface); border: none; color: var(--ink); padding: 6px 12px; font-size: 0.75rem;
+      font-weight: 600; border-radius: 8px; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      transition: opacity 0.15s ease;
     }
-    .btn-gps:active { background: #e0e0e0; }
-    .btn-submit {
-      width: 100%; padding: 14px; background-color: #111111; color: #ffffff; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.05em; cursor: pointer;
-    }
-    .btn-submit:active { background-color: #333333; }
-    .btn-submit:disabled { background-color: #888888; cursor: not-allowed; }
-    .status-msg { margin-top: 10px; font-size: 0.85rem; text-align: center; font-weight: 600; }
-    .success { color: #111111; }
-    .error { color: #666666; }
+    .btn-gps:active { opacity: 0.6; }
 
-    /* ヘッダー右上の設定リンク */
-    .link-btn {
-      background: none; border: none; color: #444444; font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 4px 0; text-decoration: underline;
+    /* 送信ボタン */
+    .btn-submit {
+      width: 100%; padding: 15px; background-color: var(--accent); color: #ffffff; border: none; border-radius: 12px;
+      font-size: 0.95rem; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; box-shadow: var(--shadow);
+      transition: opacity 0.15s ease;
     }
-    .link-btn:active { color: #111111; }
+    .btn-submit:active { opacity: 0.8; }
+    .btn-submit:disabled { background-color: var(--muted); cursor: not-allowed; box-shadow: none; }
+    .status-msg { margin-top: 12px; font-size: 0.85rem; text-align: center; font-weight: 600; }
+    .success { color: var(--ink); }
+    .error { color: var(--danger); }
+
+    /* ヘッダー右上の設定ボタン：下線を廃しチップ風に */
+    .link-btn {
+      display: inline-flex; align-items: center; gap: 5px; background: var(--surface); border: none; color: #4a4f57;
+      font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 7px 12px; border-radius: 20px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08); transition: opacity 0.15s ease;
+    }
+    .link-btn:active { opacity: 0.6; }
 
     /* 現在のユーザー名表示 */
-    .user-badge { font-size: 0.8rem; color: #333333; margin-bottom: 14px; }
-    .user-badge strong { color: #111111; }
+    .user-badge { font-size: 0.8rem; color: var(--muted); margin-bottom: 16px; padding-left: 2px; }
+    .user-badge strong { color: var(--ink); font-weight: 600; }
 
-    /* モーダルポップアップ */
+    /* モーダル：枠線なし・影で浮遊感 */
     .modal-overlay {
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 9999; justify-content: center; align-items: center; padding: 20px;
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20, 22, 26, 0.5);
+      z-index: 9999; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(2px);
     }
-    .modal-card { background: #ffffff; border: 2px solid #111111; border-radius: 6px; max-width: 400px; width: 100%; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); max-height: 85vh; overflow-y: auto; }
-    .modal-title { font-size: 1rem; font-weight: 700; margin-top: 0; margin-bottom: 12px; border-bottom: 1px solid #111111; padding-bottom: 6px; }
-    .modal-body { font-size: 0.85rem; line-height: 1.5; color: #333333; margin-bottom: 16px; }
+    .modal-card {
+      background: var(--surface); border: none; border-radius: 18px; max-width: 400px; width: 100%; padding: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25); max-height: 85vh; overflow-y: auto;
+    }
+    .modal-title { font-size: 1.05rem; font-weight: 700; margin-top: 0; margin-bottom: 14px; color: var(--ink); }
+    .modal-body { font-size: 0.85rem; line-height: 1.55; color: #4a4f57; margin-bottom: 18px; }
     .modal-body ol { padding-left: 20px; margin: 8px 0; }
-    .os-block { border: 1px solid #e0e0e0; border-radius: 4px; padding: 8px 10px; margin-top: 10px; }
-    .os-block.current { border-color: #111111; background: #f5f5f5; }
-    .os-block strong { display: block; margin-bottom: 4px; }
-    .os-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; background: #111111; color: #fff; border-radius: 3px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
-    .modal-actions { display: flex; gap: 8px; }
-    .modal-btn { flex: 1; padding: 10px; background: #111111; color: #ffffff; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
-    .modal-btn.secondary { background: #ffffff; color: #111111; border: 1px solid #666666; }
+    .os-block { background: var(--subtle); border-radius: 10px; padding: 10px 12px; margin-top: 10px; }
+    .os-block.current { background: #e9eaee; box-shadow: inset 0 0 0 1.5px var(--accent); }
+    .os-block strong { display: block; margin-bottom: 4px; color: var(--ink); }
+    .os-badge { display: inline-block; font-size: 0.7rem; font-weight: 600; background: var(--accent); color: #fff; border-radius: 20px; padding: 2px 8px; margin-left: 6px; vertical-align: middle; }
+    .modal-actions { display: flex; gap: 10px; }
+    .modal-btn { flex: 1; padding: 12px; background: var(--accent); color: #ffffff; border: none; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s ease; }
+    .modal-btn:active { opacity: 0.8; }
+    .modal-btn.secondary { background: var(--subtle); color: var(--ink); }
 
-    /* ユーザー名・送信キー入力モーダル用 */
-    input[type="password"] {
-      width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid #999999; border-radius: 4px; background: #ffffff; color: #111111;
-    }
-    input[type="password"]:focus { outline: none; border-color: #111111; box-shadow: 0 0 0 1px #111111; }
-    .show-key-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 0.8rem; color: #333333; }
+    .show-key-row { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 0.8rem; color: #4a4f57; }
     .show-key-row input { width: auto; }
   </style>
 </head>
@@ -507,7 +538,7 @@
           cm.bindPopup(
             `<b>${name}</b><br>品種: ${variety || '未設定'}<br>ブロック: ${block}` +
             `<br><button onclick="selectField('${String(name).replace(/'/g, "\\'")}')" ` +
-            `style="margin-top:6px;padding:6px 10px;border:none;border-radius:4px;background:#111;color:#fff;font-weight:700;cursor:pointer;">この圃場を選択</button>`
+            `style="margin-top:6px;padding:7px 12px;border:none;border-radius:8px;background:#111;color:#fff;font-weight:600;cursor:pointer;">この圃場を選択</button>`
           );
           // ピンのタップで圃場IDに自動入力（座標は端末GPS優先のため変更しない）
           cm.on('click', () => selectField(name));
