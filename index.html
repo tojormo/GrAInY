@@ -273,6 +273,60 @@
       IMAGE_QUALITY: 0.75
     };
 
+    // =============================================================
+    // 永続ストレージ（iOS対策）
+    //   iOSのSafariでは以下の理由でlocalStorageが消える/保存できないことがある:
+    //     - プライベートブラウズ時は setItem が例外を投げる（従来コードはtry/catchが無く保存に失敗）
+    //     - ホーム画面追加(standalone)時のストレージが揮発しやすい
+    //     - ITP により一定期間アクセスが無いとスクリプト保存データが削除される
+    //   そこで localStorage と Cookie の二重書き込み＆二重読み出しで冗長化し、
+    //   例外も握りつぶさず安全にフォールバックする。
+    // =============================================================
+    const Store = {
+      _cookieDays: 3650,  // Cookie有効期限（可能な限り長期）
+      setCookie(name, value) {
+        try {
+          const d = new Date();
+          d.setTime(d.getTime() + this._cookieDays * 24 * 60 * 60 * 1000);
+          const secure = location.protocol === 'https:' ? '; Secure' : '';
+          document.cookie = name + '=' + encodeURIComponent(value) +
+            '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax' + secure;
+        } catch (e) { /* Cookie無効環境は無視 */ }
+      },
+      getCookie(name) {
+        try {
+          const key = name + '=';
+          const parts = document.cookie ? document.cookie.split(';') : [];
+          for (let c of parts) {
+            c = c.trim();
+            if (c.indexOf(key) === 0) return decodeURIComponent(c.substring(key.length));
+          }
+        } catch (e) { /* 無視 */ }
+        return null;
+      },
+      set(name, value) {
+        // localStorage（例外を握って継続）＋ Cookie の両方へ
+        try { localStorage.setItem(name, value); } catch (e) { console.warn('localStorage.setItem失敗:', e); }
+        this.setCookie(name, value);
+      },
+      get(name) {
+        // localStorage優先、失敗/未保存ならCookieから復元し、両者を再同期
+        let v = null;
+        try { v = localStorage.getItem(name); } catch (e) { console.warn('localStorage.getItem失敗:', e); }
+        if (v == null) {
+          const cv = this.getCookie(name);
+          if (cv != null) {
+            v = cv;
+            try { localStorage.setItem(name, cv); } catch (e) { /* 無視 */ }
+          }
+        } else {
+          // localStorageにあってもCookieが消えていれば書き戻す（冗長性維持）
+          if (this.getCookie(name) == null) this.setCookie(name, v);
+        }
+        return v;
+      }
+    };
+
     // 画像アップロード項目の定義（穂先・根本・高さ・圃場全景の4点）
     const IMAGE_FIELDS = [
       { id: "imgEar",    key: "imgEar",    label: "穂先" },
@@ -334,8 +388,8 @@
     // ユーザー名・送信キーの管理
     // -------------------------------------------------------------
     function loadUserSettings() {
-      secretKey = localStorage.getItem(CONFIG.SECRET_KEY_STORAGE_NAME);
-      userName = localStorage.getItem(CONFIG.USER_NAME_STORAGE_NAME);
+      secretKey = Store.get(CONFIG.SECRET_KEY_STORAGE_NAME);
+      userName = Store.get(CONFIG.USER_NAME_STORAGE_NAME);
       updateUserLabel();
     }
     function updateUserLabel() {
@@ -363,8 +417,8 @@
       if (!keyValue) { alert("送信キーを入力してください。"); return; }
       userName = nameValue;
       secretKey = keyValue;
-      localStorage.setItem(CONFIG.USER_NAME_STORAGE_NAME, userName);
-      localStorage.setItem(CONFIG.SECRET_KEY_STORAGE_NAME, secretKey);
+      Store.set(CONFIG.USER_NAME_STORAGE_NAME, userName);
+      Store.set(CONFIG.SECRET_KEY_STORAGE_NAME, secretKey);
       updateUserLabel();
       els.secretKeyModal().style.display = 'none';
       if (pendingSubmitAfterKey) {
