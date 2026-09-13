@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Field Data Collector</title>
+  <title>YMD FIELD DATA COLLECTOR</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -46,7 +46,12 @@
 
     /* 地図は大きめに */
     #map { height: 380px; width: 100%; border: 1px solid #999999; border-radius: 4px; margin-bottom: 8px; }
-    .map-hint { font-size: 0.75rem; color: #666666; margin-bottom: 8px; }
+    .map-hint { font-size: 0.75rem; color: #666666; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+
+    /* SVGアイコン共通（シンプル・線画） */
+    .icon { width: 1em; height: 1em; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.125em; }
+    .btn-capture .icon, .link-btn .icon { width: 1.05em; height: 1.05em; }
+    .capture-filename .icon { width: 0.9em; height: 0.9em; stroke: #111111; margin-right: 2px; }
 
     /* 品種の凡例 */
     .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-bottom: 8px; }
@@ -111,8 +116,11 @@
 
   <div class="container">
     <div class="header">
-      <h1>Paddy Field Data Collector</h1>
-      <button type="button" class="link-btn" onclick="openSecretKeyModal(true)">🔑 設定変更</button>
+      <h1>YMD FIELD DATA COLLECTOR</h1>
+      <button type="button" class="link-btn" onclick="openSecretKeyModal(true)">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"></circle><line x1="10.85" y1="12.15" x2="19" y2="4"></line><line x1="18" y1="5" x2="20" y2="7"></line><line x1="15" y1="8" x2="17" y2="10"></line></svg>
+        設定変更
+      </button>
     </div>
 
     <!-- 現在のユーザー名を表示 -->
@@ -122,7 +130,7 @@
     <div class="card">
       <label>位置情報（GPS自動取得）</label>
       <div id="map"></div>
-      <div class="map-hint">📍 地図上のピンをタップすると、その圃場名が「圃場ID」に自動入力されます。</div>
+      <div class="map-hint"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"></path><circle cx="12" cy="11" r="2"></circle></svg><span>地図上のピンをタップすると、その圃場名が「圃場ID」に自動入力されます。</span></div>
       <div id="legend" class="legend"></div>
       <div class="coords-wrapper">
         <div>
@@ -152,7 +160,7 @@
       <div class="form-group">
         <label for="imgEar">1. 穂先</label>
         <div class="capture-row">
-          <label for="imgEar" class="btn-capture">📷 撮影</label>
+          <label for="imgEar" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
           <input type="file" id="imgEar" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgEar')">
           <span id="imgEar_name" class="capture-filename empty">未撮影</span>
         </div>
@@ -160,7 +168,7 @@
       <div class="form-group">
         <label for="imgRoot">2. 根本</label>
         <div class="capture-row">
-          <label for="imgRoot" class="btn-capture">📷 撮影</label>
+          <label for="imgRoot" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
           <input type="file" id="imgRoot" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgRoot')">
           <span id="imgRoot_name" class="capture-filename empty">未撮影</span>
         </div>
@@ -168,7 +176,7 @@
       <div class="form-group">
         <label for="imgHeight">3. 高さ</label>
         <div class="capture-row">
-          <label for="imgHeight" class="btn-capture">📷 撮影</label>
+          <label for="imgHeight" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
           <input type="file" id="imgHeight" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgHeight')">
           <span id="imgHeight_name" class="capture-filename empty">未撮影</span>
         </div>
@@ -176,7 +184,7 @@
       <div class="form-group">
         <label for="imgView">4. 圃場全景</label>
         <div class="capture-row">
-          <label for="imgView" class="btn-capture">📷 撮影</label>
+          <label for="imgView" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
           <input type="file" id="imgView" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgView')">
           <span id="imgView_name" class="capture-filename empty">未撮影</span>
         </div>
@@ -562,15 +570,21 @@
     // -------------------------------------------------------------
     // 撮影ボタンの状態表示
     // -------------------------------------------------------------
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
     function onCaptureChange(fieldId) {
       const input = document.getElementById(fieldId);
       const nameSpan = document.getElementById(fieldId + '_name');
       const file = input.files[0];
+      const checkSvg = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>';
       if (file) {
-        nameSpan.innerText = "✓ " + file.name;
+        nameSpan.innerHTML = checkSvg + escapeHtml(file.name);
         nameSpan.classList.remove('empty'); nameSpan.classList.add('done');
       } else {
-        nameSpan.innerText = "未撮影";
+        nameSpan.textContent = "未撮影";
         nameSpan.classList.add('empty'); nameSpan.classList.remove('done');
       }
     }
