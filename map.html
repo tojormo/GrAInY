@@ -108,6 +108,49 @@
   .status-msg { margin-top: 12px; font-size: 0.85rem; text-align: center; font-weight: 600; min-height: 18px; }
   .status-msg.success { color: var(--ink); }
   .status-msg.error { color: var(--danger); }
+
+  /* ホバー用ツールチップ */
+  .leaflet-tooltip.field-tip {
+    background: rgba(17,17,17,0.92); color: #fff; border: none; border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25); padding: 8px 11px; font-size: 0.72rem; line-height: 1.5;
+  }
+  .leaflet-tooltip.field-tip::before { border-top-color: rgba(17,17,17,0.92); }
+  .field-tip .t-name { font-weight: 700; font-size: 0.8rem; display: block; margin-bottom: 3px; }
+  .field-tip .t-row { color: #d7dade; }
+  .field-tip .t-row b { color: #fff; font-weight: 600; }
+
+  /* 選択件数フローティングバー（下部中央） */
+  .selbar {
+    position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(120%);
+    z-index: 1100; display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    padding: 10px 12px 10px 16px; border-radius: 40px; box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+    transition: transform 0.25s ease; max-width: calc(100% - 24px);
+  }
+  .selbar.show { transform: translateX(-50%) translateY(0); }
+  .selbar .sel-count { font-size: 0.85rem; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .selbar .sel-count span { color: var(--accent); }
+  .selbar .btn-clear {
+    background: var(--subtle); border: none; color: #4a4f57; font-size: 0.75rem; font-weight: 600;
+    padding: 8px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap;
+  }
+  .selbar .btn-send {
+    background: var(--accent); border: none; color: #fff; font-size: 0.82rem; font-weight: 700;
+    padding: 10px 18px; border-radius: 20px; cursor: pointer; white-space: nowrap;
+  }
+  .selbar .btn-send:active, .selbar .btn-clear:active { opacity: 0.75; }
+
+  /* 選択リスト（モーダル内） */
+  .sel-list { max-height: 34vh; overflow-y: auto; margin-bottom: 4px; }
+  .sel-list-item {
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    background: var(--subtle); border-radius: 10px; padding: 9px 12px; margin-bottom: 7px;
+  }
+  .sel-list-item .sli-main { font-size: 0.82rem; font-weight: 700; color: var(--ink); }
+  .sel-list-item .sli-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .sel-list-item .sli-del {
+    background: transparent; border: none; color: var(--danger); font-size: 18px; cursor: pointer; line-height: 1; flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -126,16 +169,23 @@
 
 <div id="legend" class="legend"></div>
 
-<!-- 圃場選択モーダル -->
+<!-- 選択件数フローティングバー -->
+<div id="selbar" class="selbar">
+  <span class="sel-count"><span id="selCount">0</span> 圃場を選択中</span>
+  <button type="button" class="btn-clear" onclick="clearSelection()">解除</button>
+  <button type="button" class="btn-send" onclick="openPanel()">送信する</button>
+</div>
+
+<!-- 送信モーダル（複数選択） -->
 <div id="panel" class="modal-overlay">
   <div class="modal-card">
     <div class="modal-head">
-      <h2 class="modal-title" id="panelTitle">圃場情報</h2>
+      <h2 class="modal-title" id="panelTitle">選択した圃場</h2>
       <button class="modal-close" onclick="closePanel()">&times;</button>
     </div>
-    <div class="detail-box" id="details"></div>
+    <div class="sel-list" id="selList"></div>
 
-    <label class="lbl">記録メモ（任意）</label>
+    <label class="lbl">記録メモ（全件共通・任意）</label>
     <textarea id="memo" rows="2" placeholder="作業内容や気づいたことを入力"></textarea>
 
     <label class="lbl">パスワード</label>
@@ -190,8 +240,28 @@ Object.entries(CAT_COLORS).forEach(([k,v]) => {
 });
 
 /* ===== 圃場データの読み込み（KSAS_field.json を参照） ===== */
-let selected = null;
-const markers = [];
+const markers = [];               // 全マーカー
+const markerByNo = new Map();     // No -> marker
+const selectedMap = new Map();    // No -> field（選択中のもの）
+
+// マーカーの見た目を選択状態に応じて更新
+function styleMarker(m){
+  if (selectedMap.has(m.fieldData["No"])){
+    m.setStyle({ weight: 4, radius: 11, color: "#111111", fillOpacity: 1 });
+  } else {
+    m.setStyle({ weight: 2, radius: 8, color: "#ffffff", fillOpacity: 0.9 });
+  }
+}
+
+// ホバー用ツールチップの中身
+function tooltipHtml(f){
+  return '<span class="t-name">'+(f["圃場名"] || "-")+'</span>' +
+    '<div class="t-row"><b>ブロック:</b> '+(f["圃場ブロック"] || "-")+'</div>' +
+    '<div class="t-row"><b>カテゴリ:</b> '+(f["圃場カテゴリ"] || "-")+'</div>' +
+    '<div class="t-row"><b>担当者:</b> '+(f["担当者"] || "-")+'</div>' +
+    '<div class="t-row"><b>品種:</b> '+(f["作付計画_品種"] || "-")+'</div>' +
+    '<div class="t-row"><b>作付年:</b> '+(f["作付年"] ?? "-")+'</div>';
+}
 
 // index.html と同じフォルダに置いた KSAS_field.json を読み込む
 fetch('KSAS_field.json', { cache: 'no-store' })
@@ -208,14 +278,20 @@ fetch('KSAS_field.json', { cache: 'no-store' })
         radius: 8, color: "#ffffff", weight: 2,
         fillColor: colorFor(f["圃場カテゴリ"]), fillOpacity: 0.9
       }).addTo(map);
-      m.on('click', () => selectField(f, m));
       m.fieldData = f;
+
+      // ホバーでツールチップ表示（ブロック/カテゴリ/圃場名/担当者/品種/作付年）
+      m.bindTooltip(tooltipHtml(f), { className: 'field-tip', direction: 'top', offset: [0, -6], sticky: true });
+
+      // タップで選択トグル
+      m.on('click', () => toggleField(m));
+
       markers.push(m);
+      markerByNo.set(f["No"], m);
     });
 
     document.getElementById('fieldCount').textContent = fields.length;
 
-    // 全ピンが見える範囲に自動フィット
     if (fields.length) {
       const bounds = L.latLngBounds(fields.map(f => [f.latitude, f.longitude]));
       map.fitBounds(bounds.pad(0.15));
@@ -227,74 +303,103 @@ fetch('KSAS_field.json', { cache: 'no-store' })
     alert('圃場データ（KSAS_field.json）を読み込めませんでした。\nindex.html と同じフォルダに KSAS_field.json を配置してください。\n\n詳細: ' + err.message);
   });
 
-/* ===== 圃場選択 ===== */
-function selectField(f, marker){
-  selected = f;
-  markers.forEach(mk => mk.setStyle({ weight: 2, radius: 8 }));
-  marker.setStyle({ weight: 3, radius: 11 });
+/* ===== 選択トグル ===== */
+function toggleField(m){
+  const no = m.fieldData["No"];
+  if (selectedMap.has(no)) selectedMap.delete(no);
+  else selectedMap.set(no, m.fieldData);
+  styleMarker(m);
+  updateSelbar();
+}
 
-  document.getElementById('panelTitle').textContent = "圃場: " + (f["圃場名"] || "-");
-  const rows = [
-    ["No", f["No"], false],
-    ["ブロック", f["圃場ブロック"], false],
-    ["カテゴリ", f["圃場カテゴリ"], false],
-    ["圃場名", f["圃場名"], false],
-    ["住所", f["住所"] || "-", false],
-    ["面積(a)", f["面積_a"], false],
-    ["品種", f["作付計画_品種"], false],
-    ["作付年", f["作付年"], false],
-    ["担当者", f["担当者"] || "-", false],
-    ["所有区分", f["所有区分"], false],
-    ["座標", (f["latitude"].toFixed(6)+", "+f["longitude"].toFixed(6)), true]
-  ];
-  document.getElementById('details').innerHTML =
-    rows.map(r => '<div class="row"><div class="k">'+r[0]+'</div><div class="v'+(r[2]?' mono':'')+'">'+(r[1] ?? "-")+'</div></div>').join('');
+// 選択解除（個別）
+function deselectByNo(no){
+  selectedMap.delete(no);
+  const m = markerByNo.get(no);
+  if (m) styleMarker(m);
+  updateSelbar();
+  renderSelList();
+  if (selectedMap.size === 0) closePanel();
+}
 
+// 全解除
+function clearSelection(){
+  selectedMap.forEach((f, no) => { const m = markerByNo.get(no); if (m) { selectedMap.delete(no); styleMarker(m); } });
+  selectedMap.clear();
+  markers.forEach(styleMarker);
+  updateSelbar();
+  closePanel();
+}
+
+// 下部バーの更新
+function updateSelbar(){
+  const n = selectedMap.size;
+  document.getElementById('selCount').textContent = n;
+  document.getElementById('selbar').classList.toggle('show', n > 0);
+}
+
+/* ===== モーダル ===== */
+function renderSelList(){
+  const list = document.getElementById('selList');
+  const items = [...selectedMap.values()];
+  if (!items.length){ list.innerHTML = '<div style="font-size:0.8rem;color:var(--muted);padding:8px 2px;">選択されている圃場がありません。</div>'; return; }
+  list.innerHTML = items.map(f =>
+    '<div class="sel-list-item">' +
+      '<div>' +
+        '<div class="sli-main">'+(f["圃場名"] || "-")+'</div>' +
+        '<div class="sli-sub">'+(f["圃場カテゴリ"] || "-")+' / '+(f["作付計画_品種"] || "-")+' / '+(f["担当者"] || "-")+'</div>' +
+      '</div>' +
+      '<button class="sli-del" title="除外" onclick="deselectByNo('+JSON.stringify(f["No"])+')">&times;</button>' +
+    '</div>'
+  ).join('');
+}
+
+function openPanel(){
+  if (selectedMap.size === 0) return;
+  document.getElementById('panelTitle').textContent = "選択した圃場（" + selectedMap.size + "件）";
+  renderSelList();
   const st = document.getElementById('status'); st.className='status-msg'; st.textContent="";
-  document.getElementById('memo').value = "";
-  document.getElementById('pass').value = "";
   document.getElementById('panel').classList.add('open');
 }
 
 function closePanel(){
   document.getElementById('panel').classList.remove('open');
-  markers.forEach(mk => mk.setStyle({ weight: 2, radius: 8 }));
-  selected = null;
 }
 // 背景タップで閉じる
 document.getElementById('panel').addEventListener('click', function(e){
   if (e.target === this) closePanel();
 });
 
-/* ===== 送信 ===== */
+/* ===== 送信（複数件をまとめて送る） ===== */
 async function sendData(){
   const pass = document.getElementById('pass').value.trim();
   const statusEl = document.getElementById('status');
   const btn = document.getElementById('sendBtn');
 
-  if (!selected){ statusEl.className='status-msg error'; statusEl.textContent='圃場が選択されていません'; return; }
+  if (selectedMap.size === 0){ statusEl.className='status-msg error'; statusEl.textContent='圃場が選択されていません'; return; }
   if (!pass){ statusEl.className='status-msg error'; statusEl.textContent='パスワードを入力してください'; return; }
 
-  const payload = {
-    password: pass,
-    memo: document.getElementById('memo').value.trim(),
-    No: selected["No"],
-    ブロック: selected["圃場ブロック"],
-    カテゴリ: selected["圃場カテゴリ"],
-    圃場名: selected["圃場名"],
-    住所: selected["住所"],
-    面積_a: selected["面積_a"],
-    品種: selected["作付計画_品種"],
-    作付年: selected["作付年"],
-    担当者: selected["担当者"],
-    所有区分: selected["所有区分"],
-    latitude: selected["latitude"],
-    longitude: selected["longitude"]
-  };
+  const memo = document.getElementById('memo').value.trim();
+  const records = [...selectedMap.values()].map(f => ({
+    No: f["No"],
+    ブロック: f["圃場ブロック"],
+    カテゴリ: f["圃場カテゴリ"],
+    圃場名: f["圃場名"],
+    住所: f["住所"],
+    面積_a: f["面積_a"],
+    品種: f["作付計画_品種"],
+    作付年: f["作付年"],
+    担当者: f["担当者"],
+    所有区分: f["所有区分"],
+    latitude: f["latitude"],
+    longitude: f["longitude"]
+  }));
+
+  const payload = { password: pass, memo: memo, records: records };
 
   btn.disabled = true;
   statusEl.className = 'status-msg';
-  statusEl.textContent = '送信中...';
+  statusEl.textContent = records.length + '件を送信中...';
 
   try {
     const res = await fetch(GAS_URL, {
@@ -305,8 +410,10 @@ async function sendData(){
     const data = await res.json();
     if (data.result === 'success'){
       statusEl.className = 'status-msg success';
-      statusEl.textContent = 'OK 記録しました';
+      statusEl.textContent = 'OK ' + (data.count ?? records.length) + '件を記録しました';
       document.getElementById('pass').value = '';
+      // 送信済みは選択解除
+      setTimeout(() => { clearSelection(); }, 900);
     } else {
       statusEl.className = 'status-msg error';
       statusEl.textContent = (data.message || '記録に失敗しました');
