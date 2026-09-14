@@ -221,23 +221,38 @@ L.control.layers({ "衛星写真": sat, "標準地図": osm }, null, { position:
 window.addEventListener('load', () => setTimeout(() => map.invalidateSize(), 200));
 window.addEventListener('resize', () => map.invalidateSize());
 
-/* ===== カテゴリ別の色分け ===== */
-const CAT_COLORS = {
-  "村米田": "#e6194B",
-  "共生会田": "#f58231",
-  "うるち米": "#4363d8",
-  "野菜": "#3cb44b"
+/* ===== 品種別の色分け ===== */
+// よく使う品種は固定色。未定義の品種はパレットから順番に自動割り当て。
+const VARIETY_COLORS = {
+  "山田錦": "#e6194B",
+  "山田錦(共生会)": "#f58231",
+  "ヒノヒカリ": "#4363d8",
+  "黒大豆": "#3cb44b"
 };
-function colorFor(cat){ return CAT_COLORS[cat] || "#8a8f98"; }
+const PALETTE = ["#911eb4","#42d4f4","#f032e6","#bfef45","#469990","#9A6324","#800000","#808000","#000075"];
+let paletteIdx = 0;
+const usedVarieties = new Map(); // 凡例生成用（表示順を保持）
 
-/* ===== 凡例 ===== */
+function colorFor(variety){
+  const key = (variety == null || variety === "") ? "未設定" : variety;
+  if (!(key in VARIETY_COLORS)){
+    VARIETY_COLORS[key] = PALETTE[paletteIdx % PALETTE.length] || "#8a8f98";
+    paletteIdx++;
+  }
+  usedVarieties.set(key, VARIETY_COLORS[key]);
+  return VARIETY_COLORS[key];
+}
+
 const legend = document.getElementById('legend');
-Object.entries(CAT_COLORS).forEach(([k,v]) => {
-  const item = document.createElement('div');
-  item.className = 'legend-item';
-  item.innerHTML = '<span class="legend-dot" style="background:'+v+'"></span>'+k;
-  legend.appendChild(item);
-});
+function buildLegend(){
+  legend.innerHTML = "";
+  usedVarieties.forEach((color, name) => {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = '<span class="legend-dot" style="background:'+color+'"></span>'+name;
+    legend.appendChild(item);
+  });
+}
 
 /* ===== 圃場データの読み込み（KSAS_field.json を参照） ===== */
 const markers = [];               // 全マーカー
@@ -247,9 +262,9 @@ const selectedMap = new Map();    // No -> field（選択中のもの）
 // マーカーの見た目を選択状態に応じて更新
 function styleMarker(m){
   if (selectedMap.has(m.fieldData["No"])){
-    m.setStyle({ weight: 4, radius: 11, color: "#111111", fillOpacity: 1 });
+    m.setStyle({ weight: 4, radius: 11, color: "#111111", fillColor: colorFor(m.fieldData["作付計画_品種"]), fillOpacity: 1 });
   } else {
-    m.setStyle({ weight: 2, radius: 8, color: "#ffffff", fillOpacity: 0.9 });
+    m.setStyle({ weight: 2, radius: 8, color: "#ffffff", fillColor: colorFor(m.fieldData["作付計画_品種"]), fillOpacity: 0.9 });
   }
 }
 
@@ -276,7 +291,7 @@ fetch('KSAS_field.json', { cache: 'no-store' })
     fields.forEach(f => {
       const m = L.circleMarker([f.latitude, f.longitude], {
         radius: 8, color: "#ffffff", weight: 2,
-        fillColor: colorFor(f["圃場カテゴリ"]), fillOpacity: 0.9
+        fillColor: colorFor(f["作付計画_品種"]), fillOpacity: 0.9
       }).addTo(map);
       m.fieldData = f;
 
@@ -291,6 +306,9 @@ fetch('KSAS_field.json', { cache: 'no-store' })
     });
 
     document.getElementById('fieldCount').textContent = fields.length;
+
+    // 品種別の凡例を生成（データに存在する品種のみ）
+    buildLegend();
 
     if (fields.length) {
       const bounds = L.latLngBounds(fields.map(f => [f.latitude, f.longitude]));
