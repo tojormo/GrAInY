@@ -48,6 +48,10 @@
   }
   .link-btn:active { opacity: 0.6; }
 
+  /* Leafletコントロールをフローティングヘッダーの下へ */
+  .leaflet-top { top: 56px; }
+  .leaflet-control-attribution { font-size: 10px; }
+
   /* 品種の凡例：地図左下に重ねるフローティングカード */
   .legend {
     position: fixed; left: 12px; bottom: 18px; z-index: 1000;
@@ -143,7 +147,6 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="fields_data.js"></script>
 <script>
 /* ===== 設定 ===== */
 // ↓ GASをデプロイして取得した「ウェブアプリURL」に置き換えてください
@@ -164,6 +167,10 @@ const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 
 L.control.layers({ "衛星写真": sat, "標準地図": osm }, null, { position: 'topright' }).addTo(map);
 
+// 全画面表示時のサイズ再計算（描画ずれ防止）
+window.addEventListener('load', () => setTimeout(() => map.invalidateSize(), 200));
+window.addEventListener('resize', () => map.invalidateSize());
+
 /* ===== カテゴリ別の色分け ===== */
 const CAT_COLORS = {
   "村米田": "#e6194B",
@@ -173,22 +180,6 @@ const CAT_COLORS = {
 };
 function colorFor(cat){ return CAT_COLORS[cat] || "#8a8f98"; }
 
-/* ===== ピン配置 ===== */
-let selected = null;
-const markers = [];
-
-FIELDS.forEach(f => {
-  const m = L.circleMarker([f.latitude, f.longitude], {
-    radius: 8, color: "#ffffff", weight: 2,
-    fillColor: colorFor(f["圃場カテゴリ"]), fillOpacity: 0.9
-  }).addTo(map);
-  m.on('click', () => selectField(f, m));
-  m.fieldData = f;
-  markers.push(m);
-});
-
-document.getElementById('fieldCount').textContent = FIELDS.length;
-
 /* ===== 凡例 ===== */
 const legend = document.getElementById('legend');
 Object.entries(CAT_COLORS).forEach(([k,v]) => {
@@ -197,6 +188,44 @@ Object.entries(CAT_COLORS).forEach(([k,v]) => {
   item.innerHTML = '<span class="legend-dot" style="background:'+v+'"></span>'+k;
   legend.appendChild(item);
 });
+
+/* ===== 圃場データの読み込み（KSAS_field.json を参照） ===== */
+let selected = null;
+const markers = [];
+
+// index.html と同じフォルダに置いた KSAS_field.json を読み込む
+fetch('KSAS_field.json', { cache: 'no-store' })
+  .then(res => {
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  })
+  .then(data => {
+    // 緯度経度があるものだけをピン表示
+    const fields = data.filter(f => f.latitude != null && f.longitude != null);
+
+    fields.forEach(f => {
+      const m = L.circleMarker([f.latitude, f.longitude], {
+        radius: 8, color: "#ffffff", weight: 2,
+        fillColor: colorFor(f["圃場カテゴリ"]), fillOpacity: 0.9
+      }).addTo(map);
+      m.on('click', () => selectField(f, m));
+      m.fieldData = f;
+      markers.push(m);
+    });
+
+    document.getElementById('fieldCount').textContent = fields.length;
+
+    // 全ピンが見える範囲に自動フィット
+    if (fields.length) {
+      const bounds = L.latLngBounds(fields.map(f => [f.latitude, f.longitude]));
+      map.fitBounds(bounds.pad(0.15));
+    }
+  })
+  .catch(err => {
+    console.error('KSAS_field.json の読み込みに失敗しました:', err);
+    document.getElementById('fieldCount').textContent = '読込エラー';
+    alert('圃場データ（KSAS_field.json）を読み込めませんでした。\nindex.html と同じフォルダに KSAS_field.json を配置してください。\n\n詳細: ' + err.message);
+  });
 
 /* ===== 圃場選択 ===== */
 function selectField(f, marker){
