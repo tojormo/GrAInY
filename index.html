@@ -70,7 +70,7 @@
 
     /* 地図：枠線なし・角丸のみ */
     /* 地図は縦を大きめに。画面高に追従（小型端末でも破綻しない範囲でmax） */
-    #map { height: clamp(460px, 82vh, 1100px); width: 100%; border-radius: 0; margin-bottom: 8px; }
+    #map { height: clamp(414px, 74vh, 990px); width: 100%; border-radius: 0; margin-bottom: 8px; }
     /* 地図カードは余白を最小化して地図を最大化 */
     .map-card { padding: 8px; margin-bottom: 10px; }
     .map-card .legend { margin-bottom: 8px; }
@@ -602,9 +602,12 @@
           const name = f['圃場名'] || '';
           // 担当者（データのカラム名ゆらぎに対応してフォールバック）
           const person = f['作付計画_担当者'] || f['担当者'] || f['作業者'] || f['作付計画_作業者'] || '';
-          // タップ時のポップアップは「圃場名・品種・担当者」だけを表示する
+          // タップ時のポップアップは「圃場名・品種・担当者」＋「決定」ボタンを表示する
+          const nameEsc = String(name).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
           cm.bindPopup(
-            `<b>${name}</b><br>品種: ${variety || '未設定'}<br>担当者: ${person || '未設定'}`,
+            `<b>${name}</b><br>品種: ${variety || '未設定'}<br>担当者: ${person || '未設定'}` +
+            `<br><button type="button" onclick="confirmField('${nameEsc}')" ` +
+            `style="margin-top:8px;padding:8px 14px;border:none;border-radius:0;background:#111;color:#fff;font-weight:600;cursor:pointer;">決定</button>`,
             { autoPan: false, closeButton: true }
           );
           // ピンのタップで圃場IDに自動入力（座標は端末GPS優先のため変更しない）
@@ -632,6 +635,17 @@
       els.fieldId().value = name;
       // キーボード起動・画面拡大を防ぐため focus() は行わない（読み取り専用入力）
       // 端末GPSの座標を優先するため、選択座標は上書きしない
+    }
+
+    // ポップアップの「決定」ボタン：圃場を確定し、「次へ」ボタンまでスクロールダウン
+    function confirmField(name) {
+      selectField(name);
+      if (map) map.closePopup();   // ポップアップを閉じてから移動
+      const nextBtn = document.getElementById('toStep2Btn');
+      if (nextBtn) {
+        // 「次へ」ボタンが画面に見えるところまでスクロール
+        nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
 
     // -------------------------------------------------------------
