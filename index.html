@@ -16,7 +16,7 @@
       --subtle: #f0f1f4;
       --accent: #111111;
       --danger: #c0392b;
-      --radius: 14px;
+      --radius: 0px;   /* UI全体を四角（角丸なし）に */
       --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.05);
     }
     * { box-sizing: border-box; }
@@ -43,7 +43,7 @@
 
     /* 入力：枠線なし・淡い塗りで表現 */
     input[type="text"], input[type="password"] {
-      width: 100%; padding: 12px 14px; font-size: 1rem; border: none; border-radius: 10px;
+      width: 100%; padding: 12px 14px; font-size: 1rem; border: none; border-radius: 0;
       background: var(--subtle); color: var(--ink); transition: box-shadow 0.15s ease, background 0.15s ease;
     }
     input[type="text"]::placeholder, input[type="password"]::placeholder { color: var(--muted); }
@@ -60,7 +60,7 @@
     }
     .btn-capture {
       display: inline-flex; align-items: center; gap: 7px; padding: 11px 18px; background: var(--accent); color: #ffffff;
-      border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      border-radius: 0; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0;
       transition: opacity 0.15s ease;
     }
     .btn-capture:active { opacity: 0.7; }
@@ -69,8 +69,8 @@
     .capture-filename.done { color: var(--ink); font-weight: 600; }
 
     /* 地図：枠線なし・角丸のみ */
-    /* 地図の高さは画面サイズに自動追従（iPhone SE等の小型端末でも見やすい） */
-    #map { height: clamp(200px, 38vh, 360px); width: 100%; border-radius: 12px; margin-bottom: 10px; }
+    /* 地図は縦を大きめに。画面高に追従（小型端末でも破綻しない範囲でmax） */
+    #map { height: clamp(320px, 58vh, 620px); width: 100%; border-radius: 0; margin-bottom: 10px; }
     .map-hint { font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 
     /* SVGアイコン共通 */
@@ -86,21 +86,21 @@
     /* 座標表示：淡い塗りのみ */
     .coords-wrapper {
       display: flex; justify-content: space-between; align-items: center; background: var(--subtle);
-      padding: 10px 12px; border-radius: 10px; font-size: 0.85rem;
+      padding: 10px 12px; border-radius: 0; font-size: 0.85rem;
     }
     .coords-val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; color: var(--ink); }
     .coords-val.warn { color: var(--danger); }
     .coords-source { font-size: 0.7rem; color: var(--muted); margin-top: 6px; }
     .btn-gps {
       background: var(--surface); border: none; color: var(--ink); padding: 6px 12px; font-size: 0.75rem;
-      font-weight: 600; border-radius: 8px; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      font-weight: 600; border-radius: 0; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.12);
       transition: opacity 0.15s ease;
     }
     .btn-gps:active { opacity: 0.6; }
 
     /* 送信ボタン */
     .btn-submit {
-      width: 100%; padding: 15px; background-color: var(--accent); color: #ffffff; border: none; border-radius: 12px;
+      width: 100%; padding: 15px; background-color: var(--accent); color: #ffffff; border: none; border-radius: 0;
       font-size: 0.95rem; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; box-shadow: var(--shadow);
       transition: opacity 0.15s ease;
     }
@@ -113,14 +113,12 @@
     /* ヘッダー右上の設定ボタン：下線を廃しチップ風に */
     .link-btn {
       display: inline-flex; align-items: center; gap: 5px; background: var(--surface); border: none; color: #4a4f57;
-      font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 7px 12px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 7px 12px; border-radius: 0;
       box-shadow: 0 1px 2px rgba(0,0,0,0.08); transition: opacity 0.15s ease;
     }
     .link-btn:active { opacity: 0.6; }
 
     /* 現在のユーザー名表示 */
-    .user-badge { font-size: 0.85rem; color: var(--muted); margin: 0 0 16px; padding: 10px 12px; background: var(--surface); border-radius: 10px; box-shadow: var(--shadow); }
-    .user-badge strong { color: var(--ink); font-weight: 600; }
 
     /* モーダル：枠線なし・影で浮遊感 */
     .modal-overlay {
@@ -128,39 +126,42 @@
       z-index: 9999; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(2px);
     }
     .modal-card {
-      background: var(--surface); border: none; border-radius: 18px; max-width: 400px; width: 100%; padding: 24px;
+      background: var(--surface); border: none; border-radius: 0; max-width: 400px; width: 100%; padding: 24px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.25); max-height: 85vh; overflow-y: auto;
     }
     .modal-title { font-size: 1.05rem; font-weight: 700; margin-top: 0; margin-bottom: 14px; color: var(--ink); }
     .modal-body { font-size: 0.85rem; line-height: 1.55; color: #4a4f57; margin-bottom: 18px; }
     .modal-body ol { padding-left: 20px; margin: 8px 0; }
-    .os-block { background: var(--subtle); border-radius: 10px; padding: 10px 12px; margin-top: 10px; }
+    .os-block { background: var(--subtle); border-radius: 0; padding: 10px 12px; margin-top: 10px; }
     .os-block.current { background: #e9eaee; box-shadow: inset 0 0 0 1.5px var(--accent); }
     .os-block strong { display: block; margin-bottom: 4px; color: var(--ink); }
-    .os-badge { display: inline-block; font-size: 0.7rem; font-weight: 600; background: var(--accent); color: #fff; border-radius: 20px; padding: 2px 8px; margin-left: 6px; vertical-align: middle; }
+    .os-badge { display: inline-block; font-size: 0.7rem; font-weight: 600; background: var(--accent); color: #fff; border-radius: 0; padding: 2px 8px; margin-left: 6px; vertical-align: middle; }
     .modal-actions { display: flex; gap: 10px; }
-    .modal-btn { flex: 1; padding: 12px; background: var(--accent); color: #ffffff; border: none; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s ease; }
+    .modal-btn { flex: 1; padding: 12px; background: var(--accent); color: #ffffff; border: none; border-radius: 0; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s ease; }
     .modal-btn:active { opacity: 0.8; }
     .modal-btn.secondary { background: var(--subtle); color: var(--ink); }
 
     .show-key-row { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 0.8rem; color: #4a4f57; }
     .show-key-row input { width: auto; }
 
-    /* ===== 2ステップ・画面遷移（ステップ表示なし） ===== */
+    /* ===== 2ステップ画面遷移（ステップ表示なし） ===== */
     .step-screen { display: none; }
     .step-screen.active { display: block; animation: stepFadeIn 0.25s ease; }
     @keyframes stepFadeIn { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
-    .btn-next { width: 100%; padding: 15px; background-color: var(--accent); color: #fff; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; box-shadow: var(--shadow); transition: opacity 0.15s ease; }
+    .btn-next { width: 100%; padding: 15px; background-color: var(--accent); color: #fff; border: none; border-radius: 0; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; box-shadow: var(--shadow); transition: opacity 0.15s ease; }
     .btn-next:active { opacity: 0.8; }
     .step-nav { display: flex; gap: 10px; align-items: stretch; }
     .step-nav .btn-submit { flex: 1; width: auto; }
-    .btn-back { padding: 15px 18px; background: var(--subtle); color: var(--ink); border: none; border-radius: 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s ease; flex-shrink: 0; }
+    .btn-back { padding: 15px 18px; background: var(--subtle); color: var(--ink); border: none; border-radius: 0; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s ease; flex-shrink: 0; }
     .btn-back:active { opacity: 0.6; }
-    .selected-summary { background: var(--subtle); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; font-size: 0.85rem; }
+    .selected-summary { background: var(--subtle); border-radius: 0; padding: 12px 14px; margin-bottom: 16px; font-size: 0.85rem; }
     .selected-summary .row { display: flex; justify-content: space-between; gap: 10px; }
     .selected-summary .row + .row { margin-top: 6px; }
     .selected-summary .label { color: var(--muted); flex-shrink: 0; }
     .selected-summary .val { font-weight: 600; color: var(--ink); text-align: right; word-break: break-all; }
+    /* 欄外（カード外）のGPS説明 */
+    .field-note { font-size: 0.75rem; color: var(--muted); line-height: 1.5; margin: -6px 2px 16px; display: flex; align-items: flex-start; gap: 6px; }
+    .field-note .icon { margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -174,16 +175,11 @@
       </button>
     </div>
 
-    <!-- 現在のユーザー名を表示 -->
-    <div class="user-badge">記録者: <strong id="currentUserLabel">未設定</strong></div>
-
     <!-- ============ Step 1: 圃場選択・GPS取得 ============ -->
     <div id="step1" class="step-screen active">
-      <!-- 地図・位置情報設定 -->
+      <!-- 地図・位置情報（GPSで自動取得） -->
       <div class="card">
-        <label>位置情報（GPSで自動取得）</label>
         <div id="map"></div>
-        <div class="map-hint"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"></path><circle cx="12" cy="11" r="2"></circle></svg><span>位置情報はGPSで自動取得します。地図上の圃場ピンをタップすると「圃場ID」が自動入力されます。</span></div>
         <div id="legend" class="legend"></div>
         <div class="coords-wrapper">
           <div>
@@ -192,7 +188,11 @@
           </div>
           <button type="button" class="btn-gps" onclick="getCurrentLocation()">現在地取得</button>
         </div>
-        <div id="coordsSource" class="coords-source"></div>
+      </div>
+      <!-- GPS説明（欄外＝カード外に配置） -->
+      <div class="field-note">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"></path><circle cx="12" cy="11" r="2"></circle></svg>
+        <span>位置情報はGPSで自動取得されます。地図上の圃場ピンをタップすると「圃場ID」が自動入力されます。</span>
       </div>
 
       <!-- 圃場ID入力 -->
@@ -215,9 +215,8 @@
 
       <!--
         画像選択エリア（圃場全体(高視点)／圃場全体(低視点)／稲株全体／株元／地面の5点）
-        ※ accept="image/*;capture=camera"（非標準の埋め込み記法）と
-          capture="environment"（標準属性）を併用することで、
-          Android・iOSの両方でタップ時にカメラアプリが直接起動するようにしています。
+        ※ accept="image/*;capture=camera" と capture="environment" の併用で
+          Android・iOSの両方でタップ時にカメラを直接起動します。
       -->
       <div class="card">
         <div class="form-group">
@@ -264,7 +263,7 @@
 
       <div class="step-nav">
         <button type="button" class="btn-back" onclick="goToStep1()">&larr; 戻る</button>
-        <button id="sendBtn" class="btn-submit" onclick="sendData()">Commit</button>
+        <button id="sendBtn" class="btn-submit" onclick="sendData()">送信</button>
       </div>
       <div id="status" class="status-msg"></div>
     </div>
@@ -414,7 +413,6 @@
     const els = {
       lat: () => document.getElementById('lat'),
       lng: () => document.getElementById('lng'),
-      coordsSource: () => document.getElementById('coordsSource'),
       status: () => document.getElementById('status'),
       sendBtn: () => document.getElementById('sendBtn'),
       fieldId: () => document.getElementById('fieldId'),
@@ -433,7 +431,7 @@
 
     let map, marker;
     let deviceLat = null, deviceLng = null;   // ★ 端末GPSで取得した座標（spreadsheet書き込みで最優先）
-    // 位置情報はGPS専用のため、地図選択フォールバック(selectedLat/Lng)は廃止しました。
+    // 位置情報はGPS専用のため、地図選択フォールバック(selectedLat/Lng)は廃止。
     let geoPermissionStatus = null;
     let secretKey = null;
     let userName = null;
@@ -468,7 +466,7 @@
       updateUserLabel();
     }
     function updateUserLabel() {
-      els.currentUserLabel().innerText = userName ? userName : "未設定";
+      const _lbl = els.currentUserLabel(); if (_lbl) _lbl.innerText = userName ? userName : "未設定";
     }
     function openSecretKeyModal(isEdit) {
       els.userNameInput().value = isEdit && userName ? userName : "";
@@ -537,10 +535,10 @@
         { position: 'topright' }
       ).addTo(map);
 
-      // 現在地マーカー（GPS取得位置の表示のみ・ドラッグ/タップでの調整は不可）
+      // 現在地マーカー（GPS取得位置の表示のみ・ドラッグ/タップ調整は不可）
       marker = L.marker([CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LNG], { draggable: false }).addTo(map);
       marker.bindTooltip("現在地（GPS）", { direction: 'top' });
-      // ※ 位置情報はGPS専用のため、地図クリック/マーカードラッグでの座標調整は行いません。
+      // ※ 位置情報はGPS専用のため、地図クリック/ドラッグでの座標調整は行いません。
 
       loadFieldPins();            // ★ 圃場データを読み込んでピン表示
       checkGeoPermissionAndLocate();
@@ -598,7 +596,7 @@
           cm.bindPopup(
             `<b>${name}</b><br>品種: ${variety || '未設定'}<br>ブロック: ${block}` +
             `<br><button onclick="selectField('${String(name).replace(/'/g, "\\'")}')" ` +
-            `style="margin-top:6px;padding:7px 12px;border:none;border-radius:8px;background:#111;color:#fff;font-weight:600;cursor:pointer;">この圃場を選択</button>`
+            `style="margin-top:6px;padding:7px 12px;border:none;border-radius: 0;background:#111;color:#fff;font-weight:600;cursor:pointer;">この圃場を選択</button>`
           );
           // ピンのタップで圃場IDに自動入力（座標は端末GPS優先のため変更しない）
           cm.on('click', () => selectField(name));
@@ -653,7 +651,6 @@
       els.lng().innerText = "許可されていません";
       els.lat().classList.add('warn');
       els.lng().classList.add('warn');
-      els.coordsSource().innerText = "";
     }
     function clearCoordsWarning() {
       els.lat().classList.remove('warn');
@@ -680,8 +677,7 @@
           marker.setLatLng([lat, lng]);
           els.lat().innerText = deviceLat;
           els.lng().innerText = deviceLng;
-          els.coordsSource().innerText = "座標ソース: 端末GPS（送信時に優先）";
-          clearCoordsWarning();
+              clearCoordsWarning();
           closeGpsModal();
         },
         (err) => {
@@ -768,13 +764,9 @@
     function getSelectedFiles() {
       return IMAGE_FIELDS.map(f => ({ ...f, file: document.getElementById(f.id).files[0] }));
     }
-    // ★ spreadsheetへ書き込む座標：GPS専用（地図選択は廃止）
+    // ★ spreadsheetへ書き込む座標：GPS専用
     function getSubmitCoords() {
-      return {
-        lat: deviceLat,
-        lng: deviceLng,
-        source: deviceLat ? "device-gps" : "none"
-      };
+      return { lat: deviceLat, lng: deviceLng, source: deviceLat ? "device-gps" : "none" };
     }
     function validateForm(fieldId, files, coords) {
       if (!coords.lat || !coords.lng) {
@@ -852,25 +844,19 @@
         alert("送信に失敗しました: " + err.message);
       } finally {
         btn.disabled = false;
-        btn.innerText = "送信・登録";
+        btn.innerText = "送信";
       }
     }
 
     // -------------------------------------------------------------
     // 2ステップ画面遷移（Step1: 圃場選択・GPS / Step2: 写真撮影）
-    // ※ ステップインジケーター表示は設けていません
     // -------------------------------------------------------------
     function switchStep(n) {
       document.getElementById('step1').classList.toggle('active', n === 1);
       document.getElementById('step2').classList.toggle('active', n === 2);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // 地図は非表示→再表示でタイルが欠けるため、Step1復帰時に再描画
-      if (n === 1 && map) {
-        setTimeout(() => map.invalidateSize(), 60);
-      }
+      if (n === 1 && map) { setTimeout(() => map.invalidateSize(), 60); }
     }
-
-    // Step1 → Step2（GPS座標と圃場IDが揃っているか検証）
     function goToStep2() {
       const fieldId = els.fieldId().value.trim();
       const coords = getSubmitCoords();
@@ -888,11 +874,7 @@
       document.getElementById('summaryCoords').innerText = coords.lat + ", " + coords.lng + "（GPS）";
       switchStep(2);
     }
-
-    // Step2 → Step1
-    function goToStep1() {
-      switchStep(1);
-    }
+    function goToStep1() { switchStep(1); }
 
     window.onload = function () {
       loadUserSettings();
