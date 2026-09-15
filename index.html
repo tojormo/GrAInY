@@ -86,13 +86,13 @@
     /* 座標表示：淡い塗りのみ */
     .coords-wrapper {
       display: flex; justify-content: space-between; align-items: center; background: var(--subtle);
-      padding: 10px 12px; border-radius: 0; font-size: 0.85rem;
+      padding: 8px 10px; border-radius: 0; font-size: 0.72rem;
     }
     .coords-val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; color: var(--ink); }
     .coords-val.warn { color: var(--danger); }
     .coords-source { font-size: 0.7rem; color: var(--muted); margin-top: 6px; }
     .btn-gps {
-      background: var(--surface); border: none; color: var(--ink); padding: 6px 12px; font-size: 0.75rem;
+      background: var(--surface); border: none; color: var(--ink); padding: 5px 10px; font-size: 0.66rem;
       font-weight: 600; border-radius: 0; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.12);
       transition: opacity 0.15s ease;
     }
@@ -162,6 +162,10 @@
     /* 欄外（カード外）のGPS説明 */
     .field-note { font-size: 0.75rem; color: var(--muted); line-height: 1.5; margin: -6px 2px 16px; display: flex; align-items: flex-start; gap: 6px; }
     .field-note .icon { margin-top: 2px; }
+    /* 圃場ID／現在地取得まわりのフォントを小さめに（スコープ限定） */
+    .field-id-card label { font-size: 0.72rem; margin-bottom: 5px; }
+    .field-id-card input[type="text"] { font-size: 0.82rem; padding: 9px 12px; }
+    .field-id-card input[type="text"]::placeholder { font-size: 0.78rem; }
   </style>
 </head>
 <body>
@@ -196,7 +200,7 @@
       </div>
 
       <!-- 圃場ID入力 -->
-      <div class="card">
+      <div class="card field-id-card">
         <div class="form-group">
           <label for="fieldId">圃場ID</label>
           <input type="text" id="fieldId" placeholder="例: FIELD_A01（ピンのタップでも自動入力）" required>
