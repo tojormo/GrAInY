@@ -27,8 +27,9 @@
       background-color: var(--bg);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;  /* 横方向のはみ出しによる画面ズレを防止 */
     }
-    .container { max-width: 640px; margin: 0 auto; }
+    .container { max-width: 640px; width: 100%; margin: 0 auto; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
     h1 { font-size: 1.05rem; font-weight: 700; margin: 0; color: var(--ink); letter-spacing: 0.06em; text-transform: uppercase; }
     /* タイトル文字の代わりに表示するロゴ画像 */
@@ -53,7 +54,7 @@
     input[type="file"] { width: 100%; font-size: 0.85rem; color: #333333; }
 
     /* カメラ撮影ボタン */
-    .capture-row { display: flex; align-items: center; gap: 12px; }
+    .capture-row { display: flex; align-items: center; gap: 12px; min-width: 0; }
     .file-input-hidden {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
       clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
@@ -64,7 +65,7 @@
       transition: opacity 0.15s ease;
     }
     .btn-capture:active { opacity: 0.7; }
-    .capture-filename { font-size: 0.8rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .capture-filename { font-size: 0.8rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 auto; min-width: 0; }
     .capture-filename.empty { color: var(--muted); }
     .capture-filename.done { color: var(--ink); font-weight: 600; }
 
@@ -150,8 +151,9 @@
 
     /* ===== 2ステップ画面遷移（ステップ表示なし） ===== */
     .step-screen { display: none; }
-    .step-screen.active { display: block; animation: stepFadeIn 0.25s ease; }
-    @keyframes stepFadeIn { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
+    /* 中央寄せを担保。アニメーションは横移動を避け、フェードのみにして画面ズレを防止 */
+    .step-screen.active { display: block; width: 100%; animation: stepFadeIn 0.25s ease; }
+    @keyframes stepFadeIn { from { opacity: 0; } to { opacity: 1; } }
     .btn-next { width: 100%; padding: 15px; background-color: var(--accent); color: #fff; border: none; border-radius: 0; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; box-shadow: var(--shadow); transition: opacity 0.15s ease; }
     .btn-next:active { opacity: 0.8; }
     .step-nav { display: flex; gap: 10px; align-items: stretch; }
@@ -223,15 +225,16 @@
 
       <!--
         画像選択エリア（圃場全体(高視点)／圃場全体(低視点)／稲株全体／株元／地面の5点）
-        ※ accept="image/*;capture=camera" と capture="environment" の併用で
-          Android・iOSの両方でタップ時にカメラを直接起動します。
+        ※ accept="image/*" と capture="environment" を分けて指定することで
+          Android(Chrome)・iOS(Safari)の両方でタップ時にカメラ(背面)を直接起動します。
+          （accept="image/*;capture=camera" のような結合指定はAndroidでカメラが起動しない不具合の原因になるため使用しない）
       -->
       <div class="card">
         <div class="form-group">
           <label for="imgFieldHigh">1. 圃場全体（高視点）</label>
           <div class="capture-row">
             <label for="imgFieldHigh" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-            <input type="file" id="imgFieldHigh" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgFieldHigh')">
+            <input type="file" id="imgFieldHigh" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgFieldHigh')">
             <span id="imgFieldHigh_name" class="capture-filename empty">未撮影</span>
           </div>
         </div>
@@ -239,7 +242,7 @@
           <label for="imgFieldLow">2. 圃場全体（低視点）</label>
           <div class="capture-row">
             <label for="imgFieldLow" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-            <input type="file" id="imgFieldLow" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgFieldLow')">
+            <input type="file" id="imgFieldLow" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgFieldLow')">
             <span id="imgFieldLow_name" class="capture-filename empty">未撮影</span>
           </div>
         </div>
@@ -247,7 +250,7 @@
           <label for="imgPlant">3. 稲株全体</label>
           <div class="capture-row">
             <label for="imgPlant" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-            <input type="file" id="imgPlant" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgPlant')">
+            <input type="file" id="imgPlant" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgPlant')">
             <span id="imgPlant_name" class="capture-filename empty">未撮影</span>
           </div>
         </div>
@@ -255,7 +258,7 @@
           <label for="imgBase">4. 株元</label>
           <div class="capture-row">
             <label for="imgBase" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-            <input type="file" id="imgBase" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgBase')">
+            <input type="file" id="imgBase" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgBase')">
             <span id="imgBase_name" class="capture-filename empty">未撮影</span>
           </div>
         </div>
@@ -263,7 +266,7 @@
           <label for="imgGround">5. 地面</label>
           <div class="capture-row">
             <label for="imgGround" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-            <input type="file" id="imgGround" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgGround')">
+            <input type="file" id="imgGround" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgGround')">
             <span id="imgGround_name" class="capture-filename empty">未撮影</span>
           </div>
         </div>
