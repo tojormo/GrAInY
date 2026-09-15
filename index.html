@@ -23,12 +23,12 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       margin: 0;
-      padding: 20px 16px;
+      padding: 8px 8px;
       background-color: var(--bg);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 480px; margin: 0 auto; }
+    .container { max-width: 640px; margin: 0 auto; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
     h1 { font-size: 1.05rem; font-weight: 700; margin: 0; color: var(--ink); letter-spacing: 0.06em; text-transform: uppercase; }
     /* タイトル文字の代わりに表示するロゴ画像 */
@@ -70,7 +70,11 @@
 
     /* 地図：枠線なし・角丸のみ */
     /* 地図は縦を大きめに。画面高に追従（小型端末でも破綻しない範囲でmax） */
-    #map { height: clamp(320px, 58vh, 620px); width: 100%; border-radius: 0; margin-bottom: 10px; }
+    #map { height: clamp(460px, 82vh, 1100px); width: 100%; border-radius: 0; margin-bottom: 8px; }
+    /* 地図カードは余白を最小化して地図を最大化 */
+    .map-card { padding: 8px; margin-bottom: 10px; }
+    .map-card .legend { margin-bottom: 8px; }
+    .map-card .coords-wrapper { padding: 6px 8px; }
     .map-hint { font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 
     /* SVGアイコン共通 */
@@ -182,7 +186,7 @@
     <!-- ============ Step 1: 圃場選択・GPS取得 ============ -->
     <div id="step1" class="step-screen active">
       <!-- 地図・位置情報（GPSで自動取得） -->
-      <div class="card">
+      <div class="card map-card">
         <div id="map"></div>
         <div id="legend" class="legend"></div>
         <div class="coords-wrapper">
@@ -203,7 +207,7 @@
       <div class="card field-id-card">
         <div class="form-group">
           <label for="fieldId">圃場ID</label>
-          <input type="text" id="fieldId" placeholder="例: FIELD_A01（ピンのタップでも自動入力）" required>
+          <input type="text" id="fieldId" placeholder="地図の圃場ピンをタップして選択" readonly inputmode="none" required>
         </div>
       </div>
 
@@ -596,11 +600,12 @@
           }).addTo(map);
 
           const name = f['圃場名'] || '';
-          const block = f['圃場ブロック'] || '';
+          // 担当者（データのカラム名ゆらぎに対応してフォールバック）
+          const person = f['作付計画_担当者'] || f['担当者'] || f['作業者'] || f['作付計画_作業者'] || '';
+          // タップ時のポップアップは「圃場名・品種・担当者」だけを表示する
           cm.bindPopup(
-            `<b>${name}</b><br>品種: ${variety || '未設定'}<br>ブロック: ${block}` +
-            `<br><button onclick="selectField('${String(name).replace(/'/g, "\\'")}')" ` +
-            `style="margin-top:6px;padding:7px 12px;border:none;border-radius: 0;background:#111;color:#fff;font-weight:600;cursor:pointer;">この圃場を選択</button>`
+            `<b>${name}</b><br>品種: ${variety || '未設定'}<br>担当者: ${person || '未設定'}`,
+            { autoPan: false, closeButton: true }
           );
           // ピンのタップで圃場IDに自動入力（座標は端末GPS優先のため変更しない）
           cm.on('click', () => selectField(name));
@@ -625,7 +630,7 @@
     // ピンから圃場名を圃場IDへ自動入力
     function selectField(name) {
       els.fieldId().value = name;
-      els.fieldId().focus();
+      // キーボード起動・画面拡大を防ぐため focus() は行わない（読み取り専用入力）
       // 端末GPSの座標を優先するため、選択座標は上書きしない
     }
 
@@ -870,8 +875,8 @@
         return;
       }
       if (!fieldId) {
-        alert("圃場IDを入力してください（地図の圃場ピンをタップしても入力できます）。");
-        els.fieldId().focus();
+        alert("圃場IDが未設定です。地図上の圃場ピンをタップして選択してください。");
+        // 読み取り専用のためキーボードは起動しない（ピンのタップで入力）
         return;
       }
       document.getElementById('summaryFieldId').innerText = fieldId;
