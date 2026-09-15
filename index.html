@@ -144,6 +144,31 @@
 
     .show-key-row { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 0.8rem; color: #4a4f57; }
     .show-key-row input { width: auto; }
+
+    /* ===== 2ステップ・ウィザード ===== */
+    .step-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .step-indicator .step { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; font-weight: 600; color: var(--muted); }
+    .step-indicator .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--subtle); color: var(--muted); display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; transition: all 0.2s ease; }
+    .step-indicator .step.active { color: var(--ink); }
+    .step-indicator .step.active .step-num { background: var(--accent); color: #fff; }
+    .step-indicator .step.done .step-num { background: var(--ink); color: #fff; }
+    .step-indicator .step-line { flex: 1; height: 2px; background: var(--subtle); border-radius: 2px; }
+    .step-screen { display: none; }
+    .step-screen.active { display: block; animation: stepFadeIn 0.25s ease; }
+    @keyframes stepFadeIn { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
+    /* ステップ移動ボタン */
+    .btn-next { width: 100%; padding: 15px; background-color: var(--accent); color: #fff; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; box-shadow: var(--shadow); transition: opacity 0.15s ease; }
+    .btn-next:active { opacity: 0.8; }
+    .step-nav { display: flex; gap: 10px; align-items: stretch; }
+    .step-nav .btn-submit { flex: 1; width: auto; }
+    .btn-back { padding: 15px 18px; background: var(--subtle); color: var(--ink); border: none; border-radius: 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s ease; flex-shrink: 0; }
+    .btn-back:active { opacity: 0.6; }
+    /* Step2 の選択中サマリー */
+    .selected-summary { background: var(--subtle); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; font-size: 0.85rem; }
+    .selected-summary .row { display: flex; justify-content: space-between; gap: 10px; }
+    .selected-summary .row + .row { margin-top: 6px; }
+    .selected-summary .label { color: var(--muted); flex-shrink: 0; }
+    .selected-summary .val { font-weight: 600; color: var(--ink); text-align: right; word-break: break-all; }
   </style>
 </head>
 <body>
@@ -160,82 +185,107 @@
     <!-- 現在のユーザー名を表示 -->
     <div class="user-badge">記録者: <strong id="currentUserLabel">未設定</strong></div>
 
-    <!-- 地図・位置情報設定 -->
-    <div class="card">
-      <label>位置情報（GPS自動取得）</label>
-      <div id="map"></div>
-      <div class="map-hint"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"></path><circle cx="12" cy="11" r="2"></circle></svg><span>地図上のピンをタップすると、その圃場名が「圃場ID」に自動入力されます。</span></div>
-      <div id="legend" class="legend"></div>
-      <div class="coords-wrapper">
-        <div>
-          <span>Lat: <span id="lat" class="coords-val">未取得</span></span>
-          <span style="margin-left: 8px;">Lng: <span id="lng" class="coords-val">未取得</span></span>
-        </div>
-        <button type="button" class="btn-gps" onclick="getCurrentLocation()">現在地取得</button>
-      </div>
-      <div id="coordsSource" class="coords-source"></div>
+    <!-- ステップインジケーター -->
+    <div class="step-indicator">
+      <div class="step active" id="stepInd1"><span class="step-num">1</span><span>圃場選択・GPS</span></div>
+      <div class="step-line"></div>
+      <div class="step" id="stepInd2"><span class="step-num">2</span><span>写真撮影</span></div>
     </div>
 
-    <!-- 圃場ID入力 -->
-    <div class="card">
-      <div class="form-group">
-        <label for="fieldId">圃場ID</label>
-        <input type="text" id="fieldId" placeholder="例: FIELD_A01（ピンのタップでも自動入力）" required>
+    <!-- ============ Step 1: 圃場選択・GPS取得 ============ -->
+    <div id="step1" class="step-screen active">
+      <!-- 地図・位置情報設定 -->
+      <div class="card">
+        <label>位置情報（GPS自動取得）</label>
+        <div id="map"></div>
+        <div class="map-hint"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"></path><circle cx="12" cy="11" r="2"></circle></svg><span>地図上のピンをタップすると、その圃場名が「圃場ID」に自動入力されます。</span></div>
+        <div id="legend" class="legend"></div>
+        <div class="coords-wrapper">
+          <div>
+            <span>Lat: <span id="lat" class="coords-val">未取得</span></span>
+            <span style="margin-left: 8px;">Lng: <span id="lng" class="coords-val">未取得</span></span>
+          </div>
+          <button type="button" class="btn-gps" onclick="getCurrentLocation()">現在地取得</button>
+        </div>
+        <div id="coordsSource" class="coords-source"></div>
       </div>
+
+      <!-- 圃場ID入力 -->
+      <div class="card">
+        <div class="form-group">
+          <label for="fieldId">圃場ID</label>
+          <input type="text" id="fieldId" placeholder="例: FIELD_A01（ピンのタップでも自動入力）" required>
+        </div>
+      </div>
+
+      <!-- 次のステップへ -->
+      <button id="toStep2Btn" class="btn-next" onclick="goToStep2()">次へ：写真撮影 &rarr;</button>
     </div>
 
-    <!--
-      画像選択エリア（圃場全体(高視点)／圃場全体(低視点)／稲株全体／株元／地面の5点）
-      ※ accept="image/*;capture=camera"（非標準の埋め込み記法）と
-        capture="environment"（標準属性）を併用することで、
-        Android・iOSの両方でタップ時にカメラアプリが直接起動するようにしています。
-    -->
-    <div class="card">
-      <div class="form-group">
-        <label for="imgFieldHigh">1. 圃場全体（高視点）</label>
-        <div class="capture-row">
-          <label for="imgFieldHigh" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgFieldHigh" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgFieldHigh')">
-          <span id="imgFieldHigh_name" class="capture-filename empty">未撮影</span>
-        </div>
+    <!-- ============ Step 2: 写真撮影 ============ -->
+    <div id="step2" class="step-screen">
+      <!-- 選択中の圃場・座標サマリー -->
+      <div class="selected-summary">
+        <div class="row"><span class="label">圃場ID</span><span class="val" id="summaryFieldId">-</span></div>
+        <div class="row"><span class="label">座標 (Lat, Lng)</span><span class="val" id="summaryCoords">-</span></div>
       </div>
-      <div class="form-group">
-        <label for="imgFieldLow">2. 圃場全体（低視点）</label>
-        <div class="capture-row">
-          <label for="imgFieldLow" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgFieldLow" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgFieldLow')">
-          <span id="imgFieldLow_name" class="capture-filename empty">未撮影</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="imgPlant">3. 稲株全体</label>
-        <div class="capture-row">
-          <label for="imgPlant" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgPlant" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgPlant')">
-          <span id="imgPlant_name" class="capture-filename empty">未撮影</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="imgBase">4. 株元</label>
-        <div class="capture-row">
-          <label for="imgBase" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgBase" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgBase')">
-          <span id="imgBase_name" class="capture-filename empty">未撮影</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="imgGround">5. 地面</label>
-        <div class="capture-row">
-          <label for="imgGround" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgGround" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgGround')">
-          <span id="imgGround_name" class="capture-filename empty">未撮影</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- 送信ボタン -->
-    <button id="sendBtn" class="btn-submit" onclick="sendData()">Commit</button>
-    <div id="status" class="status-msg"></div>
+      <!--
+        画像選択エリア（圃場全体(高視点)／圃場全体(低視点)／稲株全体／株元／地面の5点）
+        ※ accept="image/*;capture=camera"（非標準の埋め込み記法）と
+          capture="environment"（標準属性）を併用することで、
+          Android・iOSの両方でタップ時にカメラアプリが直接起動するようにしています。
+      -->
+      <div class="card">
+        <div class="form-group">
+          <label for="imgFieldHigh">1. 圃場全体（高視点）</label>
+          <div class="capture-row">
+            <label for="imgFieldHigh" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+            <input type="file" id="imgFieldHigh" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgFieldHigh')">
+            <span id="imgFieldHigh_name" class="capture-filename empty">未撮影</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="imgFieldLow">2. 圃場全体（低視点）</label>
+          <div class="capture-row">
+            <label for="imgFieldLow" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+            <input type="file" id="imgFieldLow" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgFieldLow')">
+            <span id="imgFieldLow_name" class="capture-filename empty">未撮影</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="imgPlant">3. 稲株全体</label>
+          <div class="capture-row">
+            <label for="imgPlant" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+            <input type="file" id="imgPlant" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgPlant')">
+            <span id="imgPlant_name" class="capture-filename empty">未撮影</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="imgBase">4. 株元</label>
+          <div class="capture-row">
+            <label for="imgBase" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+            <input type="file" id="imgBase" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgBase')">
+            <span id="imgBase_name" class="capture-filename empty">未撮影</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="imgGround">5. 地面</label>
+          <div class="capture-row">
+            <label for="imgGround" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+            <input type="file" id="imgGround" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgGround')">
+            <span id="imgGround_name" class="capture-filename empty">未撮影</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 送信・戻る -->
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="goToStep1()">&larr; 戻る</button>
+        <button id="sendBtn" class="btn-submit" onclick="sendData()">Commit</button>
+      </div>
+      <div id="status" class="status-msg"></div>
+    </div>
   </div>
 
   <!-- GPS権限案内モーダル（Android / iOS 両対応） -->
@@ -830,6 +880,7 @@
         statusDiv.innerText = "送信完了しました。";
         alert("正常に保存されました。");
         resetForm();
+        switchStep(1);   // 送信完了後は圃場選択（Step1）へ戻る
       } catch (err) {
         console.error("送信エラー:", err);
         statusDiv.className = "status-msg error";
@@ -839,6 +890,51 @@
         btn.disabled = false;
         btn.innerText = "送信・登録";
       }
+    }
+
+    // -------------------------------------------------------------
+    // 2ステップ画面遷移（Step1: 圃場選択・GPS / Step2: 写真撮影）
+    // -------------------------------------------------------------
+    function switchStep(n) {
+      document.getElementById('step1').classList.toggle('active', n === 1);
+      document.getElementById('step2').classList.toggle('active', n === 2);
+      const ind1 = document.getElementById('stepInd1');
+      const ind2 = document.getElementById('stepInd2');
+      ind1.classList.toggle('active', n === 1);
+      ind1.classList.toggle('done', n === 2);
+      ind2.classList.toggle('active', n === 2);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // 地図は非表示→再表示でタイルが欠けるため、Step1復帰時に再描画
+      if (n === 1 && map) {
+        setTimeout(() => map.invalidateSize(), 60);
+      }
+    }
+
+    // Step1 → Step2（座標と圃場IDが揃っているか検証）
+    function goToStep2() {
+      const fieldId = els.fieldId().value.trim();
+      const coords = getSubmitCoords();
+      if (!coords.lat || !coords.lng) {
+        alert("位置情報が取得できていません。「現在地取得」または地図で位置を選択してください。");
+        showGpsModal();
+        return;
+      }
+      if (!fieldId) {
+        alert("圃場IDを入力してください（地図のピンをタップしても入力できます）。");
+        els.fieldId().focus();
+        return;
+      }
+      // 選択内容をStep2のサマリーへ反映
+      document.getElementById('summaryFieldId').innerText = fieldId;
+      document.getElementById('summaryCoords').innerText =
+        coords.lat + ", " + coords.lng +
+        (coords.source === 'device-gps' ? "（GPS）" : "（地図選択）");
+      switchStep(2);
+    }
+
+    // Step2 → Step1（圃場選択・GPSへ戻る）
+    function goToStep1() {
+      switchStep(1);
     }
 
     window.onload = function () {
