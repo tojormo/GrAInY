@@ -185,42 +185,50 @@
     </div>
 
     <!--
-      画像選択エリア（穂先／根本／高さ／圃場全景の4点）
+      画像選択エリア（圃場全体(高視点)／圃場全体(低視点)／稲株全体／株元／地面の5点）
       ※ accept="image/*;capture=camera"（非標準の埋め込み記法）と
         capture="environment"（標準属性）を併用することで、
         Android・iOSの両方でタップ時にカメラアプリが直接起動するようにしています。
     -->
     <div class="card">
       <div class="form-group">
-        <label for="imgEar">1. 穂先</label>
+        <label for="imgFieldHigh">1. 圃場全体（高視点）</label>
         <div class="capture-row">
-          <label for="imgEar" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgEar" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgEar')">
-          <span id="imgEar_name" class="capture-filename empty">未撮影</span>
+          <label for="imgFieldHigh" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+          <input type="file" id="imgFieldHigh" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgFieldHigh')">
+          <span id="imgFieldHigh_name" class="capture-filename empty">未撮影</span>
         </div>
       </div>
       <div class="form-group">
-        <label for="imgRoot">2. 根本</label>
+        <label for="imgFieldLow">2. 圃場全体（低視点）</label>
         <div class="capture-row">
-          <label for="imgRoot" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgRoot" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgRoot')">
-          <span id="imgRoot_name" class="capture-filename empty">未撮影</span>
+          <label for="imgFieldLow" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+          <input type="file" id="imgFieldLow" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgFieldLow')">
+          <span id="imgFieldLow_name" class="capture-filename empty">未撮影</span>
         </div>
       </div>
       <div class="form-group">
-        <label for="imgHeight">3. 高さ</label>
+        <label for="imgPlant">3. 稲株全体</label>
         <div class="capture-row">
-          <label for="imgHeight" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgHeight" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgHeight')">
-          <span id="imgHeight_name" class="capture-filename empty">未撮影</span>
+          <label for="imgPlant" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+          <input type="file" id="imgPlant" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgPlant')">
+          <span id="imgPlant_name" class="capture-filename empty">未撮影</span>
         </div>
       </div>
       <div class="form-group">
-        <label for="imgView">4. 圃場全景</label>
+        <label for="imgBase">4. 株元</label>
         <div class="capture-row">
-          <label for="imgView" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
-          <input type="file" id="imgView" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgView')">
-          <span id="imgView_name" class="capture-filename empty">未撮影</span>
+          <label for="imgBase" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+          <input type="file" id="imgBase" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgBase')">
+          <span id="imgBase_name" class="capture-filename empty">未撮影</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="imgGround">5. 地面</label>
+        <div class="capture-row">
+          <label for="imgGround" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+          <input type="file" id="imgGround" class="file-input-hidden" accept="image/*;capture=camera" capture="environment" onchange="onCaptureChange('imgGround')">
+          <span id="imgGround_name" class="capture-filename empty">未撮影</span>
         </div>
       </div>
     </div>
@@ -361,12 +369,13 @@
       }
     };
 
-    // 画像アップロード項目の定義（穂先・根本・高さ・圃場全景の4点）
+    // 画像アップロード項目の定義（圃場全体(高視点)・圃場全体(低視点)・稲株全体・株元・地面の5点）
     const IMAGE_FIELDS = [
-      { id: "imgEar",    key: "imgEar",    label: "穂先" },
-      { id: "imgRoot",   key: "imgRoot",   label: "根本" },
-      { id: "imgHeight", key: "imgHeight", label: "高さ" },
-      { id: "imgView",   key: "imgView",   label: "圃場全景" }
+      { id: "imgFieldHigh", key: "imgFieldHigh", label: "圃場全体（高視点）" },
+      { id: "imgFieldLow",  key: "imgFieldLow",  label: "圃場全体（低視点）" },
+      { id: "imgPlant",     key: "imgPlant",     label: "稲株全体" },
+      { id: "imgBase",      key: "imgBase",      label: "株元" },
+      { id: "imgGround",    key: "imgGround",    label: "地面" }
     ];
 
     // よく使う要素をまとめてキャッシュ
