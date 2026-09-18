@@ -209,7 +209,7 @@
       <div class="card field-id-card">
         <div class="form-group">
           <label for="fieldId">圃場ID</label>
-          <input type="text" id="fieldId" placeholder="地図の圃場ピンをタップして選択" readonly inputmode="none" required>
+          <input type="text" id="fieldId" placeholder="地図の圃場ピンをタップ、または直接入力" required>
         </div>
       </div>
 
@@ -636,7 +636,7 @@
     // ピンから圃場名を圃場IDへ自動入力
     function selectField(name) {
       els.fieldId().value = name;
-      // キーボード起動・画面拡大を防ぐため focus() は行わない（読み取り専用入力）
+      // 自動入力時は focus() を呼ばないため、キーボードは表示されない（手入力時はタップでキーボードが起動）
       // 端末GPSの座標を優先するため、選択座標は上書きしない
     }
 
@@ -892,8 +892,7 @@
         return;
       }
       if (!fieldId) {
-        alert("圃場IDが未設定です。地図上の圃場ピンをタップして選択してください。");
-        // 読み取り専用のためキーボードは起動しない（ピンのタップで入力）
+        alert("圃場IDが未設定です。地図上の圃場ピンをタップして選択するか、直接入力してください。");
         return;
       }
       document.getElementById('summaryFieldId').innerText = fieldId;
