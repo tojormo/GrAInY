@@ -801,9 +801,9 @@
         return false;
       }
       if (!fieldId) { alert("圃場IDを入力してください（地図のピンをタップしても入力できます）。"); return false; }
-      const missing = files.filter(f => !f.file);
-      if (missing.length > 0) {
-        alert(`${IMAGE_FIELDS.length}枚すべての画像を撮影してください。\n未撮影: ${missing.map(f => f.label).join('、')}`);
+      const selected = files.filter(f => f.file);
+      if (selected.length === 0) {
+        alert("写真を1枚以上撮影してください。");
         return false;
       }
       if (CONFIG.GAS_WEB_APP_URL === "YOUR_GAS_WEB_APP_URL_HERE") { alert("GASのWeb App URLが設定されていません。"); return false; }
