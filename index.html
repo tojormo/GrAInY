@@ -83,7 +83,7 @@
     .btn-capture .icon, .link-btn .icon { width: 1.05em; height: 1.05em; }
     .capture-filename .icon { width: 0.9em; height: 0.9em; stroke: var(--ink); margin-right: 2px; }
 
-    /* 開催日の凡例 */
+    /* 品種の凡例 */
     .legend { display: flex; flex-wrap: wrap; gap: 7px 14px; margin-bottom: 10px; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #4a4f57; }
     .legend-dot { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 2px #fff, 0 1px 2px rgba(0,0,0,0.15); flex-shrink: 0; }
@@ -168,19 +168,10 @@
     /* 欄外（カード外）のGPS説明 */
     .field-note { font-size: 0.75rem; color: var(--muted); line-height: 1.5; margin: -6px 2px 16px; display: flex; align-items: flex-start; gap: 6px; }
     .field-note .icon { margin-top: 2px; }
-    /* 撮影地点／現在地取得まわりのフォントを小さめに（スコープ限定） */
+    /* 圃場ID／現在地取得まわりのフォントを小さめに（スコープ限定） */
     .field-id-card label { font-size: 0.72rem; margin-bottom: 5px; }
     .field-id-card input[type="text"] { font-size: 0.82rem; padding: 9px 12px; }
     .field-id-card input[type="text"]::placeholder { font-size: 0.78rem; }
-    /* 画像メモ入力欄 */
-    .note-row { margin-top: 8px; }
-    .note-input {
-      width: 100%; padding: 9px 12px; font-size: 0.82rem; border: none; border-radius: 0;
-      background: var(--subtle); color: var(--ink); resize: vertical; min-height: 38px; line-height: 1.4;
-      font-family: inherit; transition: box-shadow 0.15s ease, background 0.15s ease;
-    }
-    .note-input::placeholder { color: var(--muted); font-size: 0.78rem; }
-    .note-input:focus { outline: none; background: var(--surface); box-shadow: 0 0 0 2px var(--accent); }
   </style>
 </head>
 <body>
@@ -194,7 +185,7 @@
       </button>
     </div>
 
-    <!-- ============ Step 1: 撮影地点選択・GPS取得 ============ -->
+    <!-- ============ Step 1: 圃場選択・GPS取得 ============ -->
     <div id="step1" class="step-screen active">
       <!-- 地図・位置情報（GPSで自動取得） -->
       <div class="card map-card">
@@ -211,14 +202,14 @@
       <!-- GPS説明（欄外＝カード外に配置） -->
       <div class="field-note">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"></path><circle cx="12" cy="11" r="2"></circle></svg>
-        <span>位置情報はGPSで自動取得されます。地図上の撮影地点ピンをタップすると「撮影地点」が自動入力されます。</span>
+        <span>位置情報はGPSで自動取得されます。地図上の圃場ピンをタップすると「圃場ID」が自動入力されます。</span>
       </div>
 
-      <!-- 撮影地点入力 -->
+      <!-- 圃場ID入力 -->
       <div class="card field-id-card">
         <div class="form-group">
-          <label for="fieldId">撮影地点（任意）</label>
-          <input type="text" id="fieldId" placeholder="（任意）地図の撮影地点ピンをタップ、または直接入力">
+          <label for="fieldId">圃場ID</label>
+          <input type="text" id="fieldId" placeholder="地図の圃場ピンをタップして選択" readonly inputmode="none" required>
         </div>
       </div>
 
@@ -228,70 +219,55 @@
     <!-- ============ Step 2: 写真撮影 ============ -->
     <div id="step2" class="step-screen">
       <div class="selected-summary">
-        <div class="row"><span class="label">撮影地点</span><span class="val" id="summaryFieldId">-</span></div>
+        <div class="row"><span class="label">圃場ID</span><span class="val" id="summaryFieldId">-</span></div>
         <div class="row"><span class="label">座標 (Lat, Lng)</span><span class="val" id="summaryCoords">-</span></div>
       </div>
 
       <!--
-        画像選択エリア（img1／img2／img3／img4／img5の5点）
+        画像選択エリア（圃場全体(高視点)／圃場全体(低視点)／稲株全体／株元／地面の5点）
         ※ accept="image/*" と capture="environment" を分けて指定することで
           Android(Chrome)・iOS(Safari)の両方でタップ時にカメラ(背面)を直接起動します。
           （accept="image/*;capture=camera" のような結合指定はAndroidでカメラが起動しない不具合の原因になるため使用しない）
       -->
       <div class="card">
         <div class="form-group">
-          <label for="imgFieldHigh">img1</label>
+          <label for="imgFieldHigh">1. 圃場全体（高視点）</label>
           <div class="capture-row">
             <label for="imgFieldHigh" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgFieldHigh" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgFieldHigh')">
             <span id="imgFieldHigh_name" class="capture-filename empty">未撮影</span>
           </div>
-          <div class="note-row">
-            <textarea id="imgFieldHigh_note" class="note-input" rows="1" placeholder="img1 のメモ（任意）"></textarea>
-          </div>
         </div>
         <div class="form-group">
-          <label for="imgFieldLow">img2</label>
+          <label for="imgFieldLow">2. 圃場全体（低視点）</label>
           <div class="capture-row">
             <label for="imgFieldLow" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgFieldLow" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgFieldLow')">
             <span id="imgFieldLow_name" class="capture-filename empty">未撮影</span>
           </div>
-          <div class="note-row">
-            <textarea id="imgFieldLow_note" class="note-input" rows="1" placeholder="img2 のメモ（任意）"></textarea>
-          </div>
         </div>
         <div class="form-group">
-          <label for="imgPlant">img3</label>
+          <label for="imgPlant">3. 稲株全体</label>
           <div class="capture-row">
             <label for="imgPlant" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgPlant" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgPlant')">
             <span id="imgPlant_name" class="capture-filename empty">未撮影</span>
           </div>
-          <div class="note-row">
-            <textarea id="imgPlant_note" class="note-input" rows="1" placeholder="img3 のメモ（任意）"></textarea>
-          </div>
         </div>
         <div class="form-group">
-          <label for="imgBase">img4</label>
+          <label for="imgBase">4. 株元</label>
           <div class="capture-row">
             <label for="imgBase" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgBase" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgBase')">
             <span id="imgBase_name" class="capture-filename empty">未撮影</span>
           </div>
-          <div class="note-row">
-            <textarea id="imgBase_note" class="note-input" rows="1" placeholder="img4 のメモ（任意）"></textarea>
-          </div>
         </div>
         <div class="form-group">
-          <label for="imgGround">img5</label>
+          <label for="imgGround">5. 地面</label>
           <div class="capture-row">
             <label for="imgGround" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgGround" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgGround')">
             <span id="imgGround_name" class="capture-filename empty">未撮影</span>
-          </div>
-          <div class="note-row">
-            <textarea id="imgGround_note" class="note-input" rows="1" placeholder="img5 のメモ（任意）"></textarea>
           </div>
         </div>
       </div>
@@ -345,7 +321,7 @@
 
         <div class="form-group">
           <label for="userNameInput">ユーザー名（記録者）</label>
-          <input type="text" id="userNameInput" placeholder="例: 大林" autocomplete="off">
+          <input type="text" id="userNameInput" placeholder="例: 東条　太郎" autocomplete="off">
         </div>
 
         <div class="form-group" style="margin-bottom:0;">
@@ -365,13 +341,21 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="config.js"></script>
 
   <script>
     // =============================================================
     // ★ 設定項目
     // =============================================================
-    const CONFIG = window.APP_CONFIG;
+    const CONFIG = {
+      GAS_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwqVeq6e8UOXKfpIjgECy94BX3I-Q9i-WYHQG6fdGTYG2TNi8DM2XPPz6ussF7DCS5A/exec", // ご自身のGASのWeb App URL
+      FIELD_JSON_URL: "KSAS_field.json",   // index.html と同じフォルダに配置する圃場データ
+      SECRET_KEY_STORAGE_NAME: "fieldCollector_secretKey",
+      USER_NAME_STORAGE_NAME: "fieldCollector_userName",
+      DEFAULT_LAT: 34.898154,   // 圃場データの中心付近（兵庫県加東市）
+      DEFAULT_LNG: 135.060832,
+      IMAGE_MAX_SIDE: 1280,
+      IMAGE_QUALITY: 0.75
+    };
 
     // =============================================================
     // 永続ストレージ（iOS対策）
@@ -427,14 +411,13 @@
       }
     };
 
-    // 画像アップロード項目の定義（img1・img2・img3・img4・img5の5点）
-    // noteId … 各画像に対応するメモ欄(textarea)のid（GAS側の noteKey と一致させること）
+    // 画像アップロード項目の定義（穂先・根本・高さ・圃場全景の4点）
     const IMAGE_FIELDS = [
-      { id: "imgFieldHigh", key: "imgFieldHigh", label: "img1", noteId: "imgFieldHigh_note" },
-      { id: "imgFieldLow",  key: "imgFieldLow",  label: "img2", noteId: "imgFieldLow_note"  },
-      { id: "imgPlant",     key: "imgPlant",     label: "img3", noteId: "imgPlant_note"     },
-      { id: "imgBase",      key: "imgBase",      label: "img4", noteId: "imgBase_note"      },
-      { id: "imgGround",    key: "imgGround",    label: "img5", noteId: "imgGround_note"    }
+      { id: "imgFieldHigh", key: "imgFieldHigh", label: "圃場全体（高視点）" },
+      { id: "imgFieldLow",  key: "imgFieldLow",  label: "圃場全体（低視点）" },
+      { id: "imgPlant",     key: "imgPlant",     label: "稲株全体" },
+      { id: "imgBase",      key: "imgBase",      label: "株元" },
+      { id: "imgGround",    key: "imgGround",    label: "地面" }
     ];
 
     // よく使う要素をまとめてキャッシュ
@@ -553,7 +536,7 @@
       });
       const satelliteGroup = L.layerGroup([esriSat, esriLabels]);
 
-      // 初期表示は衛星写真（撮影地点の判読がしやすい）
+      // 初期表示は衛星写真（圃場の判読がしやすい）
       satelliteGroup.addTo(map);
 
       // 右上に「衛星写真 / 標準地図」の切替コントロールを追加
@@ -568,47 +551,40 @@
       marker.bindTooltip("現在地（GPS）", { direction: 'top' });
       // ※ 位置情報はGPS専用のため、地図クリック/ドラッグでの座標調整は行いません。
 
-      loadFieldPins();            // ★ 撮影地点データを読み込んでピン表示
+      loadFieldPins();            // ★ 圃場データを読み込んでピン表示
       checkGeoPermissionAndLocate();
     }
 
     // -------------------------------------------------------------
-    // 開催日（start_date）ごとの色割り当て
-    //   イベントの開催日ごとにピンの色を分け、凡例に日付を表示する。
+    // 品種ごとの色割り当て（作付計画_品種カラム）
     // -------------------------------------------------------------
     const COLOR_PALETTE = [
       '#e6194B','#3cb44b','#4363d8','#f58231','#911eb4','#42d4f4','#f032e6',
       '#bfef45','#fabed4','#469990','#9A6324','#800000','#808000','#000075','#a9a9a9'
     ];
-    const dateColors = {};
+    const varietyColors = {};
     let colorIndex = 0;
-    function colorForDate(d) {
-      const key = (d == null || d === "") ? "通期" : d;
-      if (!(key in dateColors)) {
-        dateColors[key] = COLOR_PALETTE[colorIndex % COLOR_PALETTE.length];
+    function colorForVariety(v) {
+      const key = (v == null || v === "") ? "未設定" : v;
+      if (!(key in varietyColors)) {
+        varietyColors[key] = COLOR_PALETTE[colorIndex % COLOR_PALETTE.length];
         colorIndex++;
       }
-      return dateColors[key];
+      return varietyColors[key];
     }
     function buildLegend() {
       const legend = els.legend();
       legend.innerHTML = "";
-      // 日付キーを昇順に並べて凡例を作成（「通期」は末尾）
-      const keys = Object.keys(dateColors).sort((a, b) => {
-        if (a === "通期") return 1;
-        if (b === "通期") return -1;
-        return a < b ? -1 : (a > b ? 1 : 0);
-      });
-      keys.forEach(v => {
+      Object.keys(varietyColors).forEach(v => {
         const item = document.createElement('div');
         item.className = 'legend-item';
-        item.innerHTML = `<span class="legend-dot" style="background:${dateColors[v]}"></span>${v}`;
+        item.innerHTML = `<span class="legend-dot" style="background:${varietyColors[v]}"></span>${v}`;
         legend.appendChild(item);
       });
     }
 
     // -------------------------------------------------------------
-    // 撮影地点データの読み込み → 緯度経度のあるものをピン表示
+    // 圃場データの読み込み → 緯度経度のあるものをピン表示
     // -------------------------------------------------------------
     async function loadFieldPins() {
       try {
@@ -616,51 +592,31 @@
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
 
-        // EventList.json は各要素が { information, spot, ... } のネスト構造。
-        // 緯度経度は spot.latitude / spot.longitude から取得する。
-        const withCoords = data.filter(f =>
-          f && f.spot && f.spot.latitude != null && f.spot.longitude != null
-        );
+        const withCoords = data.filter(f => f.latitude != null && f.longitude != null);
         const pts = [];
 
         withCoords.forEach(f => {
-          const info = f.information || {};
-          const spot = f.spot || {};
-          const lat = spot.latitude, lng = spot.longitude;
-
-          // 開催日（start_date〜end_date）で色分け
-          const startDate = info.start_date || '';
-          const endDate = info.end_date || '';
-          const color = colorForDate(startDate);
-
-          const cm = L.circleMarker([lat, lng], {
+          const variety = f['作付計画_品種'];
+          const color = colorForVariety(variety);
+          const cm = L.circleMarker([f.latitude, f.longitude], {
             radius: 8, color: '#ffffff', weight: 2, fillColor: color, fillOpacity: 0.9
           }).addTo(map);
 
-          // 撮影地点名：スポット名を優先（無ければイベントタイトル）
-          const name = spot.name || info.title || '';
-          const title = info.title || name;
-          const catch_ = info.catchphrase || '';
-          const address = spot.address || '';
-          const dateText = startDate
-            ? (endDate && endDate !== startDate ? `${startDate}〜${endDate}` : startDate)
-            : '通期';
-
-          // タップ時のポップアップは「タイトル・キャッチ・開催日・住所」＋「決定」ボタン
+          const name = f['圃場名'] || '';
+          // 担当者（データのカラム名ゆらぎに対応してフォールバック）
+          const person = f['作付計画_担当者'] || f['担当者'] || f['作業者'] || f['作付計画_作業者'] || '';
+          // タップ時のポップアップは「圃場名・品種・担当者」＋「決定」ボタンを表示する
           const nameEsc = String(name).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
           cm.bindPopup(
-            `<b>${escapeHtml(title)}</b>` +
-            (catch_ ? `<br><span style="color:#555;">${escapeHtml(catch_)}</span>` : '') +
-            `<br>開催日: ${escapeHtml(dateText)}` +
-            (address ? `<br>場所: ${escapeHtml(address)}` : '') +
+            `<b>${name}</b><br>品種: ${variety || '未設定'}<br>担当者: ${person || '未設定'}` +
             `<br><button type="button" onclick="confirmField('${nameEsc}')" ` +
             `style="margin-top:8px;padding:8px 14px;border:none;border-radius:0;background:#111;color:#fff;font-weight:600;cursor:pointer;">決定</button>`,
             { autoPan: false, closeButton: true }
           );
-          // ピンのタップで撮影地点に自動入力（座標は端末GPS優先のため変更しない）
+          // ピンのタップで圃場IDに自動入力（座標は端末GPS優先のため変更しない）
           cm.on('click', () => selectField(name));
 
-          pts.push([lat, lng]);
+          pts.push([f.latitude, f.longitude]);
         });
 
         buildLegend();
@@ -671,21 +627,20 @@
           if (!deviceLat) map.fitBounds(fieldBounds.pad(0.25));
         }
       } catch (e) {
-        console.warn('撮影地点データ(EventList.json)の読み込みに失敗しました:', e);
+        console.warn('圃場データ(KSAS_field.json)の読み込みに失敗しました:', e);
         els.legend().innerHTML =
-          '<span style="color:#b00020;font-size:0.75rem;">撮影地点データを読み込めませんでした（EventList.json を index.html と同じ場所に配置してください）。</span>';
+          '<span style="color:#b00020;font-size:0.75rem;">圃場データを読み込めませんでした（KSAS_field.json を index.html と同じ場所に配置してください）。</span>';
       }
     }
 
-    // ピンから地点名を撮影地点へ自動入力
+    // ピンから圃場名を圃場IDへ自動入力
     function selectField(name) {
       els.fieldId().value = name;
-      // ピンから自動入力する場合は focus() を呼ばないため、キーボードは表示されない
-      // （テキストボックスを直接タップした場合は通常のinputとしてキーボードが表示される）
+      // キーボード起動・画面拡大を防ぐため focus() は行わない（読み取り専用入力）
       // 端末GPSの座標を優先するため、選択座標は上書きしない
     }
 
-    // ポップアップの「決定」ボタン：撮影地点を確定し、「次へ」ボタンまでスクロールダウン
+    // ポップアップの「決定」ボタン：圃場を確定し、「次へ」ボタンまでスクロールダウン
     function confirmField(name) {
       selectField(name);
       if (map) map.closePopup();   // ポップアップを閉じてから移動
@@ -795,9 +750,6 @@
         const nameSpan = document.getElementById(f.id + '_name');
         nameSpan.innerText = "未撮影";
         nameSpan.classList.add('empty'); nameSpan.classList.remove('done');
-        // メモ欄もクリア
-        const noteEl = document.getElementById(f.noteId);
-        if (noteEl) noteEl.value = "";
       });
     }
 
@@ -842,38 +794,16 @@
     function getSubmitCoords() {
       return { lat: deviceLat, lng: deviceLng, source: deviceLat ? "device-gps" : "none" };
     }
-    // -------------------------------------------------------------
-    // 画像ファイル名（サロゲートキー）の生成
-    //   「タイムスタンプ + 投稿者(ユーザー名) + スポット名」を組み合わせて
-    //   一意なファイル名を作る。スポット未指定時は "nospot" を補う。
-    // -------------------------------------------------------------
-    function buildTimestamp(d = new Date()) {
-      const p = (n, l = 2) => String(n).padStart(l, '0');
-      return d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '_' +
-             p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds()) + '_' +
-             p(d.getMilliseconds(), 3);
-    }
-    function sanitizeForFilename(str) {
-      // ファイル名に使えない文字・空白をアンダースコアへ置換
-      return String(str || '').trim().replace(/[\\\/:*?"<>|\s]+/g, '_');
-    }
-    function buildSurrogateKey(timestamp, userName, fieldId, label, ext = 'jpg') {
-      const user = sanitizeForFilename(userName) || 'unknown';
-      const spot = sanitizeForFilename(fieldId) || 'nospot';
-      return `${timestamp}_${user}_${spot}_${label}.${ext}`;
-    }
-
     function validateForm(fieldId, files, coords) {
-      if ((!coords.lat || !coords.lng) && !CONFIG.ALLOW_STEP2_WITHOUT_GPS) {
+      if (!coords.lat || !coords.lng) {
         alert("位置情報が取得できていません。");
         showGpsModal();
         return false;
       }
-      // 撮影地点（スポット）は任意。未指定でも送信可能。
-      // 画像は「1枚以上」あれば送信可能（全5枚は不要）。
-      const provided = files.filter(f => f.file);
-      if (provided.length === 0) {
-        alert("画像を1枚以上撮影してください。");
+      if (!fieldId) { alert("圃場IDを入力してください（地図のピンをタップしても入力できます）。"); return false; }
+      const selected = files.filter(f => f.file);
+      if (selected.length === 0) {
+        alert("写真を1枚以上撮影してください。");
         return false;
       }
       if (CONFIG.GAS_WEB_APP_URL === "YOUR_GAS_WEB_APP_URL_HERE") { alert("GASのWeb App URLが設定されていません。"); return false; }
@@ -909,35 +839,17 @@
       btn.innerText = "画像圧縮・送信中...";
 
       try {
-        // 撮影された画像のみを対象にする（1枚以上でOK）
-        const provided = files.filter(f => f.file);
-        const compressed = await Promise.all(provided.map(f => compressImageAndToBase64(f.file)));
-
-        // この送信で共通のタイムスタンプ（サロゲートキーに使用）
-        const timestamp = buildTimestamp();
+        const compressed = await Promise.all(files.map(f => compressImageAndToBase64(f.file)));
 
         const payload = {
           secretKey: secretKey,
           userName: userName,
-          fieldId: fieldId,         // 未指定なら空文字（スポットは任意）
-          timestamp: timestamp,     // 送信タイムスタンプ
+          fieldId: fieldId,
           lat: coords.lat,          // ★ 端末GPS優先の緯度
           lng: coords.lng,          // ★ 端末GPS優先の経度
           coordSource: coords.source
         };
-        // 画像本体（Base64）と、サロゲートキー方式のファイル名をセットで送信
-        provided.forEach((f, i) => {
-          const fileName = buildSurrogateKey(timestamp, userName, fieldId, f.label);
-          payload[f.key] = compressed[i];
-          payload[f.key + "_filename"] = fileName;
-        });
-
-        // ★ 各画像のメモ（img1note〜img5note）を送信
-        //    画像が無くてもメモが入力されていれば記録する（全5項目を常に送信）
-        IMAGE_FIELDS.forEach((f) => {
-          const noteEl = document.getElementById(f.noteId);
-          payload[f.key + "_note"] = noteEl ? noteEl.value.trim() : "";
-        });
+        files.forEach((f, i) => { payload[f.key] = compressed[i]; });
 
         await fetch(CONFIG.GAS_WEB_APP_URL, {
           method: "POST",
@@ -950,7 +862,7 @@
         statusDiv.innerText = "送信完了しました。";
         alert("正常に保存されました。");
         resetForm();
-        switchStep(1);   // 送信完了後は撮影地点選択（Step1）へ戻る
+        switchStep(1);   // 送信完了後は圃場選択（Step1）へ戻る
       } catch (err) {
         console.error("送信エラー:", err);
         statusDiv.className = "status-msg error";
@@ -963,7 +875,7 @@
     }
 
     // -------------------------------------------------------------
-    // 2ステップ画面遷移（Step1: 撮影地点選択・GPS / Step2: 写真撮影）
+    // 2ステップ画面遷移（Step1: 圃場選択・GPS / Step2: 写真撮影）
     // -------------------------------------------------------------
     function switchStep(n) {
       document.getElementById('step1').classList.toggle('active', n === 1);
@@ -974,17 +886,18 @@
     function goToStep2() {
       const fieldId = els.fieldId().value.trim();
       const coords = getSubmitCoords();
-      if ((!coords.lat || !coords.lng) && !CONFIG.ALLOW_STEP2_WITHOUT_GPS) {
+      if (!coords.lat || !coords.lng) {
         alert("位置情報（GPS）が取得できていません。「現在地取得」をタップして取得してください。");
         showGpsModal();
         return;
       }
-      // 撮影地点（スポット）は任意。未指定でも次へ進める。
-      document.getElementById('summaryFieldId').innerText = fieldId || "（指定なし）";
-      document.getElementById('summaryCoords').innerText =
-        (coords.lat && coords.lng)
-          ? coords.lat + ", " + coords.lng + "（GPS）"
-          : "GPS未取得";
+      if (!fieldId) {
+        alert("圃場IDが未設定です。地図上の圃場ピンをタップして選択してください。");
+        // 読み取り専用のためキーボードは起動しない（ピンのタップで入力）
+        return;
+      }
+      document.getElementById('summaryFieldId').innerText = fieldId;
+      document.getElementById('summaryCoords').innerText = coords.lat + ", " + coords.lng + "（GPS）";
       switchStep(2);
     }
     function goToStep1() { switchStep(1); }
