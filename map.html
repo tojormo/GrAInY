@@ -218,8 +218,8 @@ function tooltipHtml(f){
     '<div class="t-row"><b>作付年:</b> '+(f["作付年"] ?? "-")+'</div>';
 }
 
-/* ===== データ読み込み（KSAS_field.json を参照） ===== */
-fetch('KSAS_field.json', { cache: 'no-store' })
+/* ===== データ読み込み（KSAS_field_all.json を参照） ===== */
+fetch('KSAS_field_all.json', { cache: 'no-store' })
   .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
   .then(data => {
     const fields = data.filter(f => f.latitude != null && f.longitude != null);
@@ -238,9 +238,9 @@ fetch('KSAS_field.json', { cache: 'no-store' })
     if (fields.length) map.fitBounds(L.latLngBounds(fields.map(f => [f.latitude, f.longitude])).pad(0.15));
   })
   .catch(err => {
-    console.error('KSAS_field.json 読み込み失敗:', err);
+    console.error('KSAS_field_all.json 読み込み失敗:', err);
     document.getElementById('fieldCount').textContent = '読込エラー';
-    alert('圃場データ（KSAS_field.json）を読み込めませんでした。\nindex.html と同じフォルダに配置してください。\n\n詳細: ' + err.message);
+    alert('圃場データ（KSAS_field_all.json）を読み込めませんでした。\nindex.html と同じフォルダに配置してください。\n\n詳細: ' + err.message);
   });
 
 /* ===== 選択トグル ===== */
