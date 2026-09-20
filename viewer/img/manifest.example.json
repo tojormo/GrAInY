@@ -1,5 +1,5 @@
 {
-  "_comment": "任意ファイル。img/manifest.json として配置すると、GitHub APIより優先してこちらが使われます。画像が非常に多い場合やAPI回数制限を避けたい場合、CI(GitHub Actions)等でこのファイルを自動生成すると便利です。",
+  "_comment": "任意ファイル。img/manifest.json として配置すると、GitHub APIより優先してこちらが使われます。",
   "files": [
     "20260920_082945_Hosokawa_３０２_FieldHigh.jpg",
     "20260919_070000_Katayama_１６４_FieldWide.jpg"
