@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>圃場写真ビューワー | KSAS Field Photo Viewer</title>
+
+<!-- Leaflet (地図表示) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<!-- MarkerCluster (ピンのグループ化) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+<link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+<header id="app-header">
+  <h1>🌾 圃場写真ビューワー</h1>
+  <div id="header-controls">
+    <input id="search-box" type="text" placeholder="圃場名・住所・担当者で検索" autocomplete="off" />
+    <button id="refresh-btn" title="画像一覧を再取得します">🔄 更新</button>
+    <button id="sidebar-toggle-btn" title="一覧の表示切替">☰ 一覧</button>
+  </div>
+</header>
+
+<div id="status-bar">
+  <span id="status-text">読み込み中…</span>
+</div>
+
+<div id="app-body">
+  <aside id="sidebar">
+    <div id="sidebar-summary"></div>
+    <ul id="field-list"></ul>
+  </aside>
+
+  <main id="map"></main>
+</div>
+
+<!-- ギャラリー(モーダル) -->
+<div id="gallery-modal" class="hidden">
+  <div id="gallery-modal-inner">
+    <div id="gallery-header">
+      <h2 id="gallery-title"></h2>
+      <button id="gallery-close-btn">✕ 閉じる</button>
+    </div>
+    <div id="gallery-meta"></div>
+    <div id="gallery-grid"></div>
+  </div>
+</div>
+
+<!-- ライトボックス(拡大表示) -->
+<div id="lightbox" class="hidden">
+  <button id="lightbox-close-btn">✕</button>
+  <button id="lightbox-prev-btn">‹</button>
+  <img id="lightbox-img" src="" alt="" />
+  <button id="lightbox-next-btn">›</button>
+  <div id="lightbox-caption"></div>
+</div>
+
+<div id="error-banner" class="hidden"></div>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+<script src="./js/app.js"></script>
+</body>
+</html>
