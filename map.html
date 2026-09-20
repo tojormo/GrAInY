@@ -175,9 +175,9 @@ window.addEventListener('resize', () => map.invalidateSize());
 
 /* ===== 品種別の色分け ===== */
 const VARIETY_COLORS = {
-  "山田錦": "#e6194B", "山田錦(共生会)": "#f58231", "ヒノヒカリ": "#4363d8", "黒大豆": "#3cb44b"
+  "山田錦": "#e6194B", "山田錦(共生会)": "#f58231", "ヒノヒカリ": "#4363d8", "黒大豆": "#000000"
 };
-const PALETTE = ["#e6f2ff","#b3e5ff","#80d4ff","#4db8ff","#1e90ff","#0074d9","#005bb5","#003f88","#001f5c"];
+const PALETTE = ["#1e3a8a","#1d4ed8","#2563eb","#1e40af","#1e429f","#1d3557","#003f88","#00296b","#001845"];
 let paletteIdx = 0;
 const usedVarieties = new Map();
 function colorFor(v){
