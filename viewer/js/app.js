@@ -120,6 +120,26 @@ async function loadImageFilenames() {
       setStatus(`GitHub (${owner}/${repo}@${branch}) から取得中…`);
       const url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
       const res = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+
+      if (res.status === 403) {
+        // 403 はレート制限 または プライベートリポジトリ等が原因。
+        // ブランチを変えても解消しないため即座に打ち切り、原因を判定してわかりやすく通知する。
+        const remaining = res.headers.get("x-ratelimit-remaining");
+        const resetHeader = res.headers.get("x-ratelimit-reset");
+        let detail;
+        if (remaining === "0") {
+          const resetTime = resetHeader
+            ? new Date(Number(resetHeader) * 1000).toLocaleTimeString("ja-JP")
+            : "しばらく後";
+          detail = `GitHub APIの利用回数制限に達しました(未認証は60回/時間/IP)。${resetTime} 頃に制限が解除されます。`;
+        } else {
+          detail = `GitHub APIから403 (アクセス拒否) が返されました。リポジトリが Private になっているか、リポジトリ名/ユーザー名の設定が誤っている可能性があります。`;
+        }
+        throw new Error(
+          `${detail} 恒久的な対策として img/manifest.json を自動生成する GitHub Actions ワークフロー(.github/workflows/update-manifest.yml)を同梱していますので、そちらの利用を推奨します。`
+        );
+      }
+
       if (!res.ok) { lastErr = new Error(`GitHub APIエラー (${res.status})`); continue; }
       const data = await res.json();
       const prefix = CONFIG.imgDir.replace(/\/+$/, "") + "/";
@@ -131,7 +151,7 @@ async function loadImageFilenames() {
         setStatus(`GitHubから取得 (${files.length}件)`);
         return files;
       }
-    } catch (e) { lastErr = e; }
+    } catch (e) { lastErr = e; if (/GitHub APIの利用回数制限|403/.test(e.message)) throw e; }
   }
   throw lastErr || new Error("画像一覧を取得できませんでした (imgフォルダが空か設定が誤っている可能性があります)");
 }

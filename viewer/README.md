@@ -14,11 +14,13 @@ GitHub Pages で公開する、圃場写真を確認するための静的サイ�
 
 ```
 リポジトリのルート (GitHub Pages公開フォルダ)
+├── .github/workflows/update-manifest.yml  ← img/manifest.json を自動生成
 ├── index.html
 ├── KSAS_field_all.json      ← 圃場データ(緯度経度・圃場名など)
 ├── css/style.css
 ├── js/app.js                 ← 設定・ロジックはすべてここ
 └── img/
+    ├── manifest.json          ← Actionsが自動生成(初回pushで作成されます)
     ├── 20260920_082945_Hosokawa_３０２_FieldHigh.jpg
     ├── 20260920_083000_Hosokawa_３０２_FieldWide.jpg
     └── ...(写真を追加していくだけでOK)
@@ -42,13 +44,28 @@ GitHub Pages で公開する、圃場写真を確認するための静的サイ�
 
 ## 3. 画像一覧の取得方法(自動・サーバー不要)
 
-1. **`img/manifest.json`** があれば最優先で使用(任意)
+1. **`img/manifest.json`** があれば最優先で使用 ← **推奨・下記のワークフローで自動生成されます**
 2. ブラウザのセッションキャッシュ(10分以内なら再利用)
-3. **GitHub API** (`git/trees` recursive) で `img/` 配下を自動取得
+3. **GitHub API** (`git/trees` recursive) で `img/` 配下を自動取得(フォールバック)
 
-通常は 3. の自動取得のみで動作します(リポジトリが Public であれば認証不要)。
-画像枚数が非常に多い、または API のレート制限(未認証: 60回/時/IP)が気になる場合は、
-`img/manifest.example.json` を参考に `img/manifest.json` を用意してください。
+### ⚠ 「GitHub APIエラー (403)」が出る場合
+
+3. の GitHub API には **未認証で60回/時間/IP** という利用回数制限があり、
+これを超えると 403 エラーになります。また、リポジトリが Private の場合も
+403 になります。この問題は API に頼らない 1. の `manifest.json` 方式で
+根本的に解消できます。
+
+**このリポジトリには `.github/workflows/update-manifest.yml` を同梱済みです。**
+`img/` フォルダに写真を追加して push すると、GitHub Actions が自動的に
+`img/manifest.json` (画像ファイル名の一覧) を生成・コミットしてくれるため、
+以後ブラウザは API を一切呼ばずに画像一覧を取得できるようになります。
+
+セットアップは不要で、リポジトリの Settings → Actions → General で
+"Read and write permissions" が有効になっていることだけご確認ください
+(デフォルトで有効な場合がほとんどです)。
+
+手動で試したい場合は GitHub リポジトリの Actions タブ →
+「Update img manifest」→「Run workflow」でも実行できます。
 
 ## 4. 設定 (js/app.js 冒頭の `CONFIG`)
 

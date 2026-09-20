@@ -1,0 +1,58 @@
+name: Update img manifest
+
+# img/ フォルダに写真を追加・削除して push すると自動実行され、
+# img/manifest.json (画像ファイル名の一覧) を再生成してコミットします。
+# これにより、閲覧側は GitHub API を呼ばずに画像一覧を取得できるため、
+# API利用回数制限(403エラー)が発生しなくなります。
+
+on:
+  push:
+    paths:
+      - "img/**"
+    branches:
+      - main
+      - master
+  workflow_dispatch: {}   # Actionsタブから手動実行も可能
+
+permissions:
+  contents: write
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+
+      - name: manifest.json を生成
+        run: |
+          cd img
+          # 画像拡張子のファイルのみを対象に、ファイル名の一覧をJSON化
+          find . -maxdepth 1 -type f \
+            \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \
+               -o -iname "*.gif" -o -iname "*.webp" \) \
+            -printf '%f\n' | sort > filelist.txt
+
+          python3 - <<'PY'
+          import json
+          with open("filelist.txt", encoding="utf-8") as f:
+              files = [line.strip() for line in f if line.strip()]
+          with open("manifest.json", "w", encoding="utf-8") as f:
+              json.dump({"files": files}, f, ensure_ascii=False, indent=2)
+          print(f"{len(files)} 件の画像ファイルを manifest.json に書き出しました")
+          PY
+
+          rm -f filelist.txt
+          cd ..
+
+      - name: 変更があればコミット & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- img/manifest.json; then
+            echo "manifest.json に変更はありません"
+          else
+            git add img/manifest.json
+            git commit -m "chore: update img/manifest.json [skip ci]"
+            git push
+          fi
