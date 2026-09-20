@@ -1,11 +1,13 @@
 /* =========================================================================
  * 圃場写真ビューワー (KSAS Field Photo Viewer) - シンプル版
  * -------------------------------------------------------------------------
- * ・同じ階層の KSAS_field_all.json から圃場(緯度経度)一覧を読み込みます
+ * ・同じ階層の KSAS_field_all.json にある「全圃場」を地図に表示します
+ *   (写真の有無で絞り込みません。写真が無い圃場は「写真: なし」と表示)
  * ・/img/ フォルダの画像一覧は GitHub API から自動取得します
  *   (画像ファイル名: 日付_時間_撮影者_圃場ID_撮影種別.拡張子 の命名規則が前提)
+ * ・GitHub Actions 等のビルド処理は使用しません(完全に静的なファイルのみ)
  * ・画面は2つだけ:
- *    ① 地図から見る    : ピンをタップ → その圃場の写真一式を表示
+ *    ① 地図から見る    : 全圃場をピン表示。タップで写真一式(無ければ「なし」)を表示
  *    ② 撮影種別から見る : 撮影種別を選択 → 該当写真を一覧表示 → タップで地図表示
  * ========================================================================= */
 
@@ -136,7 +138,7 @@ async function loadImageFilenames() {
           detail = `GitHub APIから403 (アクセス拒否) が返されました。リポジトリが Private になっているか、リポジトリ名/ユーザー名の設定が誤っている可能性があります。`;
         }
         throw new Error(
-          `${detail} 恒久的な対策として img/manifest.json を自動生成する GitHub Actions ワークフロー(.github/workflows/update-manifest.yml)を同梱していますので、そちらの利用を推奨します。`
+          `${detail} 回避策として img/manifest.json (画像ファイル名を並べたJSON) を手動で作成して img フォルダに置くと、API を使わずに画像一覧を読み込めます。詳しくは README をご覧ください。`
         );
       }
 
@@ -173,8 +175,8 @@ const state = {
   map: null,
   fields: [],
   fieldsByNormName: new Map(),
-  photosByFieldNo: new Map(),   // fieldNo -> [photo...]
-  fieldsWithPhotos: [],         // [{field, photos}]
+  photosByFieldNo: new Map(),   // fieldNo -> [photo...] (写真が無い圃場はキー自体が存在しない)
+  allFieldEntries: [],          // [{field, photos}] ← JSON内の全圃場(写真の有無を問わず)
   markerByFieldNo: new Map(),
   shotTypes: [],                // ユニークな撮影種別一覧
   photosByShotType: new Map(),  // shotType -> [{field, photo}]
@@ -236,13 +238,15 @@ async function loadDataAndRender() {
     });
   });
 
-  state.fieldsWithPhotos = [];
-  state.photosByFieldNo.forEach((photos, fieldNo) => {
-    photos.sort((a, b) => (a.sortKey < b.sortKey ? 1 : -1));
-    const field = fields.find((f) => f.No === fieldNo);
-    if (field) state.fieldsWithPhotos.push({ field, photos });
+  // 写真の有無に関わらず、JSON内の全圃場をエントリ化する
+  state.photosByFieldNo.forEach((photos) => {
+    photos.sort((a, b) => (a.sortKey < b.sortKey ? 1 : -1)); // 新しい順
   });
-  state.fieldsWithPhotos.sort((a, b) =>
+  state.allFieldEntries = fields.map((field) => ({
+    field,
+    photos: state.photosByFieldNo.get(field.No) || [],
+  }));
+  state.allFieldEntries.sort((a, b) =>
     String(a.field["圃場名"]).localeCompare(String(b.field["圃場名"]), "ja")
   );
 
@@ -254,9 +258,12 @@ async function loadDataAndRender() {
   renderShotTypeSelect();
 
   hideError();
+  const fieldsWithPhotoCount = state.allFieldEntries.filter((e) => e.photos.length > 0).length;
   const totalPhotos = filenames.length - invalidCount;
-  setStatus(`${state.fieldsWithPhotos.length}圃場 / ${totalPhotos}枚の写真` +
-    (unmatchedCount ? ` (未一致${unmatchedCount}件)` : ""));
+  setStatus(
+    `全${state.allFieldEntries.length}圃場 (写真あり${fieldsWithPhotoCount}件) / ${totalPhotos}枚の写真` +
+      (unmatchedCount ? ` (未一致${unmatchedCount}件)` : "")
+  );
 }
 
 /* ------------------------------------------------------------------ *
@@ -283,10 +290,12 @@ function initMap() {
   setTimeout(() => map.invalidateSize(), 200);
 }
 
-function photoIcon() {
+function photoIcon(hasPhoto) {
+  const cls = hasPhoto ? "marker-photo-icon" : "marker-photo-icon marker-photo-icon--empty";
+  const emoji = hasPhoto ? "📷" : "・";
   return L.divIcon({
     className: "marker-photo-icon-wrap",
-    html: '<div class="marker-photo-icon"><span>📷</span></div>',
+    html: `<div class="${cls}"><span>${emoji}</span></div>`,
     iconSize: [30, 30],
     iconAnchor: [15, 28],
     popupAnchor: [0, -26],
@@ -295,19 +304,23 @@ function photoIcon() {
 
 function buildPopupHtml(field, photos) {
   const addr = field["住所"] ? `${field["住所"]} ・ ` : "";
-  const thumbs = photos
-    .slice(0, 5)
-    .map(
-      (p, i) =>
-        `<img src="${p.url}" loading="lazy" data-field-no="${field.No}" data-photo-index="${i}" alt="${escapeHtml(p.shotType)}" />`
-    )
-    .join("");
+  const body =
+    photos.length > 0
+      ? `<div class="popup-photo-grid">${photos
+          .slice(0, 5)
+          .map(
+            (p, i) =>
+              `<img src="${p.url}" loading="lazy" data-field-no="${field.No}" data-photo-index="${i}" alt="${escapeHtml(p.shotType)}" />`
+          )
+          .join("")}</div>`
+      : `<div class="popup-no-photo">写真: なし</div>`;
+
   return `
     <div class="popup-title">🌾 ${escapeHtml(field["圃場名"])}</div>
     <div class="popup-sub">${addr}${escapeHtml(field["作付計画_品種"] || "")}${
     field["担当者"] ? " / " + escapeHtml(field["担当者"]) : ""
   } ・ 📷${photos.length}枚</div>
-    <div class="popup-photo-grid">${thumbs}</div>
+    ${body}
   `;
 }
 
@@ -316,8 +329,11 @@ function renderMarkers() {
   state.markerByFieldNo.forEach((m) => state.map.removeLayer(m));
   state.markerByFieldNo.clear();
 
-  state.fieldsWithPhotos.forEach(({ field, photos }) => {
-    const marker = L.marker([field.latitude, field.longitude], { icon: photoIcon() });
+  // JSON内の全圃場を表示する(写真の有無で絞り込まない)
+  state.allFieldEntries.forEach(({ field, photos }) => {
+    const marker = L.marker([field.latitude, field.longitude], {
+      icon: photoIcon(photos.length > 0),
+    });
     marker.bindPopup(buildPopupHtml(field, photos), { maxWidth: 280 });
     marker.addTo(state.map);
     state.markerByFieldNo.set(field.No, marker);
