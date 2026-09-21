@@ -202,14 +202,14 @@
       <!-- GPS説明（欄外＝カード外に配置） -->
       <div class="field-note">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"></path><circle cx="12" cy="11" r="2"></circle></svg>
-        <span>位置情報はGPSで自動取得されます。地図上の圃場ピンをタップすると「圃場ID」が自動入力されます。</span>
+        <span>位置情報はGPSで自動取得されます。地図上の圃場ピンをタップすると「圃場ID」が自動入力されます。圃場ピンが無い場所でも、地図上の任意の地点をタップすると、その緯度経度が「圃場ID」として自動入力されます。</span>
       </div>
 
       <!-- 圃場ID入力 -->
       <div class="card field-id-card">
         <div class="form-group">
           <label for="fieldId">圃場ID</label>
-          <input type="text" id="fieldId" placeholder="地図の圃場ピンをタップ、または直接入力" required>
+          <input type="text" id="fieldId" placeholder="地図の圃場ピンや任意の地点をタップ、または直接入力" required>
         </div>
       </div>
 
@@ -441,6 +441,7 @@
     };
 
     let map, marker;
+    let tapMarker = null;   // ★ 圃場ピン以外の場所をタップした際の一時マーカー
     let deviceLat = null, deviceLng = null;   // ★ 端末GPSで取得した座標（spreadsheet書き込みで最優先）
     // 位置情報はGPS専用のため、地図選択フォールバック(selectedLat/Lng)は廃止。
     let geoPermissionStatus = null;
@@ -549,7 +550,9 @@
       // 現在地マーカー（GPS取得位置の表示のみ・ドラッグ/タップ調整は不可）
       marker = L.marker([CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LNG], { draggable: false }).addTo(map);
       marker.bindTooltip("現在地（GPS）", { direction: 'top' });
-      // ※ 位置情報はGPS専用のため、地図クリック/ドラッグでの座標調整は行いません。
+      // ※ 送信座標（GPS）はGPS専用のため、地図タップで上書きされることはありません。
+      // ただし、圃場ピンが無い場所をタップした場合は、その地点の緯度経度を「圃場ID」として記録します。
+      map.on('click', onMapTap);
 
       loadFieldPins();            // ★ 圃場データを読み込んでピン表示
       checkGeoPermissionAndLocate();
@@ -649,6 +652,34 @@
         // 「次へ」ボタンが画面に見えるところまでスクロール
         nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+    }
+
+    // -------------------------------------------------------------
+    // 圃場ピンが無い場所を含め、地図上の任意の地点をタップした場合の処理
+    //   → タップした緯度経度をそのまま「圃場ID」として記録する。
+    //   ※ 送信データの座標(lat/lng)はあくまで端末GPSの値を使用するため、
+    //     このタップは「圃場ID」欄への入力のみに影響し、送信座標は変更しない。
+    // -------------------------------------------------------------
+    function onMapTap(e) {
+      const tLat = e.latlng.lat.toFixed(6);
+      const tLng = e.latlng.lng.toFixed(6);
+      const idStr = `${tLat}, ${tLng}`;
+
+      // タップした緯度経度を圃場IDへ即時反映
+      selectField(idStr);
+
+      // 前回のタップ地点マーカーを削除してから新規表示
+      if (tapMarker) { map.removeLayer(tapMarker); tapMarker = null; }
+      tapMarker = L.circleMarker(e.latlng, {
+        radius: 9, color: '#ffffff', weight: 2, fillColor: '#111111', fillOpacity: 0.9
+      }).addTo(map);
+      tapMarker.bindPopup(
+        `<b>タップ地点</b><br>緯度: ${tLat}<br>経度: ${tLng}` +
+        `<br><button type="button" onclick="confirmField('${idStr}')" ` +
+        `style="margin-top:8px;padding:8px 14px;border:none;border-radius:0;background:#111;color:#fff;font-weight:600;cursor:pointer;">決定</button>`,
+        { autoPan: false, closeButton: true }
+      ).openPopup();
+      tapMarker.on('click', () => selectField(idStr));
     }
 
     // -------------------------------------------------------------
@@ -892,7 +923,7 @@
         return;
       }
       if (!fieldId) {
-        alert("圃場IDが未設定です。地図上の圃場ピンをタップして選択するか、直接入力してください。");
+        alert("圃場IDが未設定です。地図上の圃場ピンや任意の地点をタップして選択するか、直接入力してください。");
         return;
       }
       document.getElementById('summaryFieldId').innerText = fieldId;
