@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>圃場写真マップ</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #8a8f98;
+    --subtle: #f0f1f4;
+    --accent: #111111;
+    --danger: #c0392b;
+    --radius: 0px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.05);
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 8px;
+    background-color: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .container { max-width: 640px; width: 100%; margin: 0 auto; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  h1 { font-size: 1.05rem; font-weight: 700; margin: 0; letter-spacing: 0.06em; text-transform: uppercase; }
+  .card { background: var(--surface); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); }
+  .map-card { padding: 8px; }
+  #map { height: clamp(414px, 68vh, 900px); width: 100%; margin-bottom: 8px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 7px 14px; padding: 4px 4px 0; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #4a4f57; }
+  .legend-dot { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 2px #fff, 0 1px 2px rgba(0,0,0,0.15); flex-shrink: 0; }
+  label { font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 7px; }
+  select {
+    width: 100%; padding: 12px 14px; font-size: 0.9rem; border: none; border-radius: 0;
+    background: var(--subtle); color: var(--ink); appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a8f98' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat; background-position: right 12px center; background-size: 18px;
+  }
+  select:focus { outline: none; background-color: var(--surface); box-shadow: 0 0 0 2px var(--accent); }
+  .photo-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; max-height: 50vh; overflow-y: auto; }
+  .photo-list-item {
+    display: flex; justify-content: space-between; align-items: center; background: var(--subtle);
+    padding: 11px 14px; cursor: pointer; transition: opacity 0.15s ease;
+  }
+  .photo-list-item:active { opacity: 0.6; }
+  .photo-list-item .field-name { font-weight: 600; font-size: 0.88rem; }
+  .photo-list-item .meta { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .photo-list-item .chevron { color: var(--muted); font-size: 1.1rem; }
+  .empty-note { color: var(--muted); font-size: 0.82rem; margin: 6px 2px 0; }
+  .popup-btn {
+    margin-top: 8px; padding: 8px 14px; border: none; border-radius: 0; background: var(--accent);
+    color: #fff; font-weight: 600; font-size: 0.8rem; cursor: pointer;
+  }
+  .popup-nodata { display: inline-block; margin-top: 8px; font-size: 0.78rem; color: var(--muted); }
+  /* モーダル共通 */
+  .modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(20,22,26,0.6); z-index: 9999; justify-content: center; align-items: center; padding: 16px;
+  }
+  .modal-card {
+    background: var(--surface); max-width: 640px; width: 100%; max-height: 88vh; overflow-y: auto;
+    padding: 18px; box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+  }
+  .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .modal-head h2 { font-size: 1rem; margin: 0; font-weight: 700; }
+  .close-btn { background: var(--subtle); border: none; padding: 7px 12px; font-weight: 600; cursor: pointer; }
+  .thumb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+  .thumb-item { cursor: pointer; background: var(--subtle); padding: 6px; }
+  .thumb-item img { width: 100%; height: 100px; object-fit: cover; display: block; background: #ddd; }
+  .thumb-item .label { font-size: 0.68rem; text-align: center; margin-top: 5px; color: #4a4f57; }
+  /* ライトボックス */
+  #lightbox .modal-card { max-width: 90vw; padding: 12px; background: #000; }
+  #lightboxImg { width: 100%; max-height: 70vh; object-fit: contain; display: block; background: #000; }
+  #lightboxCaption { color: #eee; font-size: 0.78rem; text-align: center; margin-top: 10px; }
+  .lightbox-nav { display: flex; justify-content: space-between; margin-top: 10px; }
+  .lightbox-nav button {
+    background: #222; color: #fff; border: none; padding: 9px 18px; font-weight: 600; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>圃場写真マップ</h1>
+  </div>
+
+  <div class="card map-card">
+    <div id="map"></div>
+    <div id="legend" class="legend"></div>
+  </div>
+
+  <div class="card">
+    <div class="form-group">
+      <label for="typeSelect">撮影種別で絞り込み</label>
+      <select id="typeSelect">
+        <option value="">-- 種別を選択してください --</option>
+      </select>
+    </div>
+    <div id="photoList" class="photo-list"></div>
+  </div>
+</div>
+
+<!-- 圃場ごとの全画像ビューワー（機能1） -->
+<div id="galleryModal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 id="galleryTitle">圃場名</h2>
+      <button type="button" class="close-btn" onclick="closeGallery()">閉じる</button>
+    </div>
+    <div id="galleryGrid" class="thumb-grid"></div>
+  </div>
+</div>
+
+<!-- 拡大表示ライトボックス -->
+<div id="lightbox" class="modal-overlay">
+  <div class="modal-card">
+    <img id="lightboxImg" src="" alt="">
+    <div id="lightboxCaption"></div>
+    <div class="lightbox-nav">
+      <button type="button" id="lightboxPrev" onclick="lightboxPrev()">&larr; 前へ</button>
+      <button type="button" class="close-btn" onclick="closeLightbox()">閉じる</button>
+      <button type="button" id="lightboxNext" onclick="lightboxNext()">次へ &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // =============================================================
+  // 設定
+  // =============================================================
+  const CONFIG = {
+    FIELD_JSON_URL: "json/photo_field_joined.json", // json フォルダ内に配置
+    IMG_DIR: "img/",                                 // img フォルダ内に全画像を配置
+    DEFAULT_LAT: 34.898154,
+    DEFAULT_LNG: 135.060832
+  };
+
+  // 撮影種別（表示順・ラベル）
+  const TYPE_ORDER = ["FieldHigh", "FieldLow", "Plant", "Base", "Ground"];
+  const TYPE_LABELS = {
+    FieldHigh: "圃場全体（高視点）",
+    FieldLow: "圃場全体（低視点）",
+    Plant: "稲株全体",
+    Base: "株元",
+    Ground: "地面"
+  };
+
+  const COLOR_PALETTE = [
+    '#e6194B','#3cb44b','#4363d8','#f58231','#911eb4','#42d4f4','#f032e6',
+    '#bfef45','#fabed4','#469990','#9A6324','#800000','#808000','#000075','#a9a9a9'
+  ];
+  const varietyColors = {};
+  let colorIndex = 0;
+  function colorForVariety(v) {
+    const key = (v == null || v === "") ? "未設定" : v;
+    if (!(key in varietyColors)) {
+      varietyColors[key] = COLOR_PALETTE[colorIndex % COLOR_PALETTE.length];
+      colorIndex++;
+    }
+    return varietyColors[key];
+  }
+
+  let map;
+  const fieldsMap = {};   // 圃場キー -> {key, name, lat, lng, variety, staff, address, photos:[]}
+  const markers = {};     // 圃場キー -> Leafletマーカー
+
+  function initMap() {
+    map = L.map('map').setView([CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LNG], 14);
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap', maxZoom: 19
+    });
+    const esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+      maxZoom: 19
+    });
+    esriSat.addTo(map); // ベースは衛星写真
+    L.control.layers(
+      { "衛星写真": esriSat, "標準地図": osmLayer },
+      null,
+      { position: 'topright' }
+    ).addTo(map);
+    loadData();
+  }
+
+  async function loadData() {
+    try {
+      const res = await fetch(CONFIG.FIELD_JSON_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      const records = Array.isArray(data) ? data : (data.records || []);
+      buildFieldsMap(records);
+      renderPins();
+      buildLegend();
+      populateTypeSelect();
+    } catch (e) {
+      console.warn('データの読み込みに失敗しました:', e);
+      document.getElementById('legend').innerHTML =
+        '<span style="color:#b00020;font-size:0.75rem;">データを読み込めませんでした（json/photo_field_joined.json を確認してください）。</span>';
+    }
+  }
+
+  function buildFieldsMap(records) {
+    records.forEach(r => {
+      const key = r['圃場キー'];
+      if (!key) return;
+      if (!fieldsMap[key]) {
+        fieldsMap[key] = {
+          key,
+          name: r['圃場名'] || key,
+          lat: null,
+          lng: null,
+          variety: r['作付計画_品種'] || null,
+          staff: r['担当者'] || null,
+          address: r['住所'] || null,
+          photos: []
+        };
+      }
+      const f = fieldsMap[key];
+      if (r.latitude != null && r.longitude != null) {
+        f.lat = r.latitude;
+        f.lng = r.longitude;
+      }
+      if (!f.variety && r['作付計画_品種']) f.variety = r['作付計画_品種'];
+      if (!f.staff && r['担当者']) f.staff = r['担当者'];
+      if ((!f.name || f.name === key) && r['圃場名']) f.name = r['圃場名'];
+      if (r['画像ファイル名']) {
+        f.photos.push({
+          type: r['撮影種別'],
+          filename: r['画像ファイル名'],
+          datetime: r['撮影日時'],
+          recorder: r['記録者']
+        });
+      }
+    });
+  }
+
+  function renderPins() {
+    const pts = [];
+    Object.values(fieldsMap).forEach(f => {
+      if (f.lat == null || f.lng == null) return;
+      const color = colorForVariety(f.variety);
+      const marker = L.circleMarker([f.lat, f.lng], {
+        radius: 8, color: '#ffffff', weight: 2, fillColor: color, fillOpacity: 0.9
+      }).addTo(map);
+      marker.bindPopup(buildPopupContent(f), { autoPan: true, closeButton: true });
+      markers[f.key] = marker;
+      pts.push([f.lat, f.lng]);
+    });
+    if (pts.length) {
+      map.fitBounds(L.latLngBounds(pts).pad(0.15));
+    }
+  }
+
+  function buildPopupContent(f) {
+    const div = document.createElement('div');
+    const title = document.createElement('b');
+    title.textContent = f.name;
+    div.appendChild(title);
+    div.appendChild(document.createElement('br'));
+    div.appendChild(document.createTextNode('品種: ' + (f.variety || '未設定')));
+    div.appendChild(document.createElement('br'));
+    div.appendChild(document.createTextNode('担当者: ' + (f.staff || '未設定')));
+    div.appendChild(document.createElement('br'));
+    if (f.photos.length > 0) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'popup-btn';
+      btn.textContent = '写真を見る（' + f.photos.length + '枚）';
+      btn.addEventListener('click', () => openGallery(f.key));
+      div.appendChild(btn);
+    } else {
+      const span = document.createElement('span');
+      span.className = 'popup-nodata';
+      span.textContent = '写真なし';
+      div.appendChild(span);
+    }
+    return div;
+  }
+
+  function buildLegend() {
+    const legend = document.getElementById('legend');
+    legend.innerHTML = '';
+    Object.keys(varietyColors).forEach(v => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      const dot = document.createElement('span');
+      dot.className = 'legend-dot';
+      dot.style.background = varietyColors[v];
+      item.appendChild(dot);
+      item.appendChild(document.createTextNode(v));
+      legend.appendChild(item);
+    });
+  }
+
+  // -------------------------------------------------------------
+  // 機能1: 圃場ピン → 全画像ビューワー
+  // -------------------------------------------------------------
+  function sortByType(photos) {
+    return [...photos].sort((a, b) => TYPE_ORDER.indexOf(a.type) - TYPE_ORDER.indexOf(b.type));
+  }
+
+  function openGallery(key) {
+    const f = fieldsMap[key];
+    if (!f) return;
+    document.getElementById('galleryTitle').textContent = f.name;
+    const grid = document.getElementById('galleryGrid');
+    grid.innerHTML = '';
+    const sorted = sortByType(f.photos);
+    if (sorted.length === 0) {
+      grid.innerHTML = '<p class="empty-note">この圃場の写真はまだありません。</p>';
+    } else {
+      sorted.forEach((p, idx) => {
+        const item = document.createElement('div');
+        item.className = 'thumb-item';
+        const img = document.createElement('img');
+        img.src = CONFIG.IMG_DIR + p.filename;
+        img.loading = 'lazy';
+        img.alt = TYPE_LABELS[p.type] || p.type;
+        item.appendChild(img);
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.textContent = TYPE_LABELS[p.type] || p.type;
+        item.appendChild(label);
+        item.addEventListener('click', () => openLightbox(sorted, idx, f.name));
+        grid.appendChild(item);
+      });
+    }
+    document.getElementById('galleryModal').style.display = 'flex';
+  }
+  function closeGallery() {
+    document.getElementById('galleryModal').style.display = 'none';
+  }
+
+  // -------------------------------------------------------------
+  // ライトボックス（拡大表示・前後送り）
+  // -------------------------------------------------------------
+  let lightboxPhotos = [];
+  let lightboxIndex = 0;
+  let lightboxFieldName = '';
+
+  function openLightbox(photos, idx, fieldName) {
+    lightboxPhotos = photos;
+    lightboxIndex = idx;
+    lightboxFieldName = fieldName;
+    renderLightbox();
+    document.getElementById('lightbox').style.display = 'flex';
+  }
+  function renderLightbox() {
+    const p = lightboxPhotos[lightboxIndex];
+    document.getElementById('lightboxImg').src = CONFIG.IMG_DIR + p.filename;
+    const parts = [lightboxFieldName, TYPE_LABELS[p.type] || p.type, p.datetime || ''].filter(Boolean);
+    document.getElementById('lightboxCaption').textContent = parts.join(' ・ ');
+    const multi = lightboxPhotos.length > 1;
+    document.getElementById('lightboxPrev').style.visibility = multi ? 'visible' : 'hidden';
+    document.getElementById('lightboxNext').style.visibility = multi ? 'visible' : 'hidden';
+  }
+  function lightboxPrev() {
+    lightboxIndex = (lightboxIndex - 1 + lightboxPhotos.length) % lightboxPhotos.length;
+    renderLightbox();
+  }
+  function lightboxNext() {
+    lightboxIndex = (lightboxIndex + 1) % lightboxPhotos.length;
+    renderLightbox();
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+
+  // -------------------------------------------------------------
+  // 機能2: 撮影種別から選択 → 一覧 → 選択画像を表示 ＋ 地図で圃場確認
+  // -------------------------------------------------------------
+  function populateTypeSelect() {
+    const sel = document.getElementById('typeSelect');
+    TYPE_ORDER.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t;
+      opt.textContent = TYPE_LABELS[t];
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', renderPhotoList);
+  }
+
+  function renderPhotoList() {
+    const type = document.getElementById('typeSelect').value;
+    const listEl = document.getElementById('photoList');
+    listEl.innerHTML = '';
+    if (!type) return;
+
+    const items = [];
+    Object.values(fieldsMap).forEach(f => {
+      f.photos.forEach(p => {
+        if (p.type === type) items.push({ field: f, photo: p });
+      });
+    });
+    items.sort((a, b) => (a.field.name || '').localeCompare(b.field.name || '', 'ja'));
+
+    if (items.length === 0) {
+      listEl.innerHTML = '<p class="empty-note">該当する画像がありません。</p>';
+      return;
+    }
+
+    items.forEach(({ field, photo }) => {
+      const row = document.createElement('div');
+      row.className = 'photo-list-item';
+      const left = document.createElement('div');
+      const nameEl = document.createElement('div');
+      nameEl.className = 'field-name';
+      nameEl.textContent = field.name;
+      const metaEl = document.createElement('div');
+      metaEl.className = 'meta';
+      const metaParts = [photo.datetime, photo.recorder, field.lat == null ? '位置情報なし' : null].filter(Boolean);
+      metaEl.textContent = metaParts.join(' ・ ');
+      left.appendChild(nameEl);
+      left.appendChild(metaEl);
+      row.appendChild(left);
+      const chevron = document.createElement('span');
+      chevron.className = 'chevron';
+      chevron.textContent = '›';
+      row.appendChild(chevron);
+      row.addEventListener('click', () => selectPhotoListItem(field, photo));
+      listEl.appendChild(row);
+    });
+  }
+
+  function selectPhotoListItem(field, photo) {
+    openLightbox([photo], 0, field.name);
+    if (field.lat != null && field.lng != null) {
+      map.setView([field.lat, field.lng], 17);
+      const m = markers[field.key];
+      if (m) m.openPopup();
+    }
+  }
+
+  // -------------------------------------------------------------
+  // モーダル：背景クリック / Escで閉じる
+  // -------------------------------------------------------------
+  ['galleryModal', 'lightbox'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('click', (e) => {
+      if (e.target === el) el.style.display = 'none';
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeGallery();
+      closeLightbox();
+    }
+  });
+
+  window.onload = initMap;
+</script>
+</body>
+</html>
