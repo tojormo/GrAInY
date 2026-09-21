@@ -1,7 +1,0 @@
-{
-  "_comment": "任意ファイル。img/manifest.json として配置すると、GitHub APIより優先してこちらが使われます。",
-  "files": [
-    "20260920_082945_Hosokawa_３０２_FieldHigh.jpg",
-    "20260919_070000_Katayama_１６４_FieldWide.jpg"
-  ]
-}
