@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>圃場写真マップ</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
@@ -14,58 +14,88 @@
     --subtle: #f0f1f4;
     --accent: #111111;
     --danger: #c0392b;
-    --radius: 0px;
     --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.05);
+    --tabbar-h: 52px;
   }
   * { box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 全画面固定。スクロールは各パネル内のみ */
+  }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    margin: 0;
-    padding: 8px;
     background-color: var(--bg);
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
   }
-  .container { max-width: 640px; width: 100%; margin: 0 auto; }
-  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-  h1 { font-size: 1.05rem; font-weight: 700; margin: 0; letter-spacing: 0.06em; text-transform: uppercase; }
-  .card { background: var(--surface); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); }
-  .map-card { padding: 8px; }
-  #map { height: clamp(414px, 68vh, 900px); width: 100%; margin-bottom: 8px; }
-  .legend { display: flex; flex-wrap: wrap; gap: 7px 14px; padding: 4px 4px 0; }
-  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #4a4f57; }
-  .legend-dot { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 2px #fff, 0 1px 2px rgba(0,0,0,0.15); flex-shrink: 0; }
-  label { font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 7px; }
-  select {
-    width: 100%; padding: 12px 14px; font-size: 0.9rem; border: none; border-radius: 0;
+
+  /* ===== 上部タブメニュー ===== */
+  .tabbar {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--tabbar-h);
+    display: flex; background: var(--surface); box-shadow: var(--shadow); z-index: 500;
+  }
+  .tab-btn {
+    flex: 1; border: none; background: transparent; font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.03em; color: var(--muted); cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 6px; transition: color 0.15s ease, background 0.15s ease;
+  }
+  .tab-btn.active { color: var(--ink); background: var(--subtle); }
+  .tab-btn .icon { width: 1.05em; height: 1.05em; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ===== 画面本体（タブバー分だけ下にオフセット、フルスクリーン） ===== */
+  .view {
+    position: fixed; top: var(--tabbar-h); left: 0; right: 0; bottom: 0;
+    display: none;
+  }
+  .view.active { display: block; }
+
+  /* ---- 地図ビュー ---- */
+  #mapView #map { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+  #legend {
+    position: absolute; left: 10px; bottom: 14px; z-index: 400; max-width: 78%;
+    display: flex; flex-wrap: wrap; gap: 6px 10px; background: rgba(255,255,255,0.92);
+    padding: 8px 10px; box-shadow: var(--shadow); font-size: 0.7rem;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; color: #4a4f57; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 2px #fff, 0 1px 2px rgba(0,0,0,0.15); flex-shrink: 0; }
+
+  /* ---- 一覧ビュー ---- */
+  #listView { overflow-y: auto; background: var(--bg); padding: 14px; }
+  .list-controls { background: var(--surface); padding: 16px; margin-bottom: 14px; box-shadow: var(--shadow); }
+  .list-controls label { font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 7px; }
+  select#typeSelect {
+    width: 100%; padding: 12px 14px; font-size: 0.9rem; border: none;
     background: var(--subtle); color: var(--ink); appearance: none;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a8f98' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
     background-repeat: no-repeat; background-position: right 12px center; background-size: 18px;
   }
-  select:focus { outline: none; background-color: var(--surface); box-shadow: 0 0 0 2px var(--accent); }
-  .photo-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; max-height: 50vh; overflow-y: auto; }
-  .photo-list-item {
-    display: flex; justify-content: space-between; align-items: center; background: var(--subtle);
-    padding: 11px 14px; cursor: pointer; transition: opacity 0.15s ease;
+  select#typeSelect:focus { outline: none; background-color: var(--surface); box-shadow: 0 0 0 2px var(--accent); }
+
+  .viewer-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px;
   }
-  .photo-list-item:active { opacity: 0.6; }
-  .photo-list-item .field-name { font-weight: 600; font-size: 0.88rem; }
-  .photo-list-item .meta { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
-  .photo-list-item .chevron { color: var(--muted); font-size: 1.1rem; }
-  .empty-note { color: var(--muted); font-size: 0.82rem; margin: 6px 2px 0; }
+  .viewer-item { background: var(--surface); box-shadow: var(--shadow); cursor: pointer; overflow: hidden; }
+  .viewer-item img { width: 100%; height: 130px; object-fit: cover; display: block; background: #ddd; }
+  .viewer-item .info { padding: 8px 10px; }
+  .viewer-item .info .field-name { font-size: 0.82rem; font-weight: 700; }
+  .viewer-item .info .meta { font-size: 0.68rem; color: var(--muted); margin-top: 3px; }
+  .empty-note { color: var(--muted); font-size: 0.82rem; margin: 10px 2px 0; }
+
   .popup-btn {
-    margin-top: 8px; padding: 8px 14px; border: none; border-radius: 0; background: var(--accent);
+    margin-top: 8px; padding: 8px 14px; border: none; background: var(--accent);
     color: #fff; font-weight: 600; font-size: 0.8rem; cursor: pointer;
   }
   .popup-nodata { display: inline-block; margin-top: 8px; font-size: 0.78rem; color: var(--muted); }
-  /* モーダル共通 */
+
+  /* ===== モーダル共通 ===== */
   .modal-overlay {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(20,22,26,0.6); z-index: 9999; justify-content: center; align-items: center; padding: 16px;
   }
   .modal-card {
-    background: var(--surface); max-width: 640px; width: 100%; max-height: 88vh; overflow-y: auto;
+    background: var(--surface); max-width: 720px; width: 100%; max-height: 88vh; overflow-y: auto;
     padding: 18px; box-shadow: 0 10px 40px rgba(0,0,0,0.25);
   }
   .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
@@ -75,61 +105,71 @@
   .thumb-item { cursor: pointer; background: var(--subtle); padding: 6px; }
   .thumb-item img { width: 100%; height: 100px; object-fit: cover; display: block; background: #ddd; }
   .thumb-item .label { font-size: 0.68rem; text-align: center; margin-top: 5px; color: #4a4f57; }
+
   /* ライトボックス */
-  #lightbox .modal-card { max-width: 90vw; padding: 12px; background: #000; }
-  #lightboxImg { width: 100%; max-height: 70vh; object-fit: contain; display: block; background: #000; }
+  #lightbox .modal-card { max-width: 92vw; padding: 12px; background: #000; }
+  #lightboxImg { width: 100%; max-height: 74vh; object-fit: contain; display: block; background: #000; }
   #lightboxCaption { color: #eee; font-size: 0.78rem; text-align: center; margin-top: 10px; }
-  .lightbox-nav { display: flex; justify-content: space-between; margin-top: 10px; }
+  .lightbox-nav { display: flex; justify-content: space-between; margin-top: 10px; gap: 8px; }
   .lightbox-nav button {
     background: #222; color: #fff; border: none; padding: 9px 18px; font-weight: 600; cursor: pointer;
   }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>圃場写真マップ</h1>
+
+  <!-- 上部メニュー -->
+  <div class="tabbar">
+    <button type="button" class="tab-btn active" id="tabMapBtn" onclick="switchTab('map')">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0 0 21 18.83V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+      地図から見る
+    </button>
+    <button type="button" class="tab-btn" id="tabListBtn" onclick="switchTab('list')">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      一覧で見る
+    </button>
   </div>
 
-  <div class="card map-card">
+  <!-- 地図ビュー -->
+  <div id="mapView" class="view active">
     <div id="map"></div>
     <div id="legend" class="legend"></div>
   </div>
 
-  <div class="card">
-    <div class="form-group">
-      <label for="typeSelect">撮影種別で絞り込み</label>
+  <!-- 一覧ビュー -->
+  <div id="listView" class="view">
+    <div class="list-controls">
+      <label for="typeSelect">撮影種別を選択</label>
       <select id="typeSelect">
         <option value="">-- 種別を選択してください --</option>
       </select>
     </div>
-    <div id="photoList" class="photo-list"></div>
+    <div id="viewerGrid" class="viewer-grid"></div>
   </div>
-</div>
 
-<!-- 圃場ごとの全画像ビューワー（機能1） -->
-<div id="galleryModal" class="modal-overlay">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h2 id="galleryTitle">圃場名</h2>
-      <button type="button" class="close-btn" onclick="closeGallery()">閉じる</button>
-    </div>
-    <div id="galleryGrid" class="thumb-grid"></div>
-  </div>
-</div>
-
-<!-- 拡大表示ライトボックス -->
-<div id="lightbox" class="modal-overlay">
-  <div class="modal-card">
-    <img id="lightboxImg" src="" alt="">
-    <div id="lightboxCaption"></div>
-    <div class="lightbox-nav">
-      <button type="button" id="lightboxPrev" onclick="lightboxPrev()">&larr; 前へ</button>
-      <button type="button" class="close-btn" onclick="closeLightbox()">閉じる</button>
-      <button type="button" id="lightboxNext" onclick="lightboxNext()">次へ &rarr;</button>
+  <!-- 圃場ごとの全画像ビューワー（機能1：地図ピンから） -->
+  <div id="galleryModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="galleryTitle">圃場名</h2>
+        <button type="button" class="close-btn" onclick="closeGallery()">閉じる</button>
+      </div>
+      <div id="galleryGrid" class="thumb-grid"></div>
     </div>
   </div>
-</div>
+
+  <!-- 拡大表示ライトボックス -->
+  <div id="lightbox" class="modal-overlay">
+    <div class="modal-card">
+      <img id="lightboxImg" src="" alt="">
+      <div id="lightboxCaption"></div>
+      <div class="lightbox-nav">
+        <button type="button" id="lightboxPrev" onclick="lightboxPrev()">&larr; 前へ</button>
+        <button type="button" class="close-btn" onclick="closeLightbox()">閉じる</button>
+        <button type="button" id="lightboxNext" onclick="lightboxNext()">次へ &rarr;</button>
+      </div>
+    </div>
+  </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -143,7 +183,6 @@
     DEFAULT_LNG: 135.060832
   };
 
-  // 撮影種別（表示順・ラベル）
   const TYPE_ORDER = ["FieldHigh", "FieldLow", "Plant", "Base", "Ground"];
   const TYPE_LABELS = {
     FieldHigh: "圃場全体（高視点）",
@@ -169,8 +208,21 @@
   }
 
   let map;
-  const fieldsMap = {};   // 圃場キー -> {key, name, lat, lng, variety, staff, address, photos:[]}
-  const markers = {};     // 圃場キー -> Leafletマーカー
+  const fieldsMap = {};
+  const markers = {};
+
+  // -------------------------------------------------------------
+  // タブ切替
+  // -------------------------------------------------------------
+  function switchTab(name) {
+    document.getElementById('mapView').classList.toggle('active', name === 'map');
+    document.getElementById('listView').classList.toggle('active', name === 'list');
+    document.getElementById('tabMapBtn').classList.toggle('active', name === 'map');
+    document.getElementById('tabListBtn').classList.toggle('active', name === 'list');
+    if (name === 'map' && map) {
+      setTimeout(() => map.invalidateSize(), 50);
+    }
+  }
 
   function initMap() {
     map = L.map('map').setView([CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LNG], 14);
@@ -203,7 +255,7 @@
     } catch (e) {
       console.warn('データの読み込みに失敗しました:', e);
       document.getElementById('legend').innerHTML =
-        '<span style="color:#b00020;font-size:0.75rem;">データを読み込めませんでした（json/photo_field_joined.json を確認してください）。</span>';
+        '<span style="color:#b00020;">データを読み込めませんでした（json/photo_field_joined.json を確認してください）。</span>';
     }
   }
 
@@ -375,7 +427,8 @@
   }
 
   // -------------------------------------------------------------
-  // 機能2: 撮影種別から選択 → 一覧 → 選択画像を表示 ＋ 地図で圃場確認
+  // 機能2: 撮影種別を選択 → 画像ビューワー形式の一覧
+  //         サムネイルをタップすると拡大表示＋地図で圃場確認
   // -------------------------------------------------------------
   function populateTypeSelect() {
     const sel = document.getElementById('typeSelect');
@@ -385,15 +438,10 @@
       opt.textContent = TYPE_LABELS[t];
       sel.appendChild(opt);
     });
-    sel.addEventListener('change', renderPhotoList);
+    sel.addEventListener('change', renderViewerGrid);
   }
 
-  function renderPhotoList() {
-    const type = document.getElementById('typeSelect').value;
-    const listEl = document.getElementById('photoList');
-    listEl.innerHTML = '';
-    if (!type) return;
-
+  function collectPhotosByType(type) {
     const items = [];
     Object.values(fieldsMap).forEach(f => {
       f.photos.forEach(p => {
@@ -401,41 +449,57 @@
       });
     });
     items.sort((a, b) => (a.field.name || '').localeCompare(b.field.name || '', 'ja'));
+    return items;
+  }
 
+  function renderViewerGrid() {
+    const type = document.getElementById('typeSelect').value;
+    const grid = document.getElementById('viewerGrid');
+    grid.innerHTML = '';
+    if (!type) return;
+
+    const items = collectPhotosByType(type);
     if (items.length === 0) {
-      listEl.innerHTML = '<p class="empty-note">該当する画像がありません。</p>';
+      grid.innerHTML = '<p class="empty-note">該当する画像がありません。</p>';
       return;
     }
 
-    items.forEach(({ field, photo }) => {
-      const row = document.createElement('div');
-      row.className = 'photo-list-item';
-      const left = document.createElement('div');
+    const photosOnly = items.map(it => it.photo);
+    items.forEach((it, idx) => {
+      const { field, photo } = it;
+      const cell = document.createElement('div');
+      cell.className = 'viewer-item';
+      const img = document.createElement('img');
+      img.src = CONFIG.IMG_DIR + photo.filename;
+      img.loading = 'lazy';
+      img.alt = field.name;
+      cell.appendChild(img);
+      const info = document.createElement('div');
+      info.className = 'info';
       const nameEl = document.createElement('div');
       nameEl.className = 'field-name';
       nameEl.textContent = field.name;
       const metaEl = document.createElement('div');
       metaEl.className = 'meta';
-      const metaParts = [photo.datetime, photo.recorder, field.lat == null ? '位置情報なし' : null].filter(Boolean);
+      const metaParts = [photo.datetime, field.lat == null ? '位置情報なし' : null].filter(Boolean);
       metaEl.textContent = metaParts.join(' ・ ');
-      left.appendChild(nameEl);
-      left.appendChild(metaEl);
-      row.appendChild(left);
-      const chevron = document.createElement('span');
-      chevron.className = 'chevron';
-      chevron.textContent = '›';
-      row.appendChild(chevron);
-      row.addEventListener('click', () => selectPhotoListItem(field, photo));
-      listEl.appendChild(row);
+      info.appendChild(nameEl);
+      info.appendChild(metaEl);
+      cell.appendChild(info);
+      cell.addEventListener('click', () => selectViewerItem(photosOnly, idx, field));
+      grid.appendChild(cell);
     });
   }
 
-  function selectPhotoListItem(field, photo) {
-    openLightbox([photo], 0, field.name);
+  function selectViewerItem(photosOnly, idx, field) {
+    openLightbox(photosOnly, idx, field.name);
     if (field.lat != null && field.lng != null) {
+      switchTab('map');
       map.setView([field.lat, field.lng], 17);
       const m = markers[field.key];
       if (m) m.openPopup();
+      document.getElementById('tabMapBtn').classList.add('active');
+      document.getElementById('tabListBtn').classList.remove('active');
     }
   }
 
