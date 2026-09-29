@@ -68,6 +68,7 @@
     .capture-filename { font-size: 0.8rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 auto; min-width: 0; }
     .capture-filename.empty { color: var(--muted); }
     .capture-filename.done { color: var(--ink); font-weight: 600; }
+    .capture-note { font-size: 0.72rem; color: var(--muted); line-height: 1.5; margin-top: 6px; }
 
     /* 地図：枠線なし・角丸のみ */
     /* 地図は縦を大きめに。画面高に追従（小型端末でも破綻しない範囲でmax） */
@@ -168,6 +169,17 @@
     /* 欄外（カード外）のGPS説明 */
     .field-note { font-size: 0.75rem; color: var(--muted); line-height: 1.5; margin: -6px 2px 16px; display: flex; align-items: flex-start; gap: 6px; }
     .field-note .icon { margin-top: 2px; }
+    /* 担当者フィルタ */
+    .filter-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .filter-bar label { font-size: 0.72rem; margin: 0; flex-shrink: 0; color: #4a4f57; }
+    .filter-bar select {
+      flex: 1 1 auto; min-width: 0; padding: 9px 12px; font-size: 0.82rem; border: none; border-radius: 0;
+      background: var(--subtle); color: var(--ink); -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center; background-size: 14px; padding-right: 30px;
+    }
+    .filter-bar select:focus { outline: none; background-color: var(--surface); box-shadow: 0 0 0 2px var(--accent); }
+    .filter-count { font-size: 0.7rem; color: var(--muted); flex-shrink: 0; }
     /* 圃場ID／現在地取得まわりのフォントを小さめに（スコープ限定） */
     .field-id-card label { font-size: 0.72rem; margin-bottom: 5px; }
     .field-id-card input[type="text"] { font-size: 0.82rem; padding: 9px 12px; }
@@ -189,6 +201,14 @@
     <div id="step1" class="step-screen active">
       <!-- 地図・位置情報（GPSで自動取得） -->
       <div class="card map-card">
+        <!-- 担当者フィルタ（Step1：地図に表示する圃場ピンを担当者で絞り込み） -->
+        <div class="filter-bar">
+          <label for="personFilter">担当者</label>
+          <select id="personFilter" onchange="applyPersonFilter()">
+            <option value="__ALL__">すべて表示</option>
+          </select>
+          <span id="filterCount" class="filter-count"></span>
+        </div>
         <div id="map"></div>
         <div id="legend" class="legend"></div>
         <div class="coords-wrapper">
@@ -224,14 +244,24 @@
       </div>
 
       <!--
-        画像選択エリア（圃場全体(高視点)／圃場全体(低視点)／稲株全体／株元／地面の5点）
+        画像選択エリア（葉の葉緑素診断／圃場全体(高視点)／圃場全体(低視点)／稲株全体／株元／地面の6点）
         ※ accept="image/*" と capture="environment" を分けて指定することで
           Android(Chrome)・iOS(Safari)の両方でタップ時にカメラ(背面)を直接起動します。
           （accept="image/*;capture=camera" のような結合指定はAndroidでカメラが起動しない不具合の原因になるため使用しない）
       -->
       <div class="card">
         <div class="form-group">
-          <label for="imgFieldHigh">1. 圃場全体（高視点）</label>
+          <label for="imgChlorophyll">1. 葉の葉緑素診断</label>
+          <div class="capture-row">
+            <label for="imgChlorophyll" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
+            <input type="file" id="imgChlorophyll" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgChlorophyll')">
+            <span id="imgChlorophyll_name" class="capture-filename empty">未撮影</span>
+          </div>
+          <div class="capture-note">葉の色が正しく写るよう、影を避けて葉に近づけて撮影してください。</div>
+        </div>
+
+        <div class="form-group">
+          <label for="imgFieldHigh">2. 圃場全体（高視点）</label>
           <div class="capture-row">
             <label for="imgFieldHigh" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgFieldHigh" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgFieldHigh')">
@@ -239,7 +269,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="imgFieldLow">2. 圃場全体（低視点）</label>
+          <label for="imgFieldLow">3. 圃場全体（低視点）</label>
           <div class="capture-row">
             <label for="imgFieldLow" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgFieldLow" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgFieldLow')">
@@ -247,7 +277,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="imgPlant">3. 稲株全体</label>
+          <label for="imgPlant">4. 稲株全体</label>
           <div class="capture-row">
             <label for="imgPlant" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgPlant" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgPlant')">
@@ -255,7 +285,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="imgBase">4. 株元</label>
+          <label for="imgBase">5. 株元</label>
           <div class="capture-row">
             <label for="imgBase" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgBase" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgBase')">
@@ -263,7 +293,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="imgGround">5. 地面</label>
+          <label for="imgGround">6. 地面</label>
           <div class="capture-row">
             <label for="imgGround" class="btn-capture"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5l1.5-2h8l1.5 2H21a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>撮影</label>
             <input type="file" id="imgGround" class="file-input-hidden" accept="image/*" capture="environment" onchange="onCaptureChange('imgGround')">
@@ -411,8 +441,9 @@
       }
     };
 
-    // 画像アップロード項目の定義（穂先・根本・高さ・圃場全景の4点）
+    // 画像アップロード項目の定義（葉緑素診断・圃場全体(高/低)・稲株全体・株元・地面の6点）
     const IMAGE_FIELDS = [
+      { id: "imgChlorophyll", key: "imgChlorophyll", label: "葉の葉緑素診断" },
       { id: "imgFieldHigh", key: "imgFieldHigh", label: "圃場全体（高視点）" },
       { id: "imgFieldLow",  key: "imgFieldLow",  label: "圃場全体（低視点）" },
       { id: "imgPlant",     key: "imgPlant",     label: "稲株全体" },
@@ -428,6 +459,8 @@
       sendBtn: () => document.getElementById('sendBtn'),
       fieldId: () => document.getElementById('fieldId'),
       legend: () => document.getElementById('legend'),
+      personFilter: () => document.getElementById('personFilter'),
+      filterCount: () => document.getElementById('filterCount'),
       gpsModal: () => document.getElementById('gpsModal'),
       iosBlock: () => document.getElementById('iosBlock'),
       androidBlock: () => document.getElementById('androidBlock'),
@@ -449,6 +482,8 @@
     let userName = null;
     let pendingSubmitAfterKey = false;
     let fieldBounds = null;
+    let fieldMarkers = [];          // ★ 圃場ピンの一覧（担当者フィルタ用）
+    let currentPersonFilter = "__ALL__";
 
     // -------------------------------------------------------------
     // 端末判定（モーダル内の該当セクション強調）
@@ -575,10 +610,14 @@
       }
       return varietyColors[key];
     }
-    function buildLegend() {
+    // 凡例は「現在地図に表示中のピンの品種」のみを対象に作成する
+    function buildLegend(varietyList) {
       const legend = els.legend();
       legend.innerHTML = "";
-      Object.keys(varietyColors).forEach(v => {
+      const keys = varietyList && varietyList.length
+        ? Array.from(new Set(varietyList))
+        : Object.keys(varietyColors);
+      keys.forEach(v => {
         const item = document.createElement('div');
         item.className = 'legend-item';
         item.innerHTML = `<span class="legend-dot" style="background:${varietyColors[v]}"></span>${v}`;
@@ -597,6 +636,7 @@
 
         const withCoords = data.filter(f => f.latitude != null && f.longitude != null);
         const pts = [];
+        fieldMarkers = [];
 
         withCoords.forEach(f => {
           const variety = f['作付計画_品種'];
@@ -619,10 +659,20 @@
           // ピンのタップで圃場IDに自動入力（座標は端末GPS優先のため変更しない）
           cm.on('click', () => selectField(name));
 
+          // ★ 担当者フィルタ用にピン情報を保持
+          fieldMarkers.push({
+            marker: cm,
+            person: person || '未設定',
+            variety: (variety == null || variety === "") ? '未設定' : variety,
+            latlng: [f.latitude, f.longitude],
+            visible: true
+          });
+
           pts.push([f.latitude, f.longitude]);
         });
 
-        buildLegend();
+        buildPersonFilterOptions();   // ★ 担当者プルダウンを生成
+        applyPersonFilter(true);      // ★ 初期表示（すべて表示）＋凡例構築
 
         if (pts.length) {
           fieldBounds = L.latLngBounds(pts);
@@ -633,6 +683,58 @@
         console.warn('圃場データ(KSAS_field.json)の読み込みに失敗しました:', e);
         els.legend().innerHTML =
           '<span style="color:#b00020;font-size:0.75rem;">圃場データを読み込めませんでした（KSAS_field.json を index.html と同じ場所に配置してください）。</span>';
+      }
+    }
+
+    // -------------------------------------------------------------
+    // ★ 担当者フィルタ
+    //   ・圃場データの担当者を重複なく抽出してプルダウンを生成
+    //   ・選択された担当者の圃場ピンだけを地図に表示する
+    //   ・凡例も表示中のピンの品種のみに絞り込む
+    //   ※ 送信する座標(lat/lng)は端末GPSのままで、フィルタの影響は受けません。
+    // -------------------------------------------------------------
+    function buildPersonFilterOptions() {
+      const sel = els.personFilter();
+      if (!sel) return;
+      const persons = Array.from(new Set(fieldMarkers.map(m => m.person)))
+        .sort((a, b) => a.localeCompare(b, 'ja'));
+      sel.innerHTML = '<option value="__ALL__">すべて表示</option>';
+      persons.forEach(p => {
+        const count = fieldMarkers.filter(m => m.person === p).length;
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = `${p}（${count}）`;
+        sel.appendChild(opt);
+      });
+      sel.value = currentPersonFilter;
+    }
+
+    function applyPersonFilter(isInit) {
+      const sel = els.personFilter();
+      currentPersonFilter = sel ? sel.value : "__ALL__";
+
+      const shownPts = [];
+      const shownVarieties = [];
+
+      fieldMarkers.forEach(m => {
+        const show = (currentPersonFilter === "__ALL__") || (m.person === currentPersonFilter);
+        if (show && !m.visible) { m.marker.addTo(map); }
+        if (!show && m.visible) { map.removeLayer(m.marker); }
+        m.visible = show;
+        if (show) { shownPts.push(m.latlng); shownVarieties.push(m.variety); }
+      });
+
+      // 凡例を表示中の品種のみで再構築
+      buildLegend(shownVarieties);
+
+      // 件数表示
+      const cnt = els.filterCount();
+      if (cnt) cnt.innerText = shownPts.length + '件';
+
+      // 絞り込み時は該当ピンが収まる範囲へ地図を移動（初期表示時はGPS/全体表示を優先）
+      if (!isInit && shownPts.length) {
+        map.fitBounds(L.latLngBounds(shownPts).pad(0.25));
+        if (map) map.closePopup();
       }
     }
 
