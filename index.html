@@ -169,6 +169,10 @@
     /* 欄外（カード外）のGPS説明 */
     .field-note { font-size: 0.75rem; color: var(--muted); line-height: 1.5; margin: -6px 2px 16px; display: flex; align-items: flex-start; gap: 6px; }
     .field-note .icon { margin-top: 2px; }
+    /* 任意の地点を圃場IDとして指定する機能のON/OFFトグル */
+    .arbitrary-toggle-row { display: flex; align-items: center; gap: 7px; margin-top: 8px; font-size: 0.72rem; color: #4a4f57; }
+    .arbitrary-toggle-row input { width: auto; flex-shrink: 0; }
+    .arbitrary-toggle-row label { font-size: 0.72rem; margin: 0; font-weight: 400; }
     /* 担当者フィルタ */
     .filter-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
     .filter-bar label { font-size: 0.72rem; margin: 0; flex-shrink: 0; color: #4a4f57; }
@@ -218,11 +222,16 @@
           </div>
           <button type="button" class="btn-gps" onclick="getCurrentLocation()">現在地取得</button>
         </div>
+        <!-- 任意の地点を圃場IDとして指定する機能のトグル（オンの時だけ、ピン以外の地点タップを許可） -->
+        <div class="arbitrary-toggle-row">
+          <input type="checkbox" id="arbitraryLocationToggle" onchange="onArbitraryLocationToggleChange()">
+          <label for="arbitraryLocationToggle">地図の任意の地点を圃場IDとして指定する</label>
+        </div>
       </div>
       <!-- GPS説明（欄外＝カード外に配置） -->
       <div class="field-note">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.686-6-10a6 6 0 0 1 12 0c0 4.314-6 10-6 10z"></path><circle cx="12" cy="11" r="2"></circle></svg>
-        <span>位置情報はGPSで自動取得されます。地図上の圃場ピンをタップすると「圃場ID」が自動入力されます。圃場ピンが無い場所でも、地図上の任意の地点をタップすると、その緯度経度が「圃場ID」として自動入力されます。</span>
+        <span>位置情報はGPSで自動取得されます。地図上の圃場ピンをタップすると「圃場ID」が自動入力されます。「地図の任意の地点を圃場IDとして指定する」をオンにした場合のみ、圃場ピンが無い場所をタップした際にその緯度経度を「圃場ID」として自動入力できます。</span>
       </div>
 
       <!-- 圃場ID入力 -->
@@ -461,6 +470,7 @@
       legend: () => document.getElementById('legend'),
       personFilter: () => document.getElementById('personFilter'),
       filterCount: () => document.getElementById('filterCount'),
+      arbitraryToggle: () => document.getElementById('arbitraryLocationToggle'),
       gpsModal: () => document.getElementById('gpsModal'),
       iosBlock: () => document.getElementById('iosBlock'),
       androidBlock: () => document.getElementById('androidBlock'),
@@ -484,6 +494,7 @@
     let fieldBounds = null;
     let fieldMarkers = [];          // ★ 圃場ピンの一覧（担当者フィルタ用）
     let currentPersonFilter = "__ALL__";
+    let arbitraryLocationEnabled = false;   // ★ 任意の地点を圃場IDとして指定する機能：オンの時だけ実行可
 
     // -------------------------------------------------------------
     // 端末判定（モーダル内の該当セクション強調）
@@ -757,12 +768,27 @@
     }
 
     // -------------------------------------------------------------
+    // ★ 任意の地点を圃場IDとして指定する機能のON/OFF
+    //   ・トグルがオンの間だけ、圃場ピンが無い場所のタップを許可する。
+    //   ・オフに切り替えた場合は、残っているタップ地点マーカー／ポップアップを片付ける。
+    // -------------------------------------------------------------
+    function onArbitraryLocationToggleChange() {
+      arbitraryLocationEnabled = !!(els.arbitraryToggle() && els.arbitraryToggle().checked);
+      if (!arbitraryLocationEnabled && tapMarker) {
+        if (map) map.closePopup();
+        map.removeLayer(tapMarker);
+        tapMarker = null;
+      }
+    }
+    // -------------------------------------------------------------
     // 圃場ピンが無い場所を含め、地図上の任意の地点をタップした場合の処理
     //   → タップした緯度経度をそのまま「圃場ID」として記録する。
     //   ※ 送信データの座標(lat/lng)はあくまで端末GPSの値を使用するため、
     //     このタップは「圃場ID」欄への入力のみに影響し、送信座標は変更しない。
+    //   ★ この機能は「地図の任意の地点を圃場IDとして指定する」トグルがオンの時のみ実行される。
     // -------------------------------------------------------------
     function onMapTap(e) {
+      if (!arbitraryLocationEnabled) return;   // オフの間は何もしない（圃場ピンのタップは別ハンドラで従来通り動作）
       const tLat = e.latlng.lat.toFixed(6);
       const tLng = e.latlng.lng.toFixed(6);
       const idStr = `${tLat}, ${tLng}`;
