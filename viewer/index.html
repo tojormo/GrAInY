@@ -105,6 +105,8 @@
   .thumb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
   .thumb-item { cursor: pointer; background: var(--subtle); padding: 6px; }
   .thumb-item img { width: 100%; height: 100px; object-fit: cover; display: block; background: #ddd; }
+  /* 葉緑素診断は縦長写真で計測値が下寄りに写るため、サムネイルの切り出し位置を下げる */
+  .viewer-item img[data-type="Chlorophyll"], .thumb-item img[data-type="Chlorophyll"] { object-position: center 78%; }
   .thumb-item .label { font-size: 0.68rem; text-align: center; margin-top: 5px; color: #4a4f57; }
 
   /* ライトボックス */
@@ -185,8 +187,10 @@
     DEFAULT_LNG: 135.060832
   };
 
-  const TYPE_ORDER = ["FieldHigh", "FieldLow", "Plant", "Base", "Ground"];
+  // 撮影種別（入力アプリ index.html の IMAGE_FIELDS と同じ並び・表記）
+  const TYPE_ORDER = ["Chlorophyll", "FieldHigh", "FieldLow", "Plant", "Base", "Ground"];
   const TYPE_LABELS = {
+    Chlorophyll: "葉の葉緑素診断",
     FieldHigh: "圃場全体（高視点）",
     FieldLow: "圃場全体（低視点）",
     Plant: "稲株全体",
@@ -358,7 +362,9 @@
   // 機能1: 圃場ピン → 全画像ビューワー
   // -------------------------------------------------------------
   function sortByType(photos) {
-    return [...photos].sort((a, b) => TYPE_ORDER.indexOf(a.type) - TYPE_ORDER.indexOf(b.type));
+    // 未定義の種別は末尾に並べる
+    const rank = t => { const i = TYPE_ORDER.indexOf(t); return i === -1 ? TYPE_ORDER.length : i; };
+    return [...photos].sort((a, b) => rank(a.type) - rank(b.type));
   }
 
   function openGallery(key) {
@@ -378,6 +384,7 @@
         img.src = CONFIG.IMG_DIR + p.filename;
         img.loading = 'lazy';
         img.alt = TYPE_LABELS[p.type] || p.type;
+        img.dataset.type = p.type;
         item.appendChild(img);
         const label = document.createElement('div');
         label.className = 'label';
@@ -475,6 +482,7 @@
       img.src = CONFIG.IMG_DIR + photo.filename;
       img.loading = 'lazy';
       img.alt = field.name;
+      img.dataset.type = photo.type;
       cell.appendChild(img);
       const info = document.createElement('div');
       info.className = 'info';
