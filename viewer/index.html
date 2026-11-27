@@ -84,6 +84,16 @@ header.hd{flex:0 0 auto;display:flex;align-items:center;gap:20px;padding:10px 24
 .btn.ghost{background:var(--paper);color:var(--ink)}
 .btn.ghost:hover{background:var(--tint)}
 .pop .none{font-size:11px;color:var(--mute)}
+/* 圃場名ラベル（地図ピン） */
+.leaflet-tooltip.flabel{background:rgba(255,255,255,.92);border:1px solid var(--ink);border-radius:0;box-shadow:0 1px 0 rgba(11,42,91,.25);color:var(--ink);font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.02em;line-height:1.2;padding:1px 5px;white-space:nowrap}
+.leaflet-tooltip.flabel::before{display:none}
+.leaflet-tooltip.flabel.dim{z-index:-1;background:rgba(255,255,255,.6);border-color:var(--hair2);color:var(--mute);font-weight:500}
+.hide-labels .leaflet-tooltip.flabel{display:none}
+.lblctl{background:var(--paper);border:1px solid var(--ink)!important;border-radius:0!important;box-shadow:0 2px 0 rgba(11,42,91,.18)!important}
+.lblctl button{display:flex;align-items:center;gap:6px;height:32px;padding:0 10px;border:0;background:var(--paper);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--ink)}
+.lblctl button::before{content:"";width:11px;height:11px;border:1px solid var(--ink2);background:var(--paper)}
+.lblctl button.on{background:var(--ink);color:var(--paper)}
+.lblctl button.on::before{background:var(--paper);box-shadow:inset 0 0 0 3px var(--ink);border-color:var(--paper)}
 
 /* ---- 一覧 ---- */
 #listView{overflow-y:auto;background:var(--paper)}
@@ -314,7 +324,7 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
     document.getElementById('listView').classList.toggle('active', name === 'list');
     document.getElementById('tabMapBtn').classList.toggle('on', name === 'map');
     document.getElementById('tabListBtn').classList.toggle('on', name === 'list');
-    if (name === 'map' && map) setTimeout(() => map.invalidateSize(), 50);
+    if (name === 'map' && map) setTimeout(() => { map.invalidateSize(); updateLabelVisibility(); }, 50);
   }
 
   function initMap() {
@@ -328,7 +338,56 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
     });
     esriSat.addTo(map); // ベースは衛星写真
     L.control.layers({ "衛星写真": esriSat, "標準地図": osmLayer }, null, { position: 'topright' }).addTo(map);
+    addLabelControl();
+    map.on('zoomend', updateLabelVisibility);
     loadData();
+  }
+
+  // -------------------------------------------------------------
+  // 圃場名ラベル：ON/OFF 切替。ズームアウト時は重なり防止のため自動で隠す
+  // -------------------------------------------------------------
+  const LABEL_MIN_ZOOM = 14;
+  let labelsOn = true;
+  function addLabelControl() {
+    const Ctl = L.Control.extend({
+      options: { position: 'topleft' },
+      onAdd() {
+        const box = L.DomUtil.create('div', 'leaflet-bar lblctl');
+        box.innerHTML = '<button type="button" class="on" aria-pressed="true" title="地図上の圃場名の表示を切り替え">圃場名</button>';
+        const btn = box.querySelector('button');
+        L.DomEvent.disableClickPropagation(box);
+        btn.addEventListener('click', () => {
+          labelsOn = !labelsOn;
+          btn.classList.toggle('on', labelsOn);
+          btn.setAttribute('aria-pressed', labelsOn);
+          updateLabelVisibility();
+        });
+        return box;
+      }
+    });
+    new Ctl().addTo(map);
+  }
+  function updateLabelVisibility() {
+    const show = labelsOn && map.getZoom() >= LABEL_MIN_ZOOM;
+    map.getContainer().classList.toggle('hide-labels', !show);
+    if (show) setTimeout(declutterLabels, 0);
+  }
+  // 重なるラベルは間引く（撮影日フィルタに該当する圃場を優先）。ズームインすると全て表示される
+  function declutterLabels() {
+    const items = Object.values(fieldsMap).map(f => {
+      const tt = markers[f.key] && markers[f.key].getTooltip();
+      const el = tt && tt.getElement();
+      return el ? { el, active: visiblePhotos(f).length > 0 } : null;
+    }).filter(Boolean);
+    items.sort((a, b) => b.active - a.active);
+    const rects = items.map(it => it.el.getBoundingClientRect());
+    const placed = [];
+    items.forEach((it, i) => {
+      const r = rects[i];
+      const hit = placed.some(p => r.left < p.right + 2 && r.right + 2 > p.left && r.top < p.bottom + 1 && r.bottom + 1 > p.top);
+      it.el.style.visibility = hit ? 'hidden' : '';
+      if (!hit) placed.push(r);
+    });
   }
 
   async function loadData() {
@@ -343,6 +402,7 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
       renderDateChips();
       renderTypeChips();
       applyFilter(false);
+      updateLabelVisibility();
     } catch (e) {
       console.warn('データの読み込みに失敗しました:', e);
       document.getElementById('legend').innerHTML =
@@ -434,6 +494,7 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
       if (f.lat == null || f.lng == null) return;
       const marker = L.circleMarker([f.lat, f.lng], { radius: 8, color: '#ffffff', weight: 2, fillColor: colorForVariety(f.variety), fillOpacity: 0.9 }).addTo(map);
       marker.bindPopup('', { autoPan: true, closeButton: true, maxWidth: 260 });
+      marker.bindTooltip(String(f.name).normalize('NFKC'), { permanent: true, direction: 'bottom', offset: [0, 6], className: 'flabel', interactive: false });
       markers[f.key] = marker;
     });
     const pts = Object.values(fieldsMap).filter(f => f.lat != null).map(f => [f.lat, f.lng]);
@@ -457,8 +518,15 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
         m.setStyle({ radius: 5, color: '#ffffff', weight: 1, fillColor: '#7a8fae', fillOpacity: 0.35, opacity: 0.6 });
       }
       m.setPopupContent(buildPopupContent(f));
+      const tt = m.getTooltip();
+      if (tt) {
+        tt.options.className = 'flabel' + (n > 0 ? '' : ' dim');
+        const el = tt.getElement();
+        if (el) el.classList.toggle('dim', n === 0);
+      }
     });
     buildLegend(activeVarieties);
+    if (map) setTimeout(updateLabelVisibility, refit ? 350 : 0);
     if (refit && pts.length && state.dates.size > 0) map.fitBounds(L.latLngBounds(pts).pad(0.2), { maxZoom: 17 });
     else if (refit && state.dates.size === 0) {
       const all = Object.values(fieldsMap).filter(f => f.lat != null).map(f => [f.lat, f.lng]);
