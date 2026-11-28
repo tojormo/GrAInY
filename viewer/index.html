@@ -67,6 +67,15 @@ header.hd{flex:0 0 auto;display:flex;align-items:center;gap:20px;padding:10px 24
 .legend-dot{width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--hair2);flex-shrink:0}
 .legend-item.dim{color:var(--mute)}
 .legend-item.dim .legend-dot{opacity:.35}
+/* 色分け（数値グラデーション）凡例 */
+#legend.grad{flex-direction:column;flex-wrap:nowrap;gap:5px;min-width:220px}
+.lg-title{font-size:11px;font-weight:900;color:var(--ink);letter-spacing:.04em}
+.lg-title small{font-weight:500;color:var(--mute);margin-left:6px}
+.lg-bar{height:10px;border:1px solid var(--hair2)}
+.lg-scale{display:flex;justify-content:space-between;font-size:10px;color:var(--ink2);font-feature-settings:"tnum";font-weight:600}
+.lg-na{display:flex;align-items:center;gap:6px;color:var(--mute);font-size:10px}
+.lg-na .legend-dot{background:#c3cad6;opacity:.8}
+#metricBar.hidden{display:none}
 .leaflet-container{font-family:var(--font)}
 .leaflet-popup-content-wrapper{border-radius:0;border:1px solid var(--ink);border-top-width:3px;box-shadow:0 10px 24px rgba(11,42,91,.18)}
 .leaflet-popup-tip{box-shadow:none;border:1px solid var(--ink)}
@@ -187,6 +196,12 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
   <div id="summary" class="summary"></div>
 </div>
 
+<!-- 色分け指標（地図のみ） -->
+<div class="fbar" id="metricBar">
+  <div class="lbl"><div class="eyebrow">Color</div><b>色分け</b></div>
+  <div id="metricChips" class="chips" role="radiogroup" aria-label="圃場アイコンの色分け"></div>
+</div>
+
 <div class="views">
   <div id="mapView" class="view active">
     <div id="map"></div>
@@ -257,6 +272,47 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
   const typeLabel = t => TYPE_LABELS[t] || t || '';
   const typeRank = t => { const i = TYPE_ORDER.indexOf(t); return i === -1 ? TYPE_ORDER.length : i; };
 
+  // 色分け指標（photo_field_joined.json にジョインした数値）
+  // stops: 値の小さい側 → 大きい側の色。domain: 固定範囲（null ならデータの最小〜最大）
+  const METRICS = [
+    { key: '', label: '品種' },
+    { key: '倒伏度Claude', label: '倒伏度 Claude', unit: '0–5', domain: [0, 5], digits: 0,
+      stops: ['#1a9850', '#fee08b', '#d73027'], note: '大きいほど倒伏' },
+    { key: '倒伏度GPT', label: '倒伏度 GPT', unit: '0–5', domain: [0, 5], digits: 0,
+      stops: ['#1a9850', '#fee08b', '#d73027'], note: '大きいほど倒伏' },
+    { key: 'SPAD', label: 'SPAD', unit: '', domain: null, digits: 1,
+      stops: ['#f7f4b9', '#9fd17c', '#1b6b34'], note: '大きいほど葉色が濃い' },
+    { key: '10a当たり収量kg(生籾)', label: '収量', unit: 'kg/10a（生籾）', domain: null, digits: 0,
+      stops: ['#fff3c4', '#f4a259', '#8c2d04'], note: '' }
+  ];
+  const NA_COLOR = '#c3cad6';
+  let metricKey = '';
+  const metricDef = () => METRICS.find(m => m.key === metricKey) || METRICS[0];
+
+  function hexToRgb(h) { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+  function lerpColor(stops, t) {
+    t = Math.max(0, Math.min(1, t));
+    const seg = (stops.length - 1) * t, i = Math.min(Math.floor(seg), stops.length - 2), u = seg - i;
+    const a = hexToRgb(stops[i]), b = hexToRgb(stops[i + 1]);
+    return '#' + a.map((v, k) => Math.round(v + (b[k] - v) * u).toString(16).padStart(2, '0')).join('');
+  }
+  function metricDomain(def) {
+    if (def.domain) return def.domain;
+    const vals = Object.values(fieldsMap).map(f => f.metrics[def.key]).filter(v => v != null);
+    if (!vals.length) return [0, 1];
+    return [Math.min(...vals), Math.max(...vals)];
+  }
+  function fmtMetric(v, def) { return v == null ? '—' : Number(v).toFixed(def.digits); }
+  // 現在の色分けモードでの圃場の色
+  function fieldColor(f) {
+    const def = metricDef();
+    if (!def.key) return colorForVariety(f.variety);
+    const v = f.metrics[def.key];
+    if (v == null) return NA_COLOR;
+    const [lo, hi] = metricDomain(def);
+    return lerpColor(def.stops, hi === lo ? 0.5 : (v - lo) / (hi - lo));
+  }
+
   const COLOR_PALETTE = [
     '#e6194B','#3cb44b','#4363d8','#f58231','#911eb4','#42d4f4','#f032e6',
     '#bfef45','#fabed4','#469990','#9A6324','#800000','#808000','#000075','#a9a9a9'
@@ -318,8 +374,24 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
   // -------------------------------------------------------------
   // タブ切替
   // -------------------------------------------------------------
+  function renderMetricChips() {
+    const box = document.getElementById('metricChips');
+    box.innerHTML = METRICS.map(m => {
+      const on = m.key === metricKey;
+      const n = m.key ? Object.values(fieldsMap).filter(f => markers[f.key] && f.metrics[m.key] != null).length : null;
+      return `<button type="button" class="chip radio${on ? ' on' : ''}" role="radio" aria-checked="${on}" data-key="${esc(m.key)}">${esc(m.label)}` +
+        (n != null ? `<span class="n">${n}</span>` : '') + `</button>`;
+    }).join('');
+    box.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      metricKey = b.dataset.key;
+      renderMetricChips();
+      updateMarkers(false);
+    }));
+  }
+
   function switchTab(name) {
     currentTab = name;
+    document.getElementById('metricBar').classList.toggle('hidden', name !== 'map');
     document.getElementById('mapView').classList.toggle('active', name === 'map');
     document.getElementById('listView').classList.toggle('active', name === 'list');
     document.getElementById('tabMapBtn').classList.toggle('on', name === 'map');
@@ -400,6 +472,7 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
       buildDates();
       renderPins();
       renderDateChips();
+      renderMetricChips();
       renderTypeChips();
       applyFilter(false);
       updateLabelVisibility();
@@ -418,13 +491,14 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
         fieldsMap[key] = {
           key, name: r['圃場名'] || key, lat: null, lng: null,
           variety: r['作付計画_品種'] || null, staff: r['担当者'] || null, address: r['住所'] || null,
-          photos: []
+          metrics: {}, photos: []
         };
       }
       const f = fieldsMap[key];
       if (r.latitude != null && r.longitude != null) { f.lat = r.latitude; f.lng = r.longitude; }
       if (!f.variety && r['作付計画_品種']) f.variety = r['作付計画_品種'];
       if (!f.staff && r['担当者']) f.staff = r['担当者'];
+      METRICS.forEach(m => { if (m.key && f.metrics[m.key] == null && r[m.key] != null && r[m.key] !== '') f.metrics[m.key] = Number(r[m.key]); });
       if ((!f.name || f.name === key) && r['圃場名']) f.name = r['圃場名'];
       if (r['画像ファイル名']) {
         const dt = r['撮影日時'] || '';
@@ -492,7 +566,7 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
   function renderPins() {
     Object.values(fieldsMap).forEach(f => {
       if (f.lat == null || f.lng == null) return;
-      const marker = L.circleMarker([f.lat, f.lng], { radius: 8, color: '#ffffff', weight: 2, fillColor: colorForVariety(f.variety), fillOpacity: 0.9 }).addTo(map);
+      const marker = L.circleMarker([f.lat, f.lng], { radius: 8, color: '#ffffff', weight: 2, fillColor: fieldColor(f), fillOpacity: 0.9 }).addTo(map);
       marker.bindPopup('', { autoPan: true, closeButton: true, maxWidth: 260 });
       marker.bindTooltip(String(f.name).normalize('NFKC'), { permanent: true, direction: 'bottom', offset: [0, 6], className: 'flabel', interactive: false });
       markers[f.key] = marker;
@@ -509,7 +583,7 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
       if (!m) return;
       const n = visiblePhotos(f).length;
       if (n > 0) {
-        m.setStyle({ radius: 8, color: '#ffffff', weight: 2, fillColor: colorForVariety(f.variety), fillOpacity: 0.95, opacity: 1 });
+        m.setStyle({ radius: 8, color: '#ffffff', weight: 2, fillColor: fieldColor(f), fillOpacity: 0.95, opacity: 1 });
         m.bringToFront();
         pts.push([f.lat, f.lng]);
         activeVarieties.add(f.variety || '未設定');
@@ -520,6 +594,9 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
       m.setPopupContent(buildPopupContent(f));
       const tt = m.getTooltip();
       if (tt) {
+        const def = metricDef();
+        const nm = String(f.name).normalize('NFKC');
+        tt.setContent(def.key ? `${nm}｜${fmtMetric(f.metrics[def.key], def)}` : nm);
         tt.options.className = 'flabel' + (n > 0 ? '' : ' dim');
         const el = tt.getElement();
         if (el) el.classList.toggle('dim', n === 0);
@@ -541,7 +618,11 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
     const vis = visiblePhotos(f);
     div.innerHTML =
       `<div class="eyebrow">Field</div><div class="t">${esc(f.name)}</div>` +
-      `<dl><dt>品種</dt><dd>${esc(f.variety || '未設定')}</dd><dt>担当</dt><dd>${esc(f.staff || '未設定')}</dd></dl>` +
+      `<dl><dt>品種</dt><dd>${esc(f.variety || '未設定')}</dd><dt>担当</dt><dd>${esc(f.staff || '未設定')}</dd>` +
+      METRICS.filter(m => m.key).map(m => {
+        const cur = m.key === metricKey;
+        return `<dt>${esc(m.label)}</dt><dd${cur ? ' style="font-weight:900"' : ''}>${esc(fmtMetric(f.metrics[m.key], m))}</dd>`;
+      }).join('') + `</dl>` +
       `<div class="eyebrow" style="margin-bottom:4px">撮影日</div>` +
       `<div class="dates">${dates.map(d => `<span class="pill${(state.dates.size === 0 || state.dates.has(d)) ? ' on' : ''}">${esc(fmtShort(d))} ${esc(weekJa(d))}</span>`).join('')}</div>`;
     if (vis.length > 0) {
@@ -569,6 +650,19 @@ img[data-type="Chlorophyll"]{object-position:center 78%}
 
   function buildLegend(active) {
     const legend = document.getElementById('legend');
+    const def = metricDef();
+    legend.classList.toggle('grad', !!def.key);
+    if (def.key) {
+      const [lo, hi] = metricDomain(def);
+      const mid = (lo + hi) / 2;
+      const na = Object.values(fieldsMap).filter(f => markers[f.key] && f.metrics[def.key] == null).length;
+      legend.innerHTML =
+        `<div class="lg-title">${esc(def.label)}${def.unit ? `<small>${esc(def.unit)}</small>` : ''}${def.note ? `<small>${esc(def.note)}</small>` : ''}</div>` +
+        `<div class="lg-bar" style="background:linear-gradient(to right,${def.stops.join(',')})"></div>` +
+        `<div class="lg-scale"><span>${fmtMetric(lo, def)}</span><span>${fmtMetric(mid, { digits: (def.domain && !Number.isInteger(mid)) ? 1 : def.digits })}</span><span>${fmtMetric(hi, def)}</span></div>` +
+        (na ? `<div class="lg-na"><span class="legend-dot"></span>データなし（${na}圃場）</div>` : '');
+      return;
+    }
     legend.innerHTML = Object.keys(varietyColors).map(v =>
       `<div class="legend-item${active.has(v) ? '' : ' dim'}"><span class="legend-dot" style="background:${varietyColors[v]}"></span>${esc(v)}</div>`
     ).join('');

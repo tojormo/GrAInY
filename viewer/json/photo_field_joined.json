@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-11-22T08:49:03",
-  "record_count": 354,
+  "record_count": 314,
   "summary": {
-    "matched": 339,
-    "photo_only": 15,
+    "matched": 314,
+    "photo_only": 0,
     "field_only": 0
   },
   "columns": [
@@ -49,7 +49,11 @@
     "メモ",
     "latitude",
     "longitude",
-    "結合状態"
+    "結合状態",
+    "倒伏度Claude",
+    "倒伏度GPT",
+    "SPAD",
+    "10a当たり収量kg(生籾)"
   ],
   "records": [
     {
@@ -95,7 +99,11 @@
       "メモ": null,
       "latitude": 34.8948205255,
       "longitude": 135.0538231704,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 2,
@@ -140,7 +148,11 @@
       "メモ": null,
       "latitude": 34.8948205255,
       "longitude": 135.0538231704,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 3,
@@ -185,7 +197,11 @@
       "メモ": null,
       "latitude": 34.8948205255,
       "longitude": 135.0538231704,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 4,
@@ -230,7 +246,11 @@
       "メモ": null,
       "latitude": 34.8948205255,
       "longitude": 135.0538231704,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 5,
@@ -275,7 +295,11 @@
       "メモ": null,
       "latitude": 34.8948205255,
       "longitude": 135.0538231704,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 6,
@@ -320,7 +344,11 @@
       "メモ": null,
       "latitude": 34.8949722397,
       "longitude": 135.0547554868,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 3,
+      "SPAD": 23.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 7,
@@ -365,7 +393,11 @@
       "メモ": null,
       "latitude": 34.8949722397,
       "longitude": 135.0547554868,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 3,
+      "SPAD": 23.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 8,
@@ -410,7 +442,11 @@
       "メモ": null,
       "latitude": 34.8949722397,
       "longitude": 135.0547554868,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 3,
+      "SPAD": 23.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 9,
@@ -455,7 +491,11 @@
       "メモ": null,
       "latitude": 34.8949722397,
       "longitude": 135.0547554868,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 3,
+      "SPAD": 23.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 10,
@@ -500,7 +540,11 @@
       "メモ": null,
       "latitude": 34.8949722397,
       "longitude": 135.0547554868,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 3,
+      "SPAD": 23.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 11,
@@ -545,7 +589,11 @@
       "メモ": null,
       "latitude": 34.8949722397,
       "longitude": 135.0547554868,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 3,
+      "SPAD": 23.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 12,
@@ -590,7 +638,11 @@
       "メモ": null,
       "latitude": 34.8949722397,
       "longitude": 135.0547554868,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 3,
+      "SPAD": 23.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 13,
@@ -635,7 +687,11 @@
       "メモ": null,
       "latitude": 34.8959050656,
       "longitude": 135.0565588729,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 14,
@@ -680,7 +736,11 @@
       "メモ": null,
       "latitude": 34.8959050656,
       "longitude": 135.0565588729,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 15,
@@ -725,7 +785,11 @@
       "メモ": null,
       "latitude": 34.8959050656,
       "longitude": 135.0565588729,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 16,
@@ -770,7 +834,11 @@
       "メモ": null,
       "latitude": 34.8959050656,
       "longitude": 135.0565588729,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 17,
@@ -815,7 +883,11 @@
       "メモ": null,
       "latitude": 34.8959050656,
       "longitude": 135.0565588729,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 18,
@@ -860,7 +932,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 19,
@@ -905,7 +981,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 20,
@@ -950,7 +1030,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 21,
@@ -995,7 +1079,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 22,
@@ -1040,7 +1128,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 23,
@@ -1085,7 +1177,11 @@
       "メモ": null,
       "latitude": 34.8959050656,
       "longitude": 135.0565588729,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 24,
@@ -1130,7 +1226,11 @@
       "メモ": null,
       "latitude": 34.8959050656,
       "longitude": 135.0565588729,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 25,
@@ -1175,7 +1275,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 26,
@@ -1220,7 +1324,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 27,
@@ -1265,7 +1373,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 28,
@@ -1310,7 +1422,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 29,
@@ -1355,7 +1471,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 30,
@@ -1400,7 +1520,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 31,
@@ -1445,7 +1569,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 32,
@@ -1490,7 +1618,11 @@
       "メモ": null,
       "latitude": 34.895325069,
       "longitude": 135.0557551306,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 31.9,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 33,
@@ -1535,7 +1667,11 @@
       "メモ": null,
       "latitude": 34.896173433,
       "longitude": 135.0564869199,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 24.3,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 34,
@@ -1580,7 +1716,11 @@
       "メモ": null,
       "latitude": 34.896173433,
       "longitude": 135.0564869199,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 24.3,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 35,
@@ -1625,7 +1765,11 @@
       "メモ": null,
       "latitude": 34.896173433,
       "longitude": 135.0564869199,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 24.3,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 36,
@@ -1670,7 +1814,11 @@
       "メモ": null,
       "latitude": 34.896173433,
       "longitude": 135.0564869199,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 24.3,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 37,
@@ -1715,7 +1863,11 @@
       "メモ": null,
       "latitude": 34.896173433,
       "longitude": 135.0564869199,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 24.3,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 38,
@@ -1760,7 +1912,11 @@
       "メモ": null,
       "latitude": 34.896173433,
       "longitude": 135.0564869199,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 24.3,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 39,
@@ -1805,7 +1961,11 @@
       "メモ": null,
       "latitude": 34.896173433,
       "longitude": 135.0564869199,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 24.3,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 45,
@@ -1850,7 +2010,11 @@
       "メモ": null,
       "latitude": 34.8964574728,
       "longitude": 135.0550996265,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 3,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 534.0
     },
     {
       "record_id": 46,
@@ -1895,7 +2059,11 @@
       "メモ": null,
       "latitude": 34.8964574728,
       "longitude": 135.0550996265,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 3,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 534.0
     },
     {
       "record_id": 47,
@@ -1940,7 +2108,11 @@
       "メモ": null,
       "latitude": 34.8964574728,
       "longitude": 135.0550996265,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 3,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 534.0
     },
     {
       "record_id": 48,
@@ -1985,7 +2157,11 @@
       "メモ": null,
       "latitude": 34.8964574728,
       "longitude": 135.0550996265,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 3,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 534.0
     },
     {
       "record_id": 49,
@@ -2030,7 +2206,11 @@
       "メモ": null,
       "latitude": 34.8964574728,
       "longitude": 135.0550996265,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 3,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 534.0
     },
     {
       "record_id": 50,
@@ -2075,7 +2255,11 @@
       "メモ": null,
       "latitude": 34.8964574728,
       "longitude": 135.0550996265,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 3,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 534.0
     },
     {
       "record_id": 51,
@@ -2120,7 +2304,11 @@
       "メモ": null,
       "latitude": 34.8964574728,
       "longitude": 135.0550996265,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 3,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 534.0
     },
     {
       "record_id": 53,
@@ -2165,7 +2353,11 @@
       "メモ": null,
       "latitude": 34.900542426,
       "longitude": 135.0563540218,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 12.45,
+      "10a当たり収量kg(生籾)": 566.0
     },
     {
       "record_id": 54,
@@ -2210,7 +2402,11 @@
       "メモ": null,
       "latitude": 34.900542426,
       "longitude": 135.0563540218,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 12.45,
+      "10a当たり収量kg(生籾)": 566.0
     },
     {
       "record_id": 55,
@@ -2255,7 +2451,11 @@
       "メモ": null,
       "latitude": 34.900542426,
       "longitude": 135.0563540218,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 12.45,
+      "10a当たり収量kg(生籾)": 566.0
     },
     {
       "record_id": 56,
@@ -2300,7 +2500,11 @@
       "メモ": null,
       "latitude": 34.900542426,
       "longitude": 135.0563540218,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 12.45,
+      "10a当たり収量kg(生籾)": 566.0
     },
     {
       "record_id": 57,
@@ -2345,7 +2549,11 @@
       "メモ": null,
       "latitude": 34.900542426,
       "longitude": 135.0563540218,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 12.45,
+      "10a当たり収量kg(生籾)": 566.0
     },
     {
       "record_id": 58,
@@ -2390,7 +2598,11 @@
       "メモ": null,
       "latitude": 34.900542426,
       "longitude": 135.0563540218,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 12.45,
+      "10a当たり収量kg(生籾)": 566.0
     },
     {
       "record_id": 59,
@@ -2435,7 +2647,11 @@
       "メモ": null,
       "latitude": 34.900542426,
       "longitude": 135.0563540218,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 12.45,
+      "10a当たり収量kg(生籾)": 566.0
     },
     {
       "record_id": 60,
@@ -2480,7 +2696,11 @@
       "メモ": null,
       "latitude": 34.9009572501,
       "longitude": 135.0566550896,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 13.9,
+      "10a当たり収量kg(生籾)": 512.0
     },
     {
       "record_id": 61,
@@ -2525,7 +2745,11 @@
       "メモ": null,
       "latitude": 34.9009572501,
       "longitude": 135.0566550896,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 13.9,
+      "10a当たり収量kg(生籾)": 512.0
     },
     {
       "record_id": 62,
@@ -2570,7 +2794,11 @@
       "メモ": null,
       "latitude": 34.9009572501,
       "longitude": 135.0566550896,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 13.9,
+      "10a当たり収量kg(生籾)": 512.0
     },
     {
       "record_id": 63,
@@ -2615,7 +2843,11 @@
       "メモ": null,
       "latitude": 34.9009572501,
       "longitude": 135.0566550896,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 13.9,
+      "10a当たり収量kg(生籾)": 512.0
     },
     {
       "record_id": 64,
@@ -2660,7 +2892,11 @@
       "メモ": null,
       "latitude": 34.9009572501,
       "longitude": 135.0566550896,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 13.9,
+      "10a当たり収量kg(生籾)": 512.0
     },
     {
       "record_id": 65,
@@ -2705,7 +2941,11 @@
       "メモ": null,
       "latitude": 34.9009572501,
       "longitude": 135.0566550896,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 13.9,
+      "10a当たり収量kg(生籾)": 512.0
     },
     {
       "record_id": 66,
@@ -2750,7 +2990,11 @@
       "メモ": null,
       "latitude": 34.9009572501,
       "longitude": 135.0566550896,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 13.9,
+      "10a当たり収量kg(生籾)": 512.0
     },
     {
       "record_id": 67,
@@ -2795,7 +3039,11 @@
       "メモ": null,
       "latitude": 34.9006066251,
       "longitude": 135.0568718584,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.4,
+      "10a当たり収量kg(生籾)": 493.0
     },
     {
       "record_id": 68,
@@ -2840,7 +3088,11 @@
       "メモ": null,
       "latitude": 34.9006066251,
       "longitude": 135.0568718584,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.4,
+      "10a当たり収量kg(生籾)": 493.0
     },
     {
       "record_id": 69,
@@ -2885,7 +3137,11 @@
       "メモ": null,
       "latitude": 34.9006066251,
       "longitude": 135.0568718584,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.4,
+      "10a当たり収量kg(生籾)": 493.0
     },
     {
       "record_id": 70,
@@ -2930,7 +3186,11 @@
       "メモ": null,
       "latitude": 34.9006066251,
       "longitude": 135.0568718584,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.4,
+      "10a当たり収量kg(生籾)": 493.0
     },
     {
       "record_id": 71,
@@ -2975,7 +3235,11 @@
       "メモ": null,
       "latitude": 34.9006066251,
       "longitude": 135.0568718584,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.4,
+      "10a当たり収量kg(生籾)": 493.0
     },
     {
       "record_id": 72,
@@ -3020,7 +3284,11 @@
       "メモ": null,
       "latitude": 34.9006066251,
       "longitude": 135.0568718584,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.4,
+      "10a当たり収量kg(生籾)": 493.0
     },
     {
       "record_id": 73,
@@ -3065,7 +3333,11 @@
       "メモ": null,
       "latitude": 34.9006066251,
       "longitude": 135.0568718584,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.4,
+      "10a当たり収量kg(生籾)": 493.0
     },
     {
       "record_id": 74,
@@ -3110,7 +3382,11 @@
       "メモ": null,
       "latitude": 34.9008150241,
       "longitude": 135.0576208389,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 558.0
     },
     {
       "record_id": 75,
@@ -3155,7 +3431,11 @@
       "メモ": null,
       "latitude": 34.9008150241,
       "longitude": 135.0576208389,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 558.0
     },
     {
       "record_id": 76,
@@ -3200,7 +3480,11 @@
       "メモ": null,
       "latitude": 34.9008150241,
       "longitude": 135.0576208389,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 558.0
     },
     {
       "record_id": 77,
@@ -3245,7 +3529,11 @@
       "メモ": null,
       "latitude": 34.9008150241,
       "longitude": 135.0576208389,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 558.0
     },
     {
       "record_id": 78,
@@ -3290,7 +3578,11 @@
       "メモ": null,
       "latitude": 34.9008150241,
       "longitude": 135.0576208389,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 558.0
     },
     {
       "record_id": 79,
@@ -3335,7 +3627,11 @@
       "メモ": null,
       "latitude": 34.9008150241,
       "longitude": 135.0576208389,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 558.0
     },
     {
       "record_id": 80,
@@ -3380,7 +3676,11 @@
       "メモ": null,
       "latitude": 34.8986413765,
       "longitude": 135.05579257,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 21.6,
+      "10a当たり収量kg(生籾)": 632.0
     },
     {
       "record_id": 81,
@@ -3425,7 +3725,11 @@
       "メモ": null,
       "latitude": 34.8986413765,
       "longitude": 135.05579257,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 21.6,
+      "10a当たり収量kg(生籾)": 632.0
     },
     {
       "record_id": 82,
@@ -3470,7 +3774,11 @@
       "メモ": null,
       "latitude": 34.8986413765,
       "longitude": 135.05579257,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 21.6,
+      "10a当たり収量kg(生籾)": 632.0
     },
     {
       "record_id": 83,
@@ -3515,7 +3823,11 @@
       "メモ": null,
       "latitude": 34.8986413765,
       "longitude": 135.05579257,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 21.6,
+      "10a当たり収量kg(生籾)": 632.0
     },
     {
       "record_id": 84,
@@ -3560,7 +3872,11 @@
       "メモ": null,
       "latitude": 34.8986413765,
       "longitude": 135.05579257,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 21.6,
+      "10a当たり収量kg(生籾)": 632.0
     },
     {
       "record_id": 85,
@@ -3605,7 +3921,11 @@
       "メモ": null,
       "latitude": 34.8986413765,
       "longitude": 135.05579257,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 21.6,
+      "10a当たり収量kg(生籾)": 632.0
     },
     {
       "record_id": 86,
@@ -3650,7 +3970,11 @@
       "メモ": null,
       "latitude": 34.8986413765,
       "longitude": 135.05579257,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 21.6,
+      "10a当たり収量kg(生籾)": 632.0
     },
     {
       "record_id": 87,
@@ -3695,7 +4019,11 @@
       "メモ": null,
       "latitude": 34.8983760441,
       "longitude": 135.0549213674,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 27.4,
+      "10a当たり収量kg(生籾)": 485.0
     },
     {
       "record_id": 88,
@@ -3740,7 +4068,11 @@
       "メモ": null,
       "latitude": 34.8983760441,
       "longitude": 135.0549213674,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 27.4,
+      "10a当たり収量kg(生籾)": 485.0
     },
     {
       "record_id": 89,
@@ -3785,7 +4117,11 @@
       "メモ": null,
       "latitude": 34.8983760441,
       "longitude": 135.0549213674,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 27.4,
+      "10a当たり収量kg(生籾)": 485.0
     },
     {
       "record_id": 90,
@@ -3830,7 +4166,11 @@
       "メモ": null,
       "latitude": 34.8983760441,
       "longitude": 135.0549213674,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 27.4,
+      "10a当たり収量kg(生籾)": 485.0
     },
     {
       "record_id": 91,
@@ -3875,7 +4215,11 @@
       "メモ": null,
       "latitude": 34.8983760441,
       "longitude": 135.0549213674,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 27.4,
+      "10a当たり収量kg(生籾)": 485.0
     },
     {
       "record_id": 92,
@@ -3920,7 +4264,11 @@
       "メモ": null,
       "latitude": 34.8983760441,
       "longitude": 135.0549213674,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 27.4,
+      "10a当たり収量kg(生籾)": 485.0
     },
     {
       "record_id": 93,
@@ -3965,7 +4313,11 @@
       "メモ": null,
       "latitude": 34.8983760441,
       "longitude": 135.0549213674,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 27.4,
+      "10a当たり収量kg(生籾)": 485.0
     },
     {
       "record_id": 94,
@@ -4010,7 +4362,11 @@
       "メモ": null,
       "latitude": 34.8979108126,
       "longitude": 135.0551050837,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 24.9,
+      "10a当たり収量kg(生籾)": 593.0
     },
     {
       "record_id": 95,
@@ -4055,7 +4411,11 @@
       "メモ": null,
       "latitude": 34.8979108126,
       "longitude": 135.0551050837,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 24.9,
+      "10a当たり収量kg(生籾)": 593.0
     },
     {
       "record_id": 96,
@@ -4100,7 +4460,11 @@
       "メモ": null,
       "latitude": 34.8979108126,
       "longitude": 135.0551050837,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 24.9,
+      "10a当たり収量kg(生籾)": 593.0
     },
     {
       "record_id": 97,
@@ -4145,7 +4509,11 @@
       "メモ": null,
       "latitude": 34.8979108126,
       "longitude": 135.0551050837,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 24.9,
+      "10a当たり収量kg(生籾)": 593.0
     },
     {
       "record_id": 98,
@@ -4190,7 +4558,11 @@
       "メモ": null,
       "latitude": 34.8979108126,
       "longitude": 135.0551050837,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 24.9,
+      "10a当たり収量kg(生籾)": 593.0
     },
     {
       "record_id": 99,
@@ -4235,7 +4607,11 @@
       "メモ": null,
       "latitude": 34.8979108126,
       "longitude": 135.0551050837,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 24.9,
+      "10a当たり収量kg(生籾)": 593.0
     },
     {
       "record_id": 100,
@@ -4280,7 +4656,11 @@
       "メモ": null,
       "latitude": 34.8979108126,
       "longitude": 135.0551050837,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 24.9,
+      "10a当たり収量kg(生籾)": 593.0
     },
     {
       "record_id": 101,
@@ -4325,7 +4705,11 @@
       "メモ": null,
       "latitude": 34.8979108126,
       "longitude": 135.0551050837,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 24.9,
+      "10a当たり収量kg(生籾)": 593.0
     },
     {
       "record_id": 102,
@@ -4370,7 +4754,11 @@
       "メモ": null,
       "latitude": 34.8977223389,
       "longitude": 135.0552943286,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 578.0
     },
     {
       "record_id": 103,
@@ -4415,7 +4803,11 @@
       "メモ": null,
       "latitude": 34.8977223389,
       "longitude": 135.0552943286,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 578.0
     },
     {
       "record_id": 104,
@@ -4460,7 +4852,11 @@
       "メモ": null,
       "latitude": 34.8977223389,
       "longitude": 135.0552943286,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 578.0
     },
     {
       "record_id": 105,
@@ -4505,7 +4901,11 @@
       "メモ": null,
       "latitude": 34.8977223389,
       "longitude": 135.0552943286,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 578.0
     },
     {
       "record_id": 106,
@@ -4550,7 +4950,11 @@
       "メモ": null,
       "latitude": 34.8977223389,
       "longitude": 135.0552943286,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 578.0
     },
     {
       "record_id": 107,
@@ -4595,7 +4999,11 @@
       "メモ": null,
       "latitude": 34.8987300156,
       "longitude": 135.0570524991,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.1,
+      "10a当たり収量kg(生籾)": 526.0
     },
     {
       "record_id": 108,
@@ -4640,7 +5048,11 @@
       "メモ": null,
       "latitude": 34.8987300156,
       "longitude": 135.0570524991,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.1,
+      "10a当たり収量kg(生籾)": 526.0
     },
     {
       "record_id": 109,
@@ -4685,7 +5097,11 @@
       "メモ": null,
       "latitude": 34.8987300156,
       "longitude": 135.0570524991,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.1,
+      "10a当たり収量kg(生籾)": 526.0
     },
     {
       "record_id": 110,
@@ -4730,7 +5146,11 @@
       "メモ": null,
       "latitude": 34.8987300156,
       "longitude": 135.0570524991,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.1,
+      "10a当たり収量kg(生籾)": 526.0
     },
     {
       "record_id": 111,
@@ -4775,7 +5195,11 @@
       "メモ": null,
       "latitude": 34.8987300156,
       "longitude": 135.0570524991,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.1,
+      "10a当たり収量kg(生籾)": 526.0
     },
     {
       "record_id": 112,
@@ -4820,7 +5244,11 @@
       "メモ": null,
       "latitude": 34.8977223389,
       "longitude": 135.0552943286,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 578.0
     },
     {
       "record_id": 113,
@@ -4865,7 +5293,11 @@
       "メモ": null,
       "latitude": 34.8977223389,
       "longitude": 135.0552943286,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 578.0
     },
     {
       "record_id": 114,
@@ -4910,7 +5342,11 @@
       "メモ": null,
       "latitude": 34.8977223389,
       "longitude": 135.0552943286,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 3,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 578.0
     },
     {
       "record_id": 115,
@@ -4955,7 +5391,11 @@
       "メモ": null,
       "latitude": 34.8987300156,
       "longitude": 135.0570524991,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.1,
+      "10a当たり収量kg(生籾)": 526.0
     },
     {
       "record_id": 116,
@@ -5000,7 +5440,11 @@
       "メモ": null,
       "latitude": 34.8987300156,
       "longitude": 135.0570524991,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.1,
+      "10a当たり収量kg(生籾)": 526.0
     },
     {
       "record_id": 117,
@@ -5045,7 +5489,11 @@
       "メモ": null,
       "latitude": 34.8982608565,
       "longitude": 135.056932072,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 118,
@@ -5090,7 +5538,11 @@
       "メモ": null,
       "latitude": 34.8982608565,
       "longitude": 135.056932072,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 119,
@@ -5135,7 +5587,11 @@
       "メモ": null,
       "latitude": 34.8982608565,
       "longitude": 135.056932072,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 120,
@@ -5180,7 +5636,11 @@
       "メモ": null,
       "latitude": 34.8982608565,
       "longitude": 135.056932072,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 121,
@@ -5225,7 +5685,11 @@
       "メモ": null,
       "latitude": 34.8982608565,
       "longitude": 135.056932072,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 122,
@@ -5270,7 +5734,11 @@
       "メモ": null,
       "latitude": 34.898655938,
       "longitude": 135.05710067,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 18.4,
+      "10a当たり収量kg(生籾)": 570.0
     },
     {
       "record_id": 123,
@@ -5315,7 +5783,11 @@
       "メモ": null,
       "latitude": 34.898655938,
       "longitude": 135.05710067,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 18.4,
+      "10a当たり収量kg(生籾)": 570.0
     },
     {
       "record_id": 124,
@@ -5360,7 +5832,11 @@
       "メモ": null,
       "latitude": 34.898655938,
       "longitude": 135.05710067,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 18.4,
+      "10a当たり収量kg(生籾)": 570.0
     },
     {
       "record_id": 125,
@@ -5405,7 +5881,11 @@
       "メモ": null,
       "latitude": 34.898655938,
       "longitude": 135.05710067,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 18.4,
+      "10a当たり収量kg(生籾)": 570.0
     },
     {
       "record_id": 126,
@@ -5450,7 +5930,11 @@
       "メモ": null,
       "latitude": 34.898655938,
       "longitude": 135.05710067,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 18.4,
+      "10a当たり収量kg(生籾)": 570.0
     },
     {
       "record_id": 127,
@@ -5495,7 +5979,11 @@
       "メモ": null,
       "latitude": 34.8982608565,
       "longitude": 135.056932072,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 128,
@@ -5540,7 +6028,11 @@
       "メモ": null,
       "latitude": 34.8982608565,
       "longitude": 135.056932072,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 24.1,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 129,
@@ -5585,7 +6077,11 @@
       "メモ": null,
       "latitude": 34.898655938,
       "longitude": 135.05710067,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 18.4,
+      "10a当たり収量kg(生籾)": 570.0
     },
     {
       "record_id": 130,
@@ -5630,7 +6126,11 @@
       "メモ": null,
       "latitude": 34.898655938,
       "longitude": 135.05710067,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 18.4,
+      "10a当たり収量kg(生籾)": 570.0
     },
     {
       "record_id": 131,
@@ -5675,7 +6175,11 @@
       "メモ": null,
       "latitude": 34.9031092954,
       "longitude": 135.0586289613,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 19.2,
+      "10a当たり収量kg(生籾)": 729.0
     },
     {
       "record_id": 132,
@@ -5720,7 +6224,11 @@
       "メモ": null,
       "latitude": 34.9031092954,
       "longitude": 135.0586289613,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 19.2,
+      "10a当たり収量kg(生籾)": 729.0
     },
     {
       "record_id": 133,
@@ -5765,7 +6273,11 @@
       "メモ": null,
       "latitude": 34.9031092954,
       "longitude": 135.0586289613,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 19.2,
+      "10a当たり収量kg(生籾)": 729.0
     },
     {
       "record_id": 134,
@@ -5810,7 +6322,11 @@
       "メモ": null,
       "latitude": 34.9031092954,
       "longitude": 135.0586289613,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 19.2,
+      "10a当たり収量kg(生籾)": 729.0
     },
     {
       "record_id": 135,
@@ -5855,7 +6371,11 @@
       "メモ": null,
       "latitude": 34.9031092954,
       "longitude": 135.0586289613,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 19.2,
+      "10a当たり収量kg(生籾)": 729.0
     },
     {
       "record_id": 136,
@@ -5900,7 +6420,11 @@
       "メモ": null,
       "latitude": 34.9031092954,
       "longitude": 135.0586289613,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 19.2,
+      "10a当たり収量kg(生籾)": 729.0
     },
     {
       "record_id": 137,
@@ -5945,7 +6469,11 @@
       "メモ": null,
       "latitude": 34.9031092954,
       "longitude": 135.0586289613,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 19.2,
+      "10a当たり収量kg(生籾)": 729.0
     },
     {
       "record_id": 139,
@@ -5990,7 +6518,11 @@
       "メモ": null,
       "latitude": 34.89521418,
       "longitude": 135.056394247,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 26.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 140,
@@ -6035,7 +6567,11 @@
       "メモ": null,
       "latitude": 34.89521418,
       "longitude": 135.056394247,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 26.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 141,
@@ -6080,7 +6616,11 @@
       "メモ": null,
       "latitude": 34.89521418,
       "longitude": 135.056394247,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 26.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 142,
@@ -6125,7 +6665,11 @@
       "メモ": null,
       "latitude": 34.89521418,
       "longitude": 135.056394247,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 26.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 143,
@@ -6170,7 +6714,11 @@
       "メモ": null,
       "latitude": 34.89521418,
       "longitude": 135.056394247,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 26.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 144,
@@ -6215,7 +6763,11 @@
       "メモ": null,
       "latitude": 34.89521418,
       "longitude": 135.056394247,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 26.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 145,
@@ -6260,7 +6812,11 @@
       "メモ": null,
       "latitude": 34.89521418,
       "longitude": 135.056394247,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 26.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 148,
@@ -6305,7 +6861,11 @@
       "メモ": null,
       "latitude": 34.8940312167,
       "longitude": 135.0527554498,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 149,
@@ -6350,7 +6910,11 @@
       "メモ": null,
       "latitude": 34.8940312167,
       "longitude": 135.0527554498,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 150,
@@ -6395,7 +6959,11 @@
       "メモ": null,
       "latitude": 34.8940312167,
       "longitude": 135.0527554498,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 151,
@@ -6440,7 +7008,11 @@
       "メモ": null,
       "latitude": 34.8940312167,
       "longitude": 135.0527554498,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 152,
@@ -6485,7 +7057,11 @@
       "メモ": null,
       "latitude": 34.8940312167,
       "longitude": 135.0527554498,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 153,
@@ -6530,7 +7106,11 @@
       "メモ": null,
       "latitude": 34.8936599959,
       "longitude": 135.0531569413,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 154,
@@ -6575,7 +7155,11 @@
       "メモ": null,
       "latitude": 34.8936599959,
       "longitude": 135.0531569413,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 155,
@@ -6620,7 +7204,11 @@
       "メモ": null,
       "latitude": 34.8936599959,
       "longitude": 135.0531569413,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 156,
@@ -6665,7 +7253,11 @@
       "メモ": null,
       "latitude": 34.8936599959,
       "longitude": 135.0531569413,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 157,
@@ -6710,7 +7302,11 @@
       "メモ": null,
       "latitude": 34.8936599959,
       "longitude": 135.0531569413,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 161,
@@ -6755,7 +7351,11 @@
       "メモ": null,
       "latitude": 34.8946479184,
       "longitude": 135.0521057635,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 162,
@@ -6800,7 +7400,11 @@
       "メモ": null,
       "latitude": 34.8946479184,
       "longitude": 135.0521057635,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 163,
@@ -6845,7 +7449,11 @@
       "メモ": null,
       "latitude": 34.8946479184,
       "longitude": 135.0521057635,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 164,
@@ -6890,7 +7498,11 @@
       "メモ": null,
       "latitude": 34.8946479184,
       "longitude": 135.0521057635,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 165,
@@ -6935,7 +7547,11 @@
       "メモ": null,
       "latitude": 34.8946479184,
       "longitude": 135.0521057635,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 170,
@@ -6980,7 +7596,11 @@
       "メモ": null,
       "latitude": 34.8988848852,
       "longitude": 135.0622981464,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 17.6,
+      "10a当たり収量kg(生籾)": 671.0
     },
     {
       "record_id": 171,
@@ -7025,7 +7645,11 @@
       "メモ": null,
       "latitude": 34.8988848852,
       "longitude": 135.0622981464,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 17.6,
+      "10a当たり収量kg(生籾)": 671.0
     },
     {
       "record_id": 172,
@@ -7070,7 +7694,11 @@
       "メモ": null,
       "latitude": 34.8988848852,
       "longitude": 135.0622981464,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 17.6,
+      "10a当たり収量kg(生籾)": 671.0
     },
     {
       "record_id": 173,
@@ -7115,7 +7743,11 @@
       "メモ": null,
       "latitude": 34.8988848852,
       "longitude": 135.0622981464,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 17.6,
+      "10a当たり収量kg(生籾)": 671.0
     },
     {
       "record_id": 174,
@@ -7160,7 +7792,11 @@
       "メモ": null,
       "latitude": 34.8988848852,
       "longitude": 135.0622981464,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 17.6,
+      "10a当たり収量kg(生籾)": 671.0
     },
     {
       "record_id": 175,
@@ -7205,7 +7841,11 @@
       "メモ": null,
       "latitude": 34.8988848852,
       "longitude": 135.0622981464,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 17.6,
+      "10a当たり収量kg(生籾)": 671.0
     },
     {
       "record_id": 176,
@@ -7250,7 +7890,11 @@
       "メモ": null,
       "latitude": 34.8988848852,
       "longitude": 135.0622981464,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 17.6,
+      "10a当たり収量kg(生籾)": 671.0
     },
     {
       "record_id": 184,
@@ -7295,7 +7939,11 @@
       "メモ": null,
       "latitude": 34.8944563222,
       "longitude": 135.0523904575,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 185,
@@ -7340,7 +7988,11 @@
       "メモ": null,
       "latitude": 34.8944563222,
       "longitude": 135.0523904575,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 186,
@@ -7385,7 +8037,11 @@
       "メモ": null,
       "latitude": 34.8944563222,
       "longitude": 135.0523904575,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 187,
@@ -7430,7 +8086,11 @@
       "メモ": null,
       "latitude": 34.8944563222,
       "longitude": 135.0523904575,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 188,
@@ -7475,7 +8135,11 @@
       "メモ": null,
       "latitude": 34.8944563222,
       "longitude": 135.0523904575,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 190,
@@ -7520,7 +8184,11 @@
       "メモ": null,
       "latitude": 34.8995725912,
       "longitude": 135.0617187232,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 11.7,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 191,
@@ -7565,7 +8233,11 @@
       "メモ": null,
       "latitude": 34.8995725912,
       "longitude": 135.0617187232,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 11.7,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 192,
@@ -7610,7 +8282,11 @@
       "メモ": null,
       "latitude": 34.8995725912,
       "longitude": 135.0617187232,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 11.7,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 193,
@@ -7655,7 +8331,11 @@
       "メモ": null,
       "latitude": 34.8995725912,
       "longitude": 135.0617187232,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 11.7,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 194,
@@ -7700,7 +8380,11 @@
       "メモ": null,
       "latitude": 34.8995725912,
       "longitude": 135.0617187232,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 11.7,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 195,
@@ -7745,7 +8429,11 @@
       "メモ": null,
       "latitude": 34.8995725912,
       "longitude": 135.0617187232,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 11.7,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 196,
@@ -7790,7 +8478,11 @@
       "メモ": null,
       "latitude": 34.8995725912,
       "longitude": 135.0617187232,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 11.7,
+      "10a当たり収量kg(生籾)": 603.0
     },
     {
       "record_id": 197,
@@ -7835,7 +8527,11 @@
       "メモ": null,
       "latitude": 34.9014767715,
       "longitude": 135.0615948826,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.3,
+      "10a当たり収量kg(生籾)": 609.0
     },
     {
       "record_id": 198,
@@ -7880,7 +8576,11 @@
       "メモ": null,
       "latitude": 34.9014767715,
       "longitude": 135.0615948826,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.3,
+      "10a当たり収量kg(生籾)": 609.0
     },
     {
       "record_id": 199,
@@ -7925,7 +8625,11 @@
       "メモ": null,
       "latitude": 34.9014767715,
       "longitude": 135.0615948826,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.3,
+      "10a当たり収量kg(生籾)": 609.0
     },
     {
       "record_id": 200,
@@ -7970,7 +8674,11 @@
       "メモ": null,
       "latitude": 34.9014767715,
       "longitude": 135.0615948826,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.3,
+      "10a当たり収量kg(生籾)": 609.0
     },
     {
       "record_id": 201,
@@ -8015,7 +8723,11 @@
       "メモ": null,
       "latitude": 34.9014767715,
       "longitude": 135.0615948826,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.3,
+      "10a当たり収量kg(生籾)": 609.0
     },
     {
       "record_id": 202,
@@ -8060,7 +8772,11 @@
       "メモ": null,
       "latitude": 34.9014767715,
       "longitude": 135.0615948826,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.3,
+      "10a当たり収量kg(生籾)": 609.0
     },
     {
       "record_id": 203,
@@ -8105,7 +8821,11 @@
       "メモ": null,
       "latitude": 34.9014767715,
       "longitude": 135.0615948826,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 23.3,
+      "10a当たり収量kg(生籾)": 609.0
     },
     {
       "record_id": 206,
@@ -8150,7 +8870,11 @@
       "メモ": null,
       "latitude": 34.898408558,
       "longitude": 135.0559277448,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 3,
+      "SPAD": 22.1,
+      "10a当たり収量kg(生籾)": 652.0
     },
     {
       "record_id": 207,
@@ -8195,7 +8919,11 @@
       "メモ": null,
       "latitude": 34.898408558,
       "longitude": 135.0559277448,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 3,
+      "SPAD": 22.1,
+      "10a当たり収量kg(生籾)": 652.0
     },
     {
       "record_id": 208,
@@ -8240,7 +8968,11 @@
       "メモ": null,
       "latitude": 34.898408558,
       "longitude": 135.0559277448,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 3,
+      "SPAD": 22.1,
+      "10a当たり収量kg(生籾)": 652.0
     },
     {
       "record_id": 209,
@@ -8285,7 +9017,11 @@
       "メモ": null,
       "latitude": 34.898408558,
       "longitude": 135.0559277448,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 3,
+      "SPAD": 22.1,
+      "10a当たり収量kg(生籾)": 652.0
     },
     {
       "record_id": 210,
@@ -8330,7 +9066,11 @@
       "メモ": null,
       "latitude": 34.898408558,
       "longitude": 135.0559277448,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 3,
+      "SPAD": 22.1,
+      "10a当たり収量kg(生籾)": 652.0
     },
     {
       "record_id": 211,
@@ -8375,7 +9115,11 @@
       "メモ": null,
       "latitude": 34.898408558,
       "longitude": 135.0559277448,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 3,
+      "SPAD": 22.1,
+      "10a当たり収量kg(生籾)": 652.0
     },
     {
       "record_id": 212,
@@ -8420,7 +9164,11 @@
       "メモ": null,
       "latitude": 34.898408558,
       "longitude": 135.0559277448,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 3,
+      "SPAD": 22.1,
+      "10a当たり収量kg(生籾)": 652.0
     },
     {
       "record_id": 213,
@@ -8465,7 +9213,11 @@
       "メモ": null,
       "latitude": 34.9026317714,
       "longitude": 135.0584943021,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 22.0,
+      "10a当たり収量kg(生籾)": 658.0
     },
     {
       "record_id": 214,
@@ -8510,7 +9262,11 @@
       "メモ": null,
       "latitude": 34.9026317714,
       "longitude": 135.0584943021,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 22.0,
+      "10a当たり収量kg(生籾)": 658.0
     },
     {
       "record_id": 215,
@@ -8555,7 +9311,11 @@
       "メモ": null,
       "latitude": 34.9026317714,
       "longitude": 135.0584943021,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 22.0,
+      "10a当たり収量kg(生籾)": 658.0
     },
     {
       "record_id": 216,
@@ -8600,7 +9360,11 @@
       "メモ": null,
       "latitude": 34.9026317714,
       "longitude": 135.0584943021,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 22.0,
+      "10a当たり収量kg(生籾)": 658.0
     },
     {
       "record_id": 217,
@@ -8645,7 +9409,11 @@
       "メモ": null,
       "latitude": 34.9026317714,
       "longitude": 135.0584943021,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 22.0,
+      "10a当たり収量kg(生籾)": 658.0
     },
     {
       "record_id": 218,
@@ -8690,7 +9458,11 @@
       "メモ": null,
       "latitude": 34.9026317714,
       "longitude": 135.0584943021,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 22.0,
+      "10a当たり収量kg(生籾)": 658.0
     },
     {
       "record_id": 219,
@@ -8735,7 +9507,11 @@
       "メモ": null,
       "latitude": 34.9026317714,
       "longitude": 135.0584943021,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 5,
+      "SPAD": 22.0,
+      "10a当たり収量kg(生籾)": 658.0
     },
     {
       "record_id": 220,
@@ -8780,7 +9556,11 @@
       "メモ": null,
       "latitude": 34.9022473469,
       "longitude": 135.0583137846,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 25.2,
+      "10a当たり収量kg(生籾)": 386.0
     },
     {
       "record_id": 221,
@@ -8825,7 +9605,11 @@
       "メモ": null,
       "latitude": 34.9022473469,
       "longitude": 135.0583137846,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 25.2,
+      "10a当たり収量kg(生籾)": 386.0
     },
     {
       "record_id": 222,
@@ -8870,7 +9654,11 @@
       "メモ": null,
       "latitude": 34.9022473469,
       "longitude": 135.0583137846,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 25.2,
+      "10a当たり収量kg(生籾)": 386.0
     },
     {
       "record_id": 223,
@@ -8915,7 +9703,11 @@
       "メモ": null,
       "latitude": 34.9022473469,
       "longitude": 135.0583137846,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 25.2,
+      "10a当たり収量kg(生籾)": 386.0
     },
     {
       "record_id": 224,
@@ -8960,7 +9752,11 @@
       "メモ": null,
       "latitude": 34.9022473469,
       "longitude": 135.0583137846,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 25.2,
+      "10a当たり収量kg(生籾)": 386.0
     },
     {
       "record_id": 225,
@@ -9005,7 +9801,11 @@
       "メモ": null,
       "latitude": 34.9022473469,
       "longitude": 135.0583137846,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 25.2,
+      "10a当たり収量kg(生籾)": 386.0
     },
     {
       "record_id": 226,
@@ -9050,7 +9850,11 @@
       "メモ": null,
       "latitude": 34.9022473469,
       "longitude": 135.0583137846,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 25.2,
+      "10a当たり収量kg(生籾)": 386.0
     },
     {
       "record_id": 228,
@@ -9095,7 +9899,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 229,
@@ -9140,7 +9948,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 230,
@@ -9185,7 +9997,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 231,
@@ -9230,7 +10046,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 232,
@@ -9275,7 +10095,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 233,
@@ -9320,7 +10144,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 234,
@@ -9365,7 +10193,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 235,
@@ -9410,7 +10242,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 236,
@@ -9455,7 +10291,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 237,
@@ -9500,7 +10340,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 238,
@@ -9545,7 +10389,11 @@
       "メモ": null,
       "latitude": 34.897159757,
       "longitude": 135.0545301573,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 25.0,
+      "10a当たり収量kg(生籾)": 683.0
     },
     {
       "record_id": 239,
@@ -9590,7 +10438,11 @@
       "メモ": null,
       "latitude": 34.8965885215,
       "longitude": 135.055406894,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 20.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 240,
@@ -9635,7 +10487,11 @@
       "メモ": null,
       "latitude": 34.8965885215,
       "longitude": 135.055406894,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 20.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 241,
@@ -9680,7 +10536,11 @@
       "メモ": null,
       "latitude": 34.8965885215,
       "longitude": 135.055406894,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 20.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 242,
@@ -9725,7 +10585,11 @@
       "メモ": null,
       "latitude": 34.8965885215,
       "longitude": 135.055406894,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 20.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 243,
@@ -9770,7 +10634,11 @@
       "メモ": null,
       "latitude": 34.8965885215,
       "longitude": 135.055406894,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 20.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 244,
@@ -9815,7 +10683,11 @@
       "メモ": null,
       "latitude": 34.8965885215,
       "longitude": 135.055406894,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 20.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 245,
@@ -9860,7 +10732,11 @@
       "メモ": null,
       "latitude": 34.8965885215,
       "longitude": 135.055406894,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 20.2,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 246,
@@ -9905,7 +10781,11 @@
       "メモ": null,
       "latitude": 34.896326424,
       "longitude": 135.0547759714,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 15.6,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 247,
@@ -9950,7 +10830,11 @@
       "メモ": null,
       "latitude": 34.896326424,
       "longitude": 135.0547759714,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 15.6,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 248,
@@ -9995,7 +10879,11 @@
       "メモ": null,
       "latitude": 34.896326424,
       "longitude": 135.0547759714,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 15.6,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 249,
@@ -10040,7 +10928,11 @@
       "メモ": null,
       "latitude": 34.896326424,
       "longitude": 135.0547759714,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 15.6,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 250,
@@ -10085,7 +10977,11 @@
       "メモ": null,
       "latitude": 34.896326424,
       "longitude": 135.0547759714,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 15.6,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 251,
@@ -10130,7 +11026,11 @@
       "メモ": null,
       "latitude": 34.896326424,
       "longitude": 135.0547759714,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 15.6,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 252,
@@ -10175,7 +11075,11 @@
       "メモ": null,
       "latitude": 34.896326424,
       "longitude": 135.0547759714,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 1,
+      "SPAD": 15.6,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 254,
@@ -10220,7 +11124,11 @@
       "メモ": null,
       "latitude": 34.8985571678,
       "longitude": 135.0575041008,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 468.0
     },
     {
       "record_id": 255,
@@ -10265,7 +11173,11 @@
       "メモ": null,
       "latitude": 34.8985571678,
       "longitude": 135.0575041008,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 468.0
     },
     {
       "record_id": 256,
@@ -10310,7 +11222,11 @@
       "メモ": null,
       "latitude": 34.8985571678,
       "longitude": 135.0575041008,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 468.0
     },
     {
       "record_id": 257,
@@ -10355,7 +11271,11 @@
       "メモ": null,
       "latitude": 34.8985571678,
       "longitude": 135.0575041008,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 468.0
     },
     {
       "record_id": 258,
@@ -10400,7 +11320,11 @@
       "メモ": null,
       "latitude": 34.8985571678,
       "longitude": 135.0575041008,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 468.0
     },
     {
       "record_id": 259,
@@ -10445,7 +11369,11 @@
       "メモ": null,
       "latitude": 34.8985571678,
       "longitude": 135.0575041008,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 468.0
     },
     {
       "record_id": 260,
@@ -10490,7 +11418,11 @@
       "メモ": null,
       "latitude": 34.8985571678,
       "longitude": 135.0575041008,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 1,
+      "倒伏度GPT": 2,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 468.0
     },
     {
       "record_id": 262,
@@ -10535,7 +11467,11 @@
       "メモ": null,
       "latitude": 34.8953338887,
       "longitude": 135.0537407892,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 29.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 263,
@@ -10580,7 +11516,11 @@
       "メモ": null,
       "latitude": 34.8953338887,
       "longitude": 135.0537407892,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 29.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 264,
@@ -10625,7 +11565,11 @@
       "メモ": null,
       "latitude": 34.8953338887,
       "longitude": 135.0537407892,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 29.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 265,
@@ -10670,7 +11614,11 @@
       "メモ": null,
       "latitude": 34.8953338887,
       "longitude": 135.0537407892,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 29.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 266,
@@ -10715,7 +11663,11 @@
       "メモ": null,
       "latitude": 34.8953338887,
       "longitude": 135.0537407892,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 29.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 267,
@@ -10760,7 +11712,11 @@
       "メモ": null,
       "latitude": 34.8953338887,
       "longitude": 135.0537407892,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 29.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 268,
@@ -10805,7 +11761,11 @@
       "メモ": null,
       "latitude": 34.8953338887,
       "longitude": 135.0537407892,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 5,
+      "倒伏度GPT": 5,
+      "SPAD": 29.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 269,
@@ -10850,7 +11810,11 @@
       "メモ": null,
       "latitude": 34.8958693106,
       "longitude": 135.0538324173,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 15.4,
+      "10a当たり収量kg(生籾)": 307.0
     },
     {
       "record_id": 270,
@@ -10895,7 +11859,11 @@
       "メモ": null,
       "latitude": 34.8958693106,
       "longitude": 135.0538324173,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 15.4,
+      "10a当たり収量kg(生籾)": 307.0
     },
     {
       "record_id": 271,
@@ -10940,7 +11908,11 @@
       "メモ": null,
       "latitude": 34.8958693106,
       "longitude": 135.0538324173,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 15.4,
+      "10a当たり収量kg(生籾)": 307.0
     },
     {
       "record_id": 272,
@@ -10985,7 +11957,11 @@
       "メモ": null,
       "latitude": 34.8958693106,
       "longitude": 135.0538324173,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 15.4,
+      "10a当たり収量kg(生籾)": 307.0
     },
     {
       "record_id": 273,
@@ -11030,7 +12006,11 @@
       "メモ": null,
       "latitude": 34.8958693106,
       "longitude": 135.0538324173,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 15.4,
+      "10a当たり収量kg(生籾)": 307.0
     },
     {
       "record_id": 274,
@@ -11075,7 +12055,11 @@
       "メモ": null,
       "latitude": 34.8958693106,
       "longitude": 135.0538324173,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 15.4,
+      "10a当たり収量kg(生籾)": 307.0
     },
     {
       "record_id": 275,
@@ -11120,7 +12104,11 @@
       "メモ": null,
       "latitude": 34.8958693106,
       "longitude": 135.0538324173,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 0,
+      "倒伏度GPT": 1,
+      "SPAD": 15.4,
+      "10a当たり収量kg(生籾)": 307.0
     },
     {
       "record_id": 276,
@@ -11165,7 +12153,11 @@
       "メモ": null,
       "latitude": 34.8948874129,
       "longitude": 135.0523101592,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 277,
@@ -11210,7 +12202,11 @@
       "メモ": null,
       "latitude": 34.8948874129,
       "longitude": 135.0523101592,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 278,
@@ -11255,7 +12251,11 @@
       "メモ": null,
       "latitude": 34.8948874129,
       "longitude": 135.0523101592,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 279,
@@ -11300,7 +12300,11 @@
       "メモ": null,
       "latitude": 34.8948874129,
       "longitude": 135.0523101592,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 280,
@@ -11345,7 +12349,11 @@
       "メモ": null,
       "latitude": 34.8948874129,
       "longitude": 135.0523101592,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": null,
+      "倒伏度GPT": null,
+      "SPAD": null,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 281,
@@ -11390,7 +12398,11 @@
       "メモ": null,
       "latitude": 34.8954968384,
       "longitude": 135.0540189288,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 18.8,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 282,
@@ -11435,7 +12447,11 @@
       "メモ": null,
       "latitude": 34.8954968384,
       "longitude": 135.0540189288,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 18.8,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 283,
@@ -11480,7 +12496,11 @@
       "メモ": null,
       "latitude": 34.8954968384,
       "longitude": 135.0540189288,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 18.8,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 284,
@@ -11525,7 +12545,11 @@
       "メモ": null,
       "latitude": 34.8954968384,
       "longitude": 135.0540189288,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 18.8,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 285,
@@ -11570,7 +12594,11 @@
       "メモ": null,
       "latitude": 34.8954968384,
       "longitude": 135.0540189288,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 18.8,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 286,
@@ -11615,7 +12643,11 @@
       "メモ": null,
       "latitude": 34.8954968384,
       "longitude": 135.0540189288,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 18.8,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 287,
@@ -11660,7 +12692,11 @@
       "メモ": null,
       "latitude": 34.8954968384,
       "longitude": 135.0540189288,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 18.8,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 289,
@@ -11705,7 +12741,11 @@
       "メモ": null,
       "latitude": 34.8974386528,
       "longitude": 135.0540549169,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 19.9,
+      "10a当たり収量kg(生籾)": 459.0
     },
     {
       "record_id": 290,
@@ -11750,7 +12790,11 @@
       "メモ": null,
       "latitude": 34.8974386528,
       "longitude": 135.0540549169,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 19.9,
+      "10a当たり収量kg(生籾)": 459.0
     },
     {
       "record_id": 291,
@@ -11795,7 +12839,11 @@
       "メモ": null,
       "latitude": 34.8974386528,
       "longitude": 135.0540549169,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 19.9,
+      "10a当たり収量kg(生籾)": 459.0
     },
     {
       "record_id": 292,
@@ -11840,7 +12888,11 @@
       "メモ": null,
       "latitude": 34.8974386528,
       "longitude": 135.0540549169,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 19.9,
+      "10a当たり収量kg(生籾)": 459.0
     },
     {
       "record_id": 293,
@@ -11885,7 +12937,11 @@
       "メモ": null,
       "latitude": 34.8974386528,
       "longitude": 135.0540549169,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 19.9,
+      "10a当たり収量kg(生籾)": 459.0
     },
     {
       "record_id": 294,
@@ -11930,7 +12986,11 @@
       "メモ": null,
       "latitude": 34.8974386528,
       "longitude": 135.0540549169,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 19.9,
+      "10a当たり収量kg(生籾)": 459.0
     },
     {
       "record_id": 295,
@@ -11975,7 +13035,11 @@
       "メモ": null,
       "latitude": 34.8974386528,
       "longitude": 135.0540549169,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 2,
+      "SPAD": 19.9,
+      "10a当たり収量kg(生籾)": 459.0
     },
     {
       "record_id": 298,
@@ -12020,7 +13084,11 @@
       "メモ": null,
       "latitude": 34.8947230769,
       "longitude": 135.0554906089,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 30.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 299,
@@ -12065,7 +13133,11 @@
       "メモ": null,
       "latitude": 34.8947230769,
       "longitude": 135.0554906089,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 30.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 300,
@@ -12110,7 +13182,11 @@
       "メモ": null,
       "latitude": 34.8947230769,
       "longitude": 135.0554906089,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 30.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 301,
@@ -12155,7 +13231,11 @@
       "メモ": null,
       "latitude": 34.8947230769,
       "longitude": 135.0554906089,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 30.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 302,
@@ -12200,7 +13280,11 @@
       "メモ": null,
       "latitude": 34.8947230769,
       "longitude": 135.0554906089,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 30.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 303,
@@ -12245,7 +13329,11 @@
       "メモ": null,
       "latitude": 34.8947230769,
       "longitude": 135.0554906089,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 30.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 304,
@@ -12290,7 +13378,11 @@
       "メモ": null,
       "latitude": 34.8947230769,
       "longitude": 135.0554906089,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 30.7,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 307,
@@ -12335,7 +13427,11 @@
       "メモ": null,
       "latitude": 34.8949419971,
       "longitude": 135.0558821345,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 4,
+      "SPAD": 21.5,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 308,
@@ -12380,7 +13476,11 @@
       "メモ": null,
       "latitude": 34.8949419971,
       "longitude": 135.0558821345,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 4,
+      "SPAD": 21.5,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 309,
@@ -12425,7 +13525,11 @@
       "メモ": null,
       "latitude": 34.8949419971,
       "longitude": 135.0558821345,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 4,
+      "SPAD": 21.5,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 310,
@@ -12470,7 +13574,11 @@
       "メモ": null,
       "latitude": 34.8949419971,
       "longitude": 135.0558821345,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 4,
+      "SPAD": 21.5,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 311,
@@ -12515,7 +13623,11 @@
       "メモ": null,
       "latitude": 34.8949419971,
       "longitude": 135.0558821345,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 4,
+      "SPAD": 21.5,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 312,
@@ -12560,7 +13672,11 @@
       "メモ": null,
       "latitude": 34.8949419971,
       "longitude": 135.0558821345,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 4,
+      "SPAD": 21.5,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 313,
@@ -12605,7 +13721,11 @@
       "メモ": null,
       "latitude": 34.8949419971,
       "longitude": 135.0558821345,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 4,
+      "SPAD": 21.5,
+      "10a当たり収量kg(生籾)": null
     },
     {
       "record_id": 318,
@@ -12650,7 +13770,11 @@
       "メモ": null,
       "latitude": 34.9019257859,
       "longitude": 135.0613174885,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 611.0
     },
     {
       "record_id": 319,
@@ -12695,7 +13819,11 @@
       "メモ": null,
       "latitude": 34.9019257859,
       "longitude": 135.0613174885,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 611.0
     },
     {
       "record_id": 320,
@@ -12740,7 +13868,11 @@
       "メモ": null,
       "latitude": 34.9019257859,
       "longitude": 135.0613174885,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 611.0
     },
     {
       "record_id": 321,
@@ -12785,7 +13917,11 @@
       "メモ": null,
       "latitude": 34.9019257859,
       "longitude": 135.0613174885,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 611.0
     },
     {
       "record_id": 322,
@@ -12830,7 +13966,11 @@
       "メモ": null,
       "latitude": 34.9019257859,
       "longitude": 135.0613174885,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 611.0
     },
     {
       "record_id": 323,
@@ -12875,7 +14015,11 @@
       "メモ": null,
       "latitude": 34.9019257859,
       "longitude": 135.0613174885,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 611.0
     },
     {
       "record_id": 324,
@@ -12920,7 +14064,11 @@
       "メモ": null,
       "latitude": 34.9019257859,
       "longitude": 135.0613174885,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 4,
+      "SPAD": 20.4,
+      "10a当たり収量kg(生籾)": 611.0
     },
     {
       "record_id": 325,
@@ -12965,7 +14113,11 @@
       "メモ": null,
       "latitude": 34.9010097939,
       "longitude": 135.061959875,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 684.0
     },
     {
       "record_id": 326,
@@ -13010,7 +14162,11 @@
       "メモ": null,
       "latitude": 34.9010097939,
       "longitude": 135.061959875,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 684.0
     },
     {
       "record_id": 327,
@@ -13055,7 +14211,11 @@
       "メモ": null,
       "latitude": 34.9010097939,
       "longitude": 135.061959875,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 684.0
     },
     {
       "record_id": 328,
@@ -13100,7 +14260,11 @@
       "メモ": null,
       "latitude": 34.9010097939,
       "longitude": 135.061959875,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 684.0
     },
     {
       "record_id": 329,
@@ -13145,7 +14309,11 @@
       "メモ": null,
       "latitude": 34.9010097939,
       "longitude": 135.061959875,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 684.0
     },
     {
       "record_id": 330,
@@ -13190,7 +14358,11 @@
       "メモ": null,
       "latitude": 34.9010097939,
       "longitude": 135.061959875,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 684.0
     },
     {
       "record_id": 331,
@@ -13235,7 +14407,11 @@
       "メモ": null,
       "latitude": 34.9010097939,
       "longitude": 135.061959875,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 5,
+      "SPAD": 17.4,
+      "10a当たり収量kg(生籾)": 684.0
     },
     {
       "record_id": 332,
@@ -13280,7 +14456,11 @@
       "メモ": null,
       "latitude": 34.8999429743,
       "longitude": 135.0612008866,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 16.8,
+      "10a当たり収量kg(生籾)": 633.0
     },
     {
       "record_id": 333,
@@ -13325,7 +14505,11 @@
       "メモ": null,
       "latitude": 34.8999429743,
       "longitude": 135.0612008866,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 16.8,
+      "10a当たり収量kg(生籾)": 633.0
     },
     {
       "record_id": 334,
@@ -13370,7 +14554,11 @@
       "メモ": null,
       "latitude": 34.8999429743,
       "longitude": 135.0612008866,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 16.8,
+      "10a当たり収量kg(生籾)": 633.0
     },
     {
       "record_id": 335,
@@ -13415,7 +14603,11 @@
       "メモ": null,
       "latitude": 34.8999429743,
       "longitude": 135.0612008866,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 16.8,
+      "10a当たり収量kg(生籾)": 633.0
     },
     {
       "record_id": 336,
@@ -13460,7 +14652,11 @@
       "メモ": null,
       "latitude": 34.8999429743,
       "longitude": 135.0612008866,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 16.8,
+      "10a当たり収量kg(生籾)": 633.0
     },
     {
       "record_id": 337,
@@ -13505,7 +14701,11 @@
       "メモ": null,
       "latitude": 34.8999429743,
       "longitude": 135.0612008866,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 16.8,
+      "10a当たり収量kg(生籾)": 633.0
     },
     {
       "record_id": 338,
@@ -13550,7 +14750,11 @@
       "メモ": null,
       "latitude": 34.8999429743,
       "longitude": 135.0612008866,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 4,
+      "倒伏度GPT": 4,
+      "SPAD": 16.8,
+      "10a当たり収量kg(生籾)": 633.0
     },
     {
       "record_id": 339,
@@ -13595,7 +14799,11 @@
       "メモ": null,
       "latitude": 34.8997849444,
       "longitude": 135.0615441039,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 672.0
     },
     {
       "record_id": 340,
@@ -13640,7 +14848,11 @@
       "メモ": null,
       "latitude": 34.8997849444,
       "longitude": 135.0615441039,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 672.0
     },
     {
       "record_id": 341,
@@ -13685,7 +14897,11 @@
       "メモ": null,
       "latitude": 34.8997849444,
       "longitude": 135.0615441039,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 672.0
     },
     {
       "record_id": 342,
@@ -13730,7 +14946,11 @@
       "メモ": null,
       "latitude": 34.8997849444,
       "longitude": 135.0615441039,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 672.0
     },
     {
       "record_id": 343,
@@ -13775,7 +14995,11 @@
       "メモ": null,
       "latitude": 34.8997849444,
       "longitude": 135.0615441039,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 672.0
     },
     {
       "record_id": 344,
@@ -13820,7 +15044,11 @@
       "メモ": null,
       "latitude": 34.8997849444,
       "longitude": 135.0615441039,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 672.0
     },
     {
       "record_id": 345,
@@ -13865,7 +15093,11 @@
       "メモ": null,
       "latitude": 34.8997849444,
       "longitude": 135.0615441039,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 3,
+      "倒伏度GPT": 2,
+      "SPAD": 18.9,
+      "10a当たり収量kg(生籾)": 672.0
     },
     {
       "record_id": 347,
@@ -13910,7 +15142,11 @@
       "メモ": null,
       "latitude": 34.9008182126,
       "longitude": 135.0620766725,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": 595.0
     },
     {
       "record_id": 348,
@@ -13955,7 +15191,11 @@
       "メモ": null,
       "latitude": 34.9008182126,
       "longitude": 135.0620766725,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": 595.0
     },
     {
       "record_id": 349,
@@ -14000,7 +15240,11 @@
       "メモ": null,
       "latitude": 34.9008182126,
       "longitude": 135.0620766725,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": 595.0
     },
     {
       "record_id": 350,
@@ -14045,7 +15289,11 @@
       "メモ": null,
       "latitude": 34.9008182126,
       "longitude": 135.0620766725,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": 595.0
     },
     {
       "record_id": 351,
@@ -14090,7 +15338,11 @@
       "メモ": null,
       "latitude": 34.9008182126,
       "longitude": 135.0620766725,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": 595.0
     },
     {
       "record_id": 352,
@@ -14135,7 +15387,11 @@
       "メモ": null,
       "latitude": 34.9008182126,
       "longitude": 135.0620766725,
-      "結合状態": "matched"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": 595.0
     },
     {
       "record_id": 353,
@@ -14180,1807 +15436,11 @@
       "メモ": null,
       "latitude": 34.9008182126,
       "longitude": 135.0620766725,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 416,
-      "画像ファイル名": "20260920_133415_Hosokawa_３１７－１_Base.jpg",
-      "画像パス": "20260920_133415_Hosokawa_３１７－１_Base.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:34:15",
-      "撮影日時": "2026-09-20 13:34:15",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１７－１",
-      "撮影種別": "Base",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "317-1",
-      "No": 148,
-      "表示順位": 4239,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１７－１",
-      "住所": null,
-      "面積_a": 8.3,
-      "面積_m2": 830.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8959189695,
-      "longitude": 135.0516541218,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 417,
-      "画像ファイル名": "20260920_133415_Hosokawa_３１７－１_FieldHigh.jpg",
-      "画像パス": "20260920_133415_Hosokawa_３１７－１_FieldHigh.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:34:15",
-      "撮影日時": "2026-09-20 13:34:15",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１７－１",
-      "撮影種別": "FieldHigh",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "317-1",
-      "No": 148,
-      "表示順位": 4239,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１７－１",
-      "住所": null,
-      "面積_a": 8.3,
-      "面積_m2": 830.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8959189695,
-      "longitude": 135.0516541218,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 418,
-      "画像ファイル名": "20260920_133415_Hosokawa_３１７－１_FieldLow.jpg",
-      "画像パス": "20260920_133415_Hosokawa_３１７－１_FieldLow.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:34:15",
-      "撮影日時": "2026-09-20 13:34:15",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１７－１",
-      "撮影種別": "FieldLow",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "317-1",
-      "No": 148,
-      "表示順位": 4239,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１７－１",
-      "住所": null,
-      "面積_a": 8.3,
-      "面積_m2": 830.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8959189695,
-      "longitude": 135.0516541218,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 419,
-      "画像ファイル名": "20260920_133415_Hosokawa_３１７－１_Ground.jpg",
-      "画像パス": "20260920_133415_Hosokawa_３１７－１_Ground.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:34:15",
-      "撮影日時": "2026-09-20 13:34:15",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１７－１",
-      "撮影種別": "Ground",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "317-1",
-      "No": 148,
-      "表示順位": 4239,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１７－１",
-      "住所": null,
-      "面積_a": 8.3,
-      "面積_m2": 830.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8959189695,
-      "longitude": 135.0516541218,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 420,
-      "画像ファイル名": "20260920_133415_Hosokawa_３１７－１_Plant.jpg",
-      "画像パス": "20260920_133415_Hosokawa_３１７－１_Plant.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:34:15",
-      "撮影日時": "2026-09-20 13:34:15",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１７－１",
-      "撮影種別": "Plant",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "317-1",
-      "No": 148,
-      "表示順位": 4239,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１７－１",
-      "住所": null,
-      "面積_a": 8.3,
-      "面積_m2": 830.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8959189695,
-      "longitude": 135.0516541218,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 425,
-      "画像ファイル名": "20260920_082945_Hosokawa_３０２_Base.jpg",
-      "画像パス": "20260920_082945_Hosokawa_３０２_Base.jpg",
-      "日付": "2026-09-20",
-      "時間": "08:29:45",
-      "撮影日時": "2026-09-20 08:29:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "Base",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 426,
-      "画像ファイル名": "20260920_082945_Hosokawa_３０２_FieldHigh.jpg",
-      "画像パス": "20260920_082945_Hosokawa_３０２_FieldHigh.jpg",
-      "日付": "2026-09-20",
-      "時間": "08:29:45",
-      "撮影日時": "2026-09-20 08:29:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "FieldHigh",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 427,
-      "画像ファイル名": "20260920_082945_Hosokawa_３０２_FieldLow.jpg",
-      "画像パス": "20260920_082945_Hosokawa_３０２_FieldLow.jpg",
-      "日付": "2026-09-20",
-      "時間": "08:29:45",
-      "撮影日時": "2026-09-20 08:29:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "FieldLow",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 428,
-      "画像ファイル名": "20260920_082945_Hosokawa_３０２_Ground.jpg",
-      "画像パス": "20260920_082945_Hosokawa_３０２_Ground.jpg",
-      "日付": "2026-09-20",
-      "時間": "08:29:45",
-      "撮影日時": "2026-09-20 08:29:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "Ground",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 429,
-      "画像ファイル名": "20260920_082945_Hosokawa_３０２_Plant.jpg",
-      "画像パス": "20260920_082945_Hosokawa_３０２_Plant.jpg",
-      "日付": "2026-09-20",
-      "時間": "08:29:45",
-      "撮影日時": "2026-09-20 08:29:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "Plant",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 430,
-      "画像ファイル名": "20260920_132345_Hosokawa_３０２_Base.jpg",
-      "画像パス": "20260920_132345_Hosokawa_３０２_Base.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:23:45",
-      "撮影日時": "2026-09-20 13:23:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "Base",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 431,
-      "画像ファイル名": "20260920_132345_Hosokawa_３０２_FieldHigh.jpg",
-      "画像パス": "20260920_132345_Hosokawa_３０２_FieldHigh.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:23:45",
-      "撮影日時": "2026-09-20 13:23:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "FieldHigh",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 432,
-      "画像ファイル名": "20260920_132345_Hosokawa_３０２_FieldLow.jpg",
-      "画像パス": "20260920_132345_Hosokawa_３０２_FieldLow.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:23:45",
-      "撮影日時": "2026-09-20 13:23:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "FieldLow",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 433,
-      "画像ファイル名": "20260920_132345_Hosokawa_３０２_Ground.jpg",
-      "画像パス": "20260920_132345_Hosokawa_３０２_Ground.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:23:45",
-      "撮影日時": "2026-09-20 13:23:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "Ground",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 434,
-      "画像ファイル名": "20260920_132345_Hosokawa_３０２_Plant.jpg",
-      "画像パス": "20260920_132345_Hosokawa_３０２_Plant.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:23:45",
-      "撮影日時": "2026-09-20 13:23:45",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０２",
-      "撮影種別": "Plant",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "302",
-      "No": 152,
-      "表示順位": 4244,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０２",
-      "住所": null,
-      "面積_a": 4.4,
-      "面積_m2": 440.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8956565849,
-      "longitude": 135.0528345189,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 441,
-      "画像ファイル名": "20260920_133126_Hosokawa_３０６－２_Base.jpg",
-      "画像パス": "20260920_133126_Hosokawa_３０６－２_Base.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:31:26",
-      "撮影日時": "2026-09-20 13:31:26",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０６－２",
-      "撮影種別": "Base",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "306-2",
-      "No": 159,
-      "表示順位": 4254,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０６－２",
-      "住所": null,
-      "面積_a": 2.92,
-      "面積_m2": 292.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8958904026,
-      "longitude": 135.0521518053,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 442,
-      "画像ファイル名": "20260920_133126_Hosokawa_３０６－２_FieldHigh.jpg",
-      "画像パス": "20260920_133126_Hosokawa_３０６－２_FieldHigh.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:31:26",
-      "撮影日時": "2026-09-20 13:31:26",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０６－２",
-      "撮影種別": "FieldHigh",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "306-2",
-      "No": 159,
-      "表示順位": 4254,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０６－２",
-      "住所": null,
-      "面積_a": 2.92,
-      "面積_m2": 292.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8958904026,
-      "longitude": 135.0521518053,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 443,
-      "画像ファイル名": "20260920_133126_Hosokawa_３０６－２_FieldLow.jpg",
-      "画像パス": "20260920_133126_Hosokawa_３０６－２_FieldLow.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:31:26",
-      "撮影日時": "2026-09-20 13:31:26",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０６－２",
-      "撮影種別": "FieldLow",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "306-2",
-      "No": 159,
-      "表示順位": 4254,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０６－２",
-      "住所": null,
-      "面積_a": 2.92,
-      "面積_m2": 292.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8958904026,
-      "longitude": 135.0521518053,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 444,
-      "画像ファイル名": "20260920_133126_Hosokawa_３０６－２_Ground.jpg",
-      "画像パス": "20260920_133126_Hosokawa_３０６－２_Ground.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:31:26",
-      "撮影日時": "2026-09-20 13:31:26",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０６－２",
-      "撮影種別": "Ground",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "306-2",
-      "No": 159,
-      "表示順位": 4254,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０６－２",
-      "住所": null,
-      "面積_a": 2.92,
-      "面積_m2": 292.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8958904026,
-      "longitude": 135.0521518053,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 445,
-      "画像ファイル名": "20260920_133126_Hosokawa_３０６－２_Plant.jpg",
-      "画像パス": "20260920_133126_Hosokawa_３０６－２_Plant.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:31:26",
-      "撮影日時": "2026-09-20 13:31:26",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３０６－２",
-      "撮影種別": "Plant",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "306-2",
-      "No": 159,
-      "表示順位": 4254,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３０６－２",
-      "住所": null,
-      "面積_a": 2.92,
-      "面積_m2": 292.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8958904026,
-      "longitude": 135.0521518053,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 447,
-      "画像ファイル名": "20260920_132846_Hosokawa_３１１_Base.jpg",
-      "画像パス": "20260920_132846_Hosokawa_３１１_Base.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:28:46",
-      "撮影日時": "2026-09-20 13:28:46",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１１",
-      "撮影種別": "Base",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "311",
-      "No": 161,
-      "表示順位": 4255,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１１",
-      "住所": null,
-      "面積_a": 6.56,
-      "面積_m2": 656.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8955253219,
-      "longitude": 135.0521223229,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 448,
-      "画像ファイル名": "20260920_132846_Hosokawa_３１１_FieldHigh.jpg",
-      "画像パス": "20260920_132846_Hosokawa_３１１_FieldHigh.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:28:46",
-      "撮影日時": "2026-09-20 13:28:46",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１１",
-      "撮影種別": "FieldHigh",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "311",
-      "No": 161,
-      "表示順位": 4255,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１１",
-      "住所": null,
-      "面積_a": 6.56,
-      "面積_m2": 656.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8955253219,
-      "longitude": 135.0521223229,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 449,
-      "画像ファイル名": "20260920_132846_Hosokawa_３１１_FieldLow.jpg",
-      "画像パス": "20260920_132846_Hosokawa_３１１_FieldLow.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:28:46",
-      "撮影日時": "2026-09-20 13:28:46",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１１",
-      "撮影種別": "FieldLow",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "311",
-      "No": 161,
-      "表示順位": 4255,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１１",
-      "住所": null,
-      "面積_a": 6.56,
-      "面積_m2": 656.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8955253219,
-      "longitude": 135.0521223229,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 450,
-      "画像ファイル名": "20260920_132846_Hosokawa_３１１_Ground.jpg",
-      "画像パス": "20260920_132846_Hosokawa_３１１_Ground.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:28:46",
-      "撮影日時": "2026-09-20 13:28:46",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１１",
-      "撮影種別": "Ground",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "311",
-      "No": 161,
-      "表示順位": 4255,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１１",
-      "住所": null,
-      "面積_a": 6.56,
-      "面積_m2": 656.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8955253219,
-      "longitude": 135.0521223229,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 451,
-      "画像ファイル名": "20260920_132846_Hosokawa_３１１_Plant.jpg",
-      "画像パス": "20260920_132846_Hosokawa_３１１_Plant.jpg",
-      "日付": "2026-09-20",
-      "時間": "13:28:46",
-      "撮影日時": "2026-09-20 13:28:46",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "３１１",
-      "撮影種別": "Plant",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "311",
-      "No": 161,
-      "表示順位": 4255,
-      "圃場ブロック": "農地受託　うるち米",
-      "受託区分": "農地受託",
-      "圃場カテゴリ": "うるち米",
-      "圃場名": "３１１",
-      "住所": null,
-      "面積_a": 6.56,
-      "面積_m2": 656.0,
-      "作付計画_原文": "ヒノヒカリ2026\n片山昌樹担当",
-      "作付計画_品種": "ヒノヒカリ",
-      "作付年": 2026,
-      "担当者": "片山昌樹",
-      "所有者名": null,
-      "圃場の性質": "指定なし",
-      "暗渠_有無": "なし",
-      "暗渠_施工日": null,
-      "圃場の状態": "指定なし",
-      "所有区分": "自作",
-      "所有者情報": "あり",
-      "請負項目": "なし",
-      "コンバイン_ワラ処理": "カッタ",
-      "コンバイン_種子": "なし",
-      "注意": null,
-      "メモ": null,
-      "latitude": 34.8955253219,
-      "longitude": 135.0521223229,
-      "結合状態": "matched"
-    },
-    {
-      "record_id": 609,
-      "画像ファイル名": "20260920_093749_Hosokawa_藤原家前_Base.jpg",
-      "画像パス": "20260920_093749_Hosokawa_藤原家前_Base.jpg",
-      "日付": "2026-09-20",
-      "時間": "09:37:49",
-      "撮影日時": "2026-09-20 09:37:49",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "藤原家前",
-      "撮影種別": "Base",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "藤原家前",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 610,
-      "画像ファイル名": "20260920_093749_Hosokawa_藤原家前_FieldHigh.jpg",
-      "画像パス": "20260920_093749_Hosokawa_藤原家前_FieldHigh.jpg",
-      "日付": "2026-09-20",
-      "時間": "09:37:49",
-      "撮影日時": "2026-09-20 09:37:49",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "藤原家前",
-      "撮影種別": "FieldHigh",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "藤原家前",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 611,
-      "画像ファイル名": "20260920_093749_Hosokawa_藤原家前_FieldLow.jpg",
-      "画像パス": "20260920_093749_Hosokawa_藤原家前_FieldLow.jpg",
-      "日付": "2026-09-20",
-      "時間": "09:37:49",
-      "撮影日時": "2026-09-20 09:37:49",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "藤原家前",
-      "撮影種別": "FieldLow",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "藤原家前",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 612,
-      "画像ファイル名": "20260920_093749_Hosokawa_藤原家前_Ground.jpg",
-      "画像パス": "20260920_093749_Hosokawa_藤原家前_Ground.jpg",
-      "日付": "2026-09-20",
-      "時間": "09:37:49",
-      "撮影日時": "2026-09-20 09:37:49",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "藤原家前",
-      "撮影種別": "Ground",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "藤原家前",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 613,
-      "画像ファイル名": "20260920_093749_Hosokawa_藤原家前_Plant.jpg",
-      "画像パス": "20260920_093749_Hosokawa_藤原家前_Plant.jpg",
-      "日付": "2026-09-20",
-      "時間": "09:37:49",
-      "撮影日時": "2026-09-20 09:37:49",
-      "年": 2026,
-      "月": 9,
-      "日": 20,
-      "記録者": "Hosokawa",
-      "圃場ID": "藤原家前",
-      "撮影種別": "Plant",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "藤原家前",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 614,
-      "画像ファイル名": "20260921_152554_Hosokawa_34.899382, 135.056691_Base.jpg",
-      "画像パス": "20260921_152554_Hosokawa_34.899382, 135.056691_Base.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:25:54",
-      "撮影日時": "2026-09-21 15:25:54",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899382, 135.056691",
-      "撮影種別": "Base",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899382,135.056691",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 615,
-      "画像ファイル名": "20260921_152554_Hosokawa_34.899382, 135.056691_FieldHigh.jpg",
-      "画像パス": "20260921_152554_Hosokawa_34.899382, 135.056691_FieldHigh.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:25:54",
-      "撮影日時": "2026-09-21 15:25:54",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899382, 135.056691",
-      "撮影種別": "FieldHigh",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899382,135.056691",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 616,
-      "画像ファイル名": "20260921_152554_Hosokawa_34.899382, 135.056691_FieldLow.jpg",
-      "画像パス": "20260921_152554_Hosokawa_34.899382, 135.056691_FieldLow.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:25:54",
-      "撮影日時": "2026-09-21 15:25:54",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899382, 135.056691",
-      "撮影種別": "FieldLow",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899382,135.056691",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 617,
-      "画像ファイル名": "20260921_152554_Hosokawa_34.899382, 135.056691_Ground.jpg",
-      "画像パス": "20260921_152554_Hosokawa_34.899382, 135.056691_Ground.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:25:54",
-      "撮影日時": "2026-09-21 15:25:54",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899382, 135.056691",
-      "撮影種別": "Ground",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899382,135.056691",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 618,
-      "画像ファイル名": "20260921_152554_Hosokawa_34.899382, 135.056691_Plant.jpg",
-      "画像パス": "20260921_152554_Hosokawa_34.899382, 135.056691_Plant.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:25:54",
-      "撮影日時": "2026-09-21 15:25:54",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899382, 135.056691",
-      "撮影種別": "Plant",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899382,135.056691",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 619,
-      "画像ファイル名": "20260921_152826_Hosokawa_34.899188, 135.056750_Base.jpg",
-      "画像パス": "20260921_152826_Hosokawa_34.899188, 135.056750_Base.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:28:26",
-      "撮影日時": "2026-09-21 15:28:26",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899188, 135.056750",
-      "撮影種別": "Base",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899188,135.056750",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 620,
-      "画像ファイル名": "20260921_152826_Hosokawa_34.899188, 135.056750_FieldHigh.jpg",
-      "画像パス": "20260921_152826_Hosokawa_34.899188, 135.056750_FieldHigh.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:28:26",
-      "撮影日時": "2026-09-21 15:28:26",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899188, 135.056750",
-      "撮影種別": "FieldHigh",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899188,135.056750",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 621,
-      "画像ファイル名": "20260921_152826_Hosokawa_34.899188, 135.056750_FieldLow.jpg",
-      "画像パス": "20260921_152826_Hosokawa_34.899188, 135.056750_FieldLow.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:28:26",
-      "撮影日時": "2026-09-21 15:28:26",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899188, 135.056750",
-      "撮影種別": "FieldLow",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899188,135.056750",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 622,
-      "画像ファイル名": "20260921_152826_Hosokawa_34.899188, 135.056750_Ground.jpg",
-      "画像パス": "20260921_152826_Hosokawa_34.899188, 135.056750_Ground.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:28:26",
-      "撮影日時": "2026-09-21 15:28:26",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899188, 135.056750",
-      "撮影種別": "Ground",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899188,135.056750",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
-    },
-    {
-      "record_id": 623,
-      "画像ファイル名": "20260921_152826_Hosokawa_34.899188, 135.056750_Plant.jpg",
-      "画像パス": "20260921_152826_Hosokawa_34.899188, 135.056750_Plant.jpg",
-      "日付": "2026-09-21",
-      "時間": "15:28:26",
-      "撮影日時": "2026-09-21 15:28:26",
-      "年": 2026,
-      "月": 9,
-      "日": 21,
-      "記録者": "Hosokawa",
-      "圃場ID": "34.899188, 135.056750",
-      "撮影種別": "Plant",
-      "parse_ok": true,
-      "parse_note": null,
-      "圃場キー": "34.899188,135.056750",
-      "No": null,
-      "表示順位": null,
-      "圃場ブロック": null,
-      "受託区分": null,
-      "圃場カテゴリ": null,
-      "圃場名": null,
-      "住所": null,
-      "面積_a": null,
-      "面積_m2": null,
-      "作付計画_原文": null,
-      "作付計画_品種": null,
-      "作付年": null,
-      "担当者": null,
-      "所有者名": null,
-      "圃場の性質": null,
-      "暗渠_有無": null,
-      "暗渠_施工日": null,
-      "圃場の状態": null,
-      "所有区分": null,
-      "所有者情報": null,
-      "請負項目": null,
-      "コンバイン_ワラ処理": null,
-      "コンバイン_種子": null,
-      "注意": null,
-      "メモ": null,
-      "latitude": null,
-      "longitude": null,
-      "結合状態": "photo_only"
+      "結合状態": "matched",
+      "倒伏度Claude": 2,
+      "倒伏度GPT": 1,
+      "SPAD": 21.2,
+      "10a当たり収量kg(生籾)": 595.0
     }
   ]
 }
